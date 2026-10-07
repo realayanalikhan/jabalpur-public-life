@@ -1,0 +1,187 @@
+<!doctype html>
+<!--
+  DESIGN TEST ARTEFACT — NOT THE WEBSITE.
+  Purpose: test the provisional research palette against authentic Jabalpur imagery and against
+  interface elements. All text is neutral TEST CONTENT. No image shows, or is claimed to show, the
+  person the site is about.
+  Images are loaded (hot-linked) from Wikimedia Commons under their stated licences, for design
+  testing only. They are not copied into this repository. Credits are shown with each image.
+  Add #m to the URL to run the colour analysis (writes JSON into #metrics).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Palette test (design artefact)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+  /* Test-only styles. Candidate values from research §13.2. NOT design tokens. */
+  :root {
+    --paper: #F5F3EE; --stone: #ECE8E0; --ink: #1F2627; --ink-2: #4A5355; --muted: #5C6568;
+    --rule: #D6D8D4; --rule-strong: #7E878A; --narmada: #1F5357; --narmada-deep: #174245;
+    --narmada-line: #3E7F7A; --band: #F0E6DC; --band-ink: #77613F;
+    --serif: "Source Serif 4", "Noto Serif Devanagari", serif;
+    --ui: system-ui, "Segoe UI", Roboto, "Noto Sans Devanagari", "Nirmala UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.6 var(--serif); }
+  .banner { font: 13px/1.4 var(--ui); background: var(--stone); border-bottom: 1px solid var(--rule); padding: 8px 16px; }
+  main { max-width: 64rem; margin: 0 auto; padding: 0 16px 48px; }
+  h1 { font-size: 30px; line-height: 1.15; font-weight: 600; margin: 24px 0 8px; }
+  h2 { font-size: 22px; line-height: 1.25; font-weight: 600; margin: 32px 0 8px; border-top: 1px solid var(--rule); padding-top: 16px; }
+  .sw { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+  .sw div { border: 1px solid var(--rule); font: 13px/1.4 var(--ui); }
+  .sw i { display: block; height: 56px; }
+  .sw span { display: block; padding: 6px 8px; background: #fff; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px 20px; }
+  figure { margin: 0; }
+  figure .mat { background: var(--stone); padding: 12px; }
+  figure img { width: 100%; height: auto; display: block; }
+  figcaption { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin-top: 8px; }
+  figcaption a { color: var(--narmada); }
+  .meta { font: 14px/1.5 var(--ui); color: var(--ink-2); }
+  .meta:lang(hi) { font-size: 15px; line-height: 1.6; }
+  p:lang(hi) { font-size: 19px; line-height: 1.75; }
+  a { color: var(--narmada); text-underline-offset: 0.15em; }
+  a:lang(hi), :lang(hi) a { text-underline-offset: 0.3em; }
+  a:hover { color: var(--narmada-deep); }
+  .btn { font: 15px/1.4 var(--ui); display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid var(--rule-strong); color: var(--ink); background: transparent; text-decoration: none; margin: 4px 8px 4px 0; }
+  .btn.focus { outline: 2px solid var(--narmada); outline-offset: 2px; }
+  .prov { font: 14px/1.5 var(--ui); color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 8px; margin-top: 8px; }
+  .prov b { font-weight: 600; color: var(--ink); }
+  .prov .g { display: inline-block; width: 0.9em; text-align: center; color: var(--ink-2); }
+  details { font: 14px/1.5 var(--ui); color: var(--ink-2); margin-top: 4px; }
+  .cite { background: var(--band); padding: 16px; border-left: 2px solid var(--band-ink); }
+  .cite .outlet { font: 600 14px/1.4 var(--ui); color: var(--band-ink); }
+  .tl { border-left: 1.5px solid var(--narmada-line); padding: 4px 0 4px 16px; }
+  .doc { background: var(--stone); padding: 12px; }
+  .doc .page { background: #E9E4D8; aspect-ratio: 3/4; display: grid; place-items: center; font: 13px var(--ui); color: var(--muted); border: 1px solid var(--rule); }
+  table { border-collapse: collapse; font: 14px/1.4 var(--ui); }
+  td, th { border-bottom: 1px solid var(--rule); padding: 6px 10px; text-align: left; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+</style>
+</head>
+<body>
+<div class="banner"><b>DESIGN TEST ARTEFACT — not the website.</b> Candidate colours from research §13.2 (not tokens). Photographs: Wikimedia Commons, hot-linked under their licences for testing only; they do not show the person the site is about. All text is neutral test content.</div>
+<main>
+<h1>Palette test: marble · granite · Narmada · warm band</h1>
+
+<h2>1 · Candidate swatches</h2>
+<div class="sw">
+  <div><i style="background:#F5F3EE"></i><span>paper #F5F3EE</span></div>
+  <div><i style="background:#ECE8E0"></i><span>stone #ECE8E0</span></div>
+  <div><i style="background:#1F2627"></i><span>ink #1F2627</span></div>
+  <div><i style="background:#4A5355"></i><span>ink-2 #4A5355</span></div>
+  <div><i style="background:#5C6568"></i><span>muted #5C6568</span></div>
+  <div><i style="background:#D6D8D4"></i><span>rule #D6D8D4</span></div>
+  <div><i style="background:#7E878A"></i><span>rule-strong #7E878A</span></div>
+  <div><i style="background:#1F5357"></i><span>narmada #1F5357</span></div>
+  <div><i style="background:#174245"></i><span>narmada-deep #174245</span></div>
+  <div><i style="background:#3E7F7A"></i><span>narmada-line #3E7F7A</span></div>
+  <div><i style="background:#F0E6DC"></i><span>band #F0E6DC</span></div>
+  <div><i style="background:#77613F"></i><span>band-ink #77613F</span></div>
+</div>
+
+<h2>2 · Contemporary colour photographs of Jabalpur on the palette</h2>
+<div class="grid" id="contemporary">
+  <figure><img crossorigin="anonymous" data-name="marble-gorge" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/White_Marble_Rocks_at_Bhedaghat.jpg/960px-White_Marble_Rocks_at_Bhedaghat.jpg" alt="Test image: white marble walls of the Bhedaghat gorge"><figcaption>Marble walls of the gorge · Bhedaghat · 2012 · Photo: Sandyadav080 / <a href="https://commons.wikimedia.org/wiki/File:White_Marble_Rocks_at_Bhedaghat.jpg">Wikimedia Commons</a>, CC BY-SA 3.0</figcaption></figure>
+  <figure><img crossorigin="anonymous" data-name="marble-river" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Marble_Rocks_Bhedaghat_2.jpg/960px-Marble_Rocks_Bhedaghat_2.jpg" alt="Test image: marble rocks and the Narmada at Bhedaghat"><figcaption>Marble and river · Bhedaghat · 2012 · Photo: Ankit Saha / <a href="https://commons.wikimedia.org/wiki/File:Marble_Rocks_Bhedaghat_2.jpg">Wikimedia Commons</a>, CC BY-SA 4.0</figcaption></figure>
+  <figure><img crossorigin="anonymous" data-name="gwarighat" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Gwarighat.jpg/960px-Gwarighat.jpg" alt="Test image: Gwarighat on the Narmada"><figcaption>Ghat on the Narmada · Gwarighat, Jabalpur · 2016 · Photo: Rattna16 / <a href="https://commons.wikimedia.org/wiki/File:Gwarighat.jpg">Wikimedia Commons</a>, CC BY-SA 4.0</figcaption></figure>
+  <figure><img crossorigin="anonymous" data-name="madan-mahal" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Madan_Mahal_fort.jpg/960px-Madan_Mahal_fort.jpg" alt="Test image: Madan Mahal fort on granite"><figcaption>Madan Mahal fort · Jabalpur · 2022 · Photo: $ri1995 / <a href="https://commons.wikimedia.org/wiki/File:Madan_Mahal_fort.jpg">Wikimedia Commons</a>, CC BY-SA 4.0</figcaption></figure>
+  <figure><img crossorigin="anonymous" data-name="dhuandhar" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Dhuandhar_Falls%2C_Bhedaghat.jpg/960px-Dhuandhar_Falls%2C_Bhedaghat.jpg" alt="Test image: Dhuandhar falls"><figcaption>Dhuandhar falls · Bhedaghat · 2016 · Photo: Kojagiri / <a href="https://commons.wikimedia.org/wiki/File:Dhuandhar_Falls,_Bhedaghat.jpg">Wikimedia Commons</a>, CC BY-SA 4.0</figcaption></figure>
+</div>
+
+<h2>3 · Historical photographs (matted on stone)</h2>
+<div class="grid" id="historical">
+  <figure><div class="mat"><img crossorigin="anonymous" data-name="madan-mahal-1865" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Jabalpur%2C_India_-_Madan_Mahal%2C_c.1865.jpg/960px-Jabalpur%2C_India_-_Madan_Mahal%2C_c.1865.jpg" alt="Test image: Madan Mahal, about 1865"></div><figcaption>Madan Mahal · Jabalpur · c. 1865 · Photo: G. W. Lawrie / <a href="https://commons.wikimedia.org/wiki/File:Jabalpur,_India_-_Madan_Mahal,_c.1865.jpg">Wikimedia Commons</a>, public domain</figcaption></figure>
+  <figure><div class="mat"><img crossorigin="anonymous" data-name="marble-rocks-1870s" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Marbles_Rocks_at_Narmada_%28Marble_Rocks_at_Nerbudda%29.jpg/960px-Marbles_Rocks_at_Narmada_%28Marble_Rocks_at_Nerbudda%29.jpg" alt="Test image: Marble Rocks, 1860 to 1890"></div><figcaption>Marble Rocks on the Narmada · c. 1860–1890 · Photographer unknown / <a href="https://commons.wikimedia.org/wiki/File:Marbles_Rocks_at_Narmada_(Marble_Rocks_at_Nerbudda).jpg">Wikimedia Commons</a>, CC0</figcaption></figure>
+  <figure><div class="mat"><img crossorigin="anonymous" data-name="strahan-rocks" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Rocks_Jabalpur_Strahan_2.jpg/960px-Rocks_Jabalpur_Strahan_2.jpg" alt="Test image: nineteenth-century painting of rocks at Jabalpur"></div><figcaption>Rocks, Jabalpur · 19th century · Painting (not a photograph): Col. George Strahan / <a href="https://commons.wikimedia.org/wiki/File:Rocks_Jabalpur_Strahan_2.jpg">Wikimedia Commons</a>, public domain</figcaption></figure>
+</div>
+
+<h2>4 · Interface elements on the palette</h2>
+<div class="two">
+  <div lang="hi">
+    <p>[परीक्षण पाठ] यह अनुच्छेद रंग और पठनीयता की जाँच के लिए है। इसमें एक <a href="#">कड़ी (लिंक)</a> और सामान्य पाठ है।</p>
+    <p class="meta">तिथि: 7 अक्टूबर 2026 · स्थान: ‹वार्ड›, जबलपुर</p>
+    <div class="prov"><span class="g">✓</span> <b>पुष्ट</b> · स्रोत: नगर निगम अभिलेख · <a href="#">इसका क्या अर्थ है</a></div>
+    <div class="prov"><span class="g">◦</span> <b>परिवार द्वारा उपलब्ध</b> · <a href="#">विवरण</a></div>
+    <div class="prov"><span class="g">¶</span> <b>‹समाचार-पत्र› में प्रकाशित</b>, 2004 · <a href="#">उद्धरण देखें</a></div>
+  </div>
+  <div lang="en">
+    <p>[Test text] This paragraph tests colour and readability. It contains a <a href="#">link</a> and ordinary text.</p>
+    <p class="meta">Date: 7 October 2026 · Place: ‹Ward›, Jabalpur</p>
+    <div class="prov"><span class="g">✓</span> <b>Verified</b> · Source: Municipal record · <a href="#">What this means</a></div>
+    <div class="prov"><span class="g">◦</span> <b>Provided by the family</b> · <a href="#">Details</a></div>
+    <div class="prov"><span class="g">¶</span> <b>Reported in ‹Outlet›</b>, 2004 · <a href="#">See citation</a></div>
+    <details><summary>Source details (optional, Level 2)</summary>Source type · Publisher · Date · Archive link</details>
+  </div>
+</div>
+<p><a class="btn" href="#">View the full record</a><a class="btn focus" href="#">Focused button</a><a class="btn" href="#" lang="hi">सुधार सुझाएँ</a></p>
+
+<div class="two">
+  <div class="cite" lang="en"><div class="outlet">‹Outlet name› · 12 March 2004 · p. 3</div><p style="margin:6px 0">“[Test] Short excerpt of a newspaper report, shown as a citation rather than a scan.”</p><div class="meta">Citation + excerpt + link · rights: not reproduced</div></div>
+  <div class="doc"><div class="page">‹document scan: no authentic test scan available›</div><div class="meta" style="margin-top:8px">[Test] Document · c. 1990 · Original in Hindi</div></div>
+</div>
+<div class="tl" style="margin-top:24px"><div class="meta"><b>c. 1998 – 2003</b></div><p style="margin:0">[Test] ‹Role title›, ‹Ward›</p></div>
+
+<h2>5 · Contrast (computed)</h2>
+<table id="contrast"><tr><th>Pair</th><th>Ratio</th></tr></table>
+</main>
+<pre id="metrics" hidden></pre>
+<script>
+  // Test-only colour analysis. Runs when the URL hash contains "m".
+  (function () {
+    function lin(c) { c /= 255; return c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4); }
+    function lum(h) { var r = parseInt(h.substr(1, 2), 16), g = parseInt(h.substr(3, 2), 16), b = parseInt(h.substr(5, 2), 16); return 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b); }
+    function ratio(a, b) { var x = lum(a), y = lum(b); return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05); }
+    var pairs = [['#1F2627','#F5F3EE','ink on paper'],['#4A5355','#F5F3EE','ink-2 on paper'],['#5C6568','#F5F3EE','muted on paper'],['#1F5357','#F5F3EE','narmada on paper'],['#174245','#F5F3EE','narmada-deep on paper'],['#3E7F7A','#F5F3EE','narmada-line on paper (non-text)'],['#7E878A','#F5F3EE','rule-strong on paper (non-text)'],['#D6D8D4','#F5F3EE','rule on paper (decorative)'],['#1F2627','#ECE8E0','ink on stone'],['#4A5355','#ECE8E0','ink-2 on stone'],['#1F2627','#F0E6DC','ink on band'],['#4A5355','#F0E6DC','ink-2 on band'],['#77613F','#F0E6DC','band-ink on band'],['#77613F','#F5F3EE','band-ink on paper'],['#1F5357','#F0E6DC','narmada on band'],['#1F5357','#ECE8E0','narmada on stone']];
+    var t = document.getElementById('contrast');
+    pairs.forEach(function (p) { var tr = document.createElement('tr'); tr.innerHTML = '<td>' + p[2] + '</td><td>' + ratio(p[0], p[1]).toFixed(2) + ':1</td>'; t.appendChild(tr); });
+    if ((location.hash || '').indexOf('m') < 0) return;
+    function toLab(r, g, b) {
+      r = lin(r); g = lin(g); b = lin(b);
+      var x = (r * 0.4124 + g * 0.3576 + b * 0.1805) / 0.95047, y = r * 0.2126 + g * 0.7152 + b * 0.0722, z = (r * 0.0193 + g * 0.1192 + b * 0.9505) / 1.08883;
+      function f(t) { return t > 0.008856 ? Math.cbrt(t) : 7.787 * t + 16 / 116; }
+      return [116 * f(y) - 16, 500 * (f(x) - f(y)), 200 * (f(y) - f(z))];
+    }
+    function hexLab(h) { return toLab(parseInt(h.substr(1, 2), 16), parseInt(h.substr(3, 2), 16), parseInt(h.substr(5, 2), 16)); }
+    function lch(l) { var c = Math.sqrt(l[1] * l[1] + l[2] * l[2]), h = Math.atan2(l[2], l[1]) * 180 / Math.PI; return [Math.round(l[0]), Math.round(c * 10) / 10, Math.round((h + 360) % 360)]; }
+    function de(a, b) { return Math.round(Math.sqrt(Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2) + Math.pow(a[2] - b[2], 2)) * 10) / 10; }
+    function hex(rgb) { return '#' + rgb.map(function (v) { return ('0' + Math.round(v).toString(16)).slice(-2); }).join('').toUpperCase(); }
+    var paper = hexLab('#F5F3EE'), narm = hexLab('#1F5357'), band = hexLab('#F0E6DC'), ink = hexLab('#1F2627');
+    function analyse(img) {
+      var w = 160, h = Math.round(img.naturalHeight / img.naturalWidth * w), c = document.createElement('canvas'); c.width = w; c.height = h;
+      var x = c.getContext('2d'); x.drawImage(img, 0, 0, w, h); var d = x.getImageData(0, 0, w, h).data, px = [];
+      for (var i = 0; i < d.length; i += 4) px.push([d[i], d[i + 1], d[i + 2]]);
+      var labs = px.map(function (p) { return toLab(p[0], p[1], p[2]); });
+      // k-means, k=6
+      var k = 6, sorted = labs.slice().sort(function (a, b) { return a[0] - b[0]; }), cent = [];
+      for (var j = 0; j < k; j++) cent.push(sorted[Math.floor((j + 0.5) / k * sorted.length)].slice());
+      var asg = new Array(labs.length);
+      for (var it = 0; it < 12; it++) {
+        for (var n = 0; n < labs.length; n++) { var best = 0, bd = 1e9; for (var j2 = 0; j2 < k; j2++) { var dd = de(labs[n], cent[j2]); if (dd < bd) { bd = dd; best = j2; } } asg[n] = best; }
+        var sums = cent.map(function () { return [0, 0, 0, 0, 0, 0, 0]; });
+        for (var n2 = 0; n2 < labs.length; n2++) { var s = sums[asg[n2]], l = labs[n2], p = px[n2]; s[0] += l[0]; s[1] += l[1]; s[2] += l[2]; s[3]++; s[4] += p[0]; s[5] += p[1]; s[6] += p[2]; }
+        cent = sums.map(function (s, j3) { return s[3] ? [s[0] / s[3], s[1] / s[3], s[2] / s[3]] : cent[j3]; });
+        var rgbs = sums.map(function (s) { return s[3] ? [s[4] / s[3], s[5] / s[3], s[6] / s[3]] : [0, 0, 0]; }), counts = sums.map(function (s) { return s[3]; });
+      }
+      var clusters = cent.map(function (cl, j4) { return { hex: hex(rgbs[j4]), share: Math.round(counts[j4] / labs.length * 100), LCh: lch(cl), dE_paper: de(cl, paper), dE_narmada: de(cl, narm), dE_band: de(cl, band) }; })
+        .sort(function (a, b) { return b.share - a.share; });
+      var hi = labs.filter(function (l) { return l[0] > 82; }), hiMean = [0, 0, 0];
+      hi.forEach(function (l) { hiMean[0] += l[0]; hiMean[1] += l[1]; hiMean[2] += l[2]; }); if (hi.length) hiMean = hiMean.map(function (v) { return v / hi.length; });
+      var mean = [0, 0, 0]; labs.forEach(function (l) { mean[0] += l[0]; mean[1] += l[1]; mean[2] += l[2]; }); mean = mean.map(function (v) { return v / labs.length; });
+      return { name: img.dataset.name, meanLCh: lch(mean), highlightsShare: Math.round(hi.length / labs.length * 100), highlightsLCh: hi.length ? lch(hiMean) : null, highlights_dE_paper: hi.length ? de(hiMean, paper) : null, clusters: clusters };
+    }
+    window.addEventListener('load', function () {
+      var out = { palette: { paper: lch(paper), narmada: lch(narm), band: lch(band), ink: lch(ink) }, images: [] };
+      document.querySelectorAll('img[data-name]').forEach(function (img) {
+        try { if (img.naturalWidth) out.images.push(analyse(img)); else out.images.push({ name: img.dataset.name, error: 'not loaded' }); }
+        catch (e) { out.images.push({ name: img.dataset.name, error: String(e) }); }
+      });
+      var pre = document.getElementById('metrics'); pre.hidden = false; pre.textContent = JSON.stringify(out);
+    });
+  })();
+</script>
+</body>
+</html>

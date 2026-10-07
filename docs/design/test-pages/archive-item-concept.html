@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+  DESIGN TEST ARTEFACT — NOT THE WEBSITE.
+  Archive item page concept (Hindi edition) used to judge proposed decision 0023 (public reference
+  identifiers). Variants via URL hash: #noref (no reference), #ref (restrained: item panel and
+  citation only), #everywhere (anti-pattern: reference shown on every surface).
+  Add -w360 to simulate a 360 px viewport. All content is neutral TEST CONTENT with placeholders;
+  the reference format "P-0042" is illustrative only and not decided.
+-->
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Archive item concept (design artefact)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+  /* Test-only styles; provisional palette; Direction A typography. Not production CSS. */
+  :root { --paper:#F5F3EE; --stone:#ECE8E0; --ink:#1F2627; --ink-2:#4A5355; --rule:#D6D8D4; --rule-strong:#7E878A; --narmada:#1F5357; --band:#F0E6DC;
+    --serif:"Source Serif 4","Noto Serif Devanagari",serif; --ui:system-ui,"Segoe UI",Roboto,"Noto Sans Devanagari","Nirmala UI",sans-serif; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--serif); font-synthesis:none; }
+  .banner { font:12px/1.4 var(--ui); background:var(--stone); padding:6px 16px; border-bottom:1px solid var(--rule); }
+  header { display:flex; align-items:center; gap:12px; padding:10px 16px; border-bottom:1px solid var(--rule); }
+  .wm { flex:1; font-size:19px; line-height:1.3; }
+  .sw { font:15px/1.6 var(--ui); color:var(--narmada); text-underline-offset:.15em; min-height:44px; display:inline-flex; align-items:center; }
+  .menu { font:15px var(--ui); border:1px solid var(--rule-strong); padding:0 12px; min-height:44px; background:none; color:var(--ink); }
+  main { padding:0 16px 40px; }
+  .crumb { font:14px/1.6 var(--ui); color:var(--ink-2); margin:12px 0; }
+  .crumb a { color:var(--ink-2); text-underline-offset:.3em; }
+  .media { background:var(--stone); padding:10px; }
+  .media div { background:#CFCFCA; aspect-ratio:3/2; display:grid; place-items:center; font:13px var(--ui); color:var(--ink-2); }
+  h1 { font-size:26px; line-height:1.35; font-weight:600; margin:16px 0 6px; }
+  .cap { font-size:16px; line-height:1.7; color:var(--ink-2); margin:8px 0 0; }
+  .line { font:15px/1.6 var(--ui); color:var(--ink-2); margin:6px 0 12px; }
+  .prov { font:15px/1.6 var(--ui); color:var(--ink-2); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:8px 0; }
+  .prov b { color:var(--ink); font-weight:600; }
+  a { color:var(--narmada); text-underline-offset:.3em; }
+  p { font-size:19px; line-height:1.75; margin:14px 0; }
+  h2 { font-size:20px; line-height:1.4; font-weight:600; margin:28px 0 8px; }
+  .panel { background:var(--stone); padding:12px 14px; font:15px/1.6 var(--ui); }
+  .panel dl { margin:0; display:grid; grid-template-columns:auto 1fr; gap:6px 14px; }
+  .panel dt { color:var(--ink-2); }
+  .panel dd { margin:0; color:var(--ink); }
+  .cite { font-size:16px; line-height:1.7; background:#fff; border:1px solid var(--rule); padding:10px 12px; }
+  .btn { font:15px/1.4 var(--ui); display:inline-flex; align-items:center; min-height:44px; padding:12px 14px; border:1px solid var(--rule-strong); color:var(--ink); text-decoration:none; margin:8px 8px 0 0; background:none; }
+  .rel { display:grid; grid-template-columns:72px 1fr; gap:10px; padding:10px 0; border-top:1px solid var(--rule); }
+  .rel .t { width:72px; height:72px; background:#CFCFCA; display:grid; place-items:center; font:11px var(--ui); color:var(--ink-2); }
+  .rel .k { font:14px/1.5 var(--ui); color:var(--ink-2); }
+  .rel .n { font-size:17px; line-height:1.5; }
+  .ref { font-variant-numeric:tabular-nums; }
+  body.noref .r-panel, body.noref .r-cite, body.noref .r-corr, body.noref .r-every { display:none; }
+  body.ref .r-every { display:none; }
+  .r-every { font:13px var(--ui); color:var(--ink-2); }
+</style>
+<script>
+  (function () {
+    var h = (location.hash || '#ref').slice(1), v = /everywhere/.test(h) ? 'everywhere' : (/noref/.test(h) ? 'noref' : 'ref'), w = (h.match(/w(\d+)/) || [])[1];
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.className = v;
+      document.getElementById('variant').textContent = { noref: 'Variant: no public reference', ref: 'Variant: restrained reference (item panel + citation only)', everywhere: 'Variant: reference everywhere (anti-pattern, for comparison)' }[v];
+      if (w) document.body.style.width = w + 'px';
+    });
+  })();
+</script>
+</head>
+<body class="ref">
+<div class="banner" lang="en"><b>DESIGN TEST ARTEFACT — not the website.</b> Neutral test content with placeholders. <span id="variant"></span></div>
+<header><div class="wm">‹सार्वजनिक नाम›</div><a class="sw" href="#" lang="en" hreflang="en" translate="no">English</a><button class="menu" type="button">मेनू</button></header>
+<main>
+  <nav class="crumb"><a href="#">अभिलेखागार</a> › <a href="#">तस्वीरें</a></nav>
+  <div class="media"><div>‹तस्वीर: परीक्षण स्थान-धारक›</div></div>
+  <p class="cap">[परीक्षण] ग्वारीघाट की सीढ़ियों पर सामुदायिक बैठक; पीछे नर्मदा का तट दिखाई देता है।</p>
+  <h1>[परीक्षण] नर्मदा तट पर सामुदायिक बैठक</h1>
+  <div class="line">लगभग 1992 · तस्वीर · ग्वारीघाट, जबलपुर<span class="r-every"> · संदर्भ <span class="ref">P-0042</span></span></div>
+  <div class="prov"><b>परिवार द्वारा उपलब्ध</b> · <a href="#">इसका क्या अर्थ है</a></div>
+  <p>[परीक्षण] यह अनुच्छेद बताता है कि यह तस्वीर किस अवसर की है और उसमें क्या दिखता है। वास्तविक सामग्री परिवार से प्राप्त जानकारी और स्रोतों के आधार पर लिखी जाएगी।</p>
+
+  <h2>इस सामग्री के बारे में</h2>
+  <div class="panel"><dl>
+    <dt>तिथि</dt><dd>लगभग 1992</dd>
+    <dt>स्थान</dt><dd>ग्वारीघाट, जबलपुर</dd>
+    <dt>अवसर</dt><dd><a href="#">‹अवसर का शीर्षक›</a></dd>
+    <dt>श्रेय</dt><dd>फ़ोटो: ‹नाम› / परिवार संग्रह</dd>
+    <dt>स्रोत</dt><dd>परिवार संग्रह</dd>
+    <dt>मूल</dt><dd>श्वेत-श्याम प्रिंट</dd>
+    <dt>अधिकार</dt><dd>परिवार की अनुमति से प्रकाशित; पुनः उपयोग से पहले संपर्क करें</dd>
+    <dt class="r-panel">संदर्भ</dt><dd class="r-panel ref">P-0042</dd>
+  </dl></div>
+
+  <h2>उपयोग और उद्धरण</h2>
+  <div class="cite">‹सार्वजनिक नाम› अभिलेखागार, “[परीक्षण] नर्मदा तट पर सामुदायिक बैठक”, लगभग 1992<span class="r-cite">, संदर्भ <span class="ref">P-0042</span></span>। ‹स्थायी कड़ी›</div>
+  <button class="btn" type="button">उद्धरण कॉपी करें</button><button class="btn" type="button">कड़ी कॉपी करें</button>
+
+  <h2>इसी अवसर से</h2>
+  <div class="rel"><div class="t">‹प्रेस›</div><div><div class="k">प्रेस में · 1992<span class="r-every"> · P-0043</span></div><div class="n">[परीक्षण] ‹समाचार-पत्र› में प्रकाशित रिपोर्ट</div></div></div>
+  <div class="rel"><div class="t">‹दस्तावेज़›</div><div><div class="k">दस्तावेज़ · 1992<span class="r-every"> · D-0011</span></div><div class="n">[परीक्षण] बैठक की सूचना</div></div></div>
+
+  <h2>इसी दौर से</h2>
+  <div class="rel"><div class="t">‹तस्वीर›</div><div><div class="k">तस्वीर · 1990 का दशक<span class="r-every"> · P-0039</span></div><div class="n">[परीक्षण] वार्ड की सड़क पर नागरिकों से बातचीत</div></div></div>
+
+  <p style="font:15px/1.6 var(--ui);color:var(--ink-2);border-top:1px solid var(--rule);padding-top:12px">कोई त्रुटि दिखी? <a href="#">सुधार सुझाएँ</a><span class="r-corr"> — संदेश में संदर्भ <span class="ref">P-0042</span> लिखें।</span></p>
+</main>
+</body>
+</html>
