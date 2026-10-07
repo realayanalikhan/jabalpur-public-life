@@ -135,7 +135,8 @@ Design direction is in [E](05-design-brief.md). Bilingual technical requirements
 | Numbers | Indian digit grouping (lakh/crore) in both languages. |
 | Digits on Hindi pages | **Western numerals (0–9)** ([0002](../decisions/0002-bilingual-strategy.md)). |
 | Spelling of "Hindi" in Hindi | **"हिंदी"**, used consistently ([0002](../decisions/0002-bilingual-strategy.md)). |
-| Transliteration | One romanisation convention for recurring names and terms, defined in the glossary. The convention itself is open (OD-20, see H). |
+| Transliteration | One romanisation convention for recurring names and terms, defined in the [glossary](09-language-glossary.md#9-romanisation-od-20-open). The convention itself is open (OD-20, see H). |
+| Glossary | Interface labels, recurring terms, date forms, punctuation and names follow the [language glossary](09-language-glossary.md); only approved or family-confirmed entries are published. |
 
 ## 10. Accessibility
 

@@ -23,6 +23,7 @@ This folder is the project specification. Approved decisions are recorded separa
 | F | [Technical Architecture](06-technical-architecture.md) | **Approved**, with a few setup/operational items open | 0007–0019, 0022 |
 | G | [Security, Privacy & Content Integrity](07-security-privacy-integrity.md) | Working direction (principles accepted; legal review open) | 0006, 0015, 0018 |
 | H | [Open Decisions](08-open-decisions.md) | Living list | — |
+| 09 | [Language Glossary](09-language-glossary.md) | **Framework** (no entries approved except those marked); future source of truth for bilingual content | 0002, 0021 |
 
 ## Status legend
 
@@ -83,3 +84,4 @@ This folder is the project specification. Approved decisions are recorded separa
 | Corrections response times marked as proposed guidance; open as OD-24 | G §8 | — |
 | Performance targets explicitly marked working direction; open as OD-25 | A §8 | — |
 | OD-23 merged into FI-07; H restructured into open / design-phase / implementation-phase / family-input / retired / resolved | G §3, H | — |
+| **Language glossary framework** added: status system (proposed / approved / family-confirmed / deprecated), entry format, and categories to resolve (navigation, public-life terms, archive terms, dates, typography and punctuation, romanisation, names and places), with no final wording invented | 09 (new); D §9 | [0002](../decisions/0002-bilingual-strategy.md), [0021](../decisions/0021-language-switching-and-single-language-content.md) |
