@@ -1,6 +1,6 @@
 # D. Bilingual Architecture
 
-**Status:** Working direction (approach accepted; implementation pending technical approval).
+**Status:** Accepted ([0002](../decisions/0002-bilingual-strategy.md), [0018](../decisions/0018-content-integrity-rules.md)). Not yet implemented.
 
 ## 1. Principles
 
@@ -21,8 +21,9 @@
 ## 3. URL structure
 
 - **Both languages are prefixed:** `/en/...` and `/hi/...`. Neither is privileged in the URL.
-- **Root `/`:** redirects to the default language. Which language that is remains an
-  **open decision** (see H). Options considered:
+- **Root `/`:** resolves or redirects to the default language, **Hindi** (`/hi/`). English is
+  fully supported at `/en/`. `x-default` points to the Hindi version
+  ([0002](../decisions/0002-bilingual-strategy.md)). Options considered for `/`:
 
   | Option | Assessment |
   |---|---|
@@ -40,7 +41,7 @@
 
 - Every page has a counterpart at the same path in the other locale.
 - The language switch links to the **equivalent page**, not the homepage.
-- The switch is labelled in each language's own script ("English", "हिन्दी"), not with flags.
+- The switch is labelled in each language's own script ("हिंदी", "English"), not with flags.
 - The visitor's last explicit choice may be remembered on their own device as a convenience. It
   never causes automatic redirects away from a URL they opened.
 
@@ -58,7 +59,7 @@ author (original language) → draft translation (human or machine) → human re
 | **Translation state** | `missing` · `machine-draft` · `in-review` · `reviewed`, per item per language. |
 | **Staleness** | At review time, a fingerprint of the original text is stored. If the original later changes, the translation is automatically flagged stale and fails the parity check until re-reviewed. |
 | **Machine translation** | Allowed only as a draft aid; `machine-draft` cannot be published. |
-| **Reviewer** | Recorded per translation. Who reviews is an open decision (see H). |
+| **Reviewer** | Recorded per translation. Who reviews is open (OD-16, see H); no reviewer is assumed. |
 | **Glossary** | Standard renderings for the person's name, role titles, institutions, wards and localities, and recurring terms. Translators must follow it; deviations are reviewed. |
 
 ## 6. Parity rules
@@ -68,7 +69,7 @@ author (original language) → draft translation (human or machine) → human re
 | **Core pages** (Home, About, Public Life pages, Connect, all utility pages) | Must have reviewed versions in **both** languages to publish. Missing parity blocks the build. |
 | **Archive items** | Metadata (title, caption, alt text) should exist in both languages. The original artefact keeps its original language and is labelled (e.g. "Original in Hindi"). |
 | **Coverage** | Headline shown in its original language and script, with a reviewed translation as secondary text. |
-| **Updates** | Open decision (see H): require both languages, or allow single-language publication with a visible label. |
+| **Updates** | May be published in one language with a clear language label ([0002](../decisions/0002-bilingual-strategy.md)). |
 
 If an item is unavailable in the current language, the page says so in the current language and
 links to the available version. It never silently shows the other language.
@@ -104,9 +105,9 @@ Design direction is in [E](05-design-brief.md). Bilingual technical requirements
 |---|---|
 | Dates | Locale-aware formatting (`en-IN`, `hi-IN`) respecting date precision. |
 | Numbers | Indian digit grouping (lakh/crore) in both languages. |
-| Digits on Hindi pages | Devanagari (०–९) or Western (0–9): **open decision** (see H). |
-| Spelling of "Hindi" in Hindi | "हिन्दी" or "हिंदी": to be fixed in the glossary (see H). |
-| Transliteration | One documented convention for romanising names and places (see H). |
+| Digits on Hindi pages | **Western numerals (0–9)** ([0002](../decisions/0002-bilingual-strategy.md)). |
+| Spelling of "Hindi" in Hindi | **"हिंदी"**, used consistently ([0002](../decisions/0002-bilingual-strategy.md)). |
+| Transliteration | One romanisation convention for recurring names and terms, defined in the glossary. The convention itself is open (OD-20, see H). |
 
 ## 10. Accessibility
 

@@ -1,6 +1,6 @@
 # E. Design Brief
 
-**Status:** Working direction. The design system itself is produced in the design phase. This
+**Status:** Accepted direction ([0005](../decisions/0005-design-direction.md)). The design system itself is produced in the design phase. This
 brief sets its constraints.
 
 ## 1. Visual character
@@ -71,15 +71,17 @@ Typography carries most of the design.
 - **Party colours are not used in the interface.** If party affiliation is displayed, it is
   displayed as factual text.
 - **Contrast:** all text and interactive elements meet WCAG 2.2 AA in every theme.
-- **Dark mode:** open decision (see H). Design tokens should make it possible either way.
+- **Light mode only at launch** ([0005](../decisions/0005-design-direction.md)). Dark mode may be
+  reconsidered later; colours are design tokens so it can be added without restructuring.
 
 ## 5. Jabalpur / Narmada references
 
-The rule is **one motif, used sparingly, with meaning**. Candidates for the design phase:
+The rule is **one motif, used sparingly, with meaning**.
 
-1. A fine flowing river line as the spine of the Timeline (the river as the passage of time).
-2. A barely-there marble-grain texture in limited areas (e.g. footer, section dividers).
-3. Palette only, with no graphic motif at all.
+**Decision** ([0005](../decisions/0005-design-direction.md)): **restrained palette + an extremely
+subtle river-line motif** (e.g. as the spine of the Timeline: the river as the passage of time).
+A literal marble texture is **not** used as a major design element. Decorative regional motifs are
+not used purely for decoration.
 
 Not acceptable: clip-art of monuments or waterfalls; decorative patterns used as wallpaper;
 regional or tribal art styles (e.g. Gond art) unless commissioned from and credited to an artist.

@@ -1,213 +1,216 @@
-# F. Technical Architecture Proposal
+# F. Technical Architecture
 
-**Status: PROPOSED. Not approved. Do not install, scaffold or implement anything in this
-document until it is approved and recorded in [`../decisions/`](../decisions/).**
+**Status: APPROVED (2026-10-07)**, recorded in decision records
+[0008](../decisions/0008-astro-and-typescript.md)–[0019](../decisions/0019-runtime-and-package-manager.md).
+A few setup and operational details remain open; they are marked **Open** below and tracked in
+[H](08-open-decisions.md).
 
-Current preferred direction (from the decision partner): Astro + TypeScript, hosted on
-Cloudflare. Both pending final approval.
+**Implementation has not started.** Nothing in this document has been installed or scaffolded.
+Implementation begins only on a separate instruction.
 
-Vendor terms, pricing and limits change. They must be re-checked at approval time.
+Vendor terms, pricing and limits change. Re-check them when accounts are set up.
 
 ## 1. Requirements that drive the architecture
 
 | Requirement | Source |
 |---|---|
 | Content-first, mostly static, very fast on mid-range Android | A §8 |
-| Publish gates: unverified, dev-fixture, translation-parity and reference checks enforced automatically | A FR-C, FR-L; C §3 |
-| Bilingual routing with hreflang and equivalent pages | D |
-| Sections that hide automatically | B §4 |
-| Repository-based content, no CMS initially, CMS possible later | Accepted decision 12 |
-| Minimal attack surface and no visitor data at MVP | G |
-| Archive that may grow substantially | C §9 |
+| Publish gates enforced automatically | [0018](../decisions/0018-content-integrity-rules.md) |
+| Bilingual routing with hreflang and equivalent pages | [0002](../decisions/0002-bilingual-strategy.md) |
+| Sections that hide automatically, configuration-driven | [0003](../decisions/0003-information-architecture.md) |
+| Repository-based content, no CMS initially | [0007](../decisions/0007-no-cms-at-mvp.md) |
+| Minimal attack surface; no visitor data at MVP | [0015](../decisions/0015-mvp-contact-strategy.md), G |
+| Archive that may grow substantially | [0006](../decisions/0006-archive-strategy.md) |
 | Low cost, portable, maintainable by a small team | A §8 |
 
-## 2. Framework
+## 2. Framework — Approved ([0008](../decisions/0008-astro-and-typescript.md))
+
+**Decision: Astro + TypeScript (strict), static output initially.** Use the latest stable Astro
+major available when implementation begins.
 
 | Option | Assessment |
 |---|---|
-| **Astro + TypeScript** | Content collections with typed schemas validated at build time, which is exactly how the publish gates can be enforced. Static output with zero JavaScript by default; small interactive "islands" where needed. Built-in i18n routing, image optimisation, sitemap support. Can add server endpoints later (e.g. a form) without changing framework. Deploys to any static host. Astro is MIT-licensed; since January 2026 the Astro project is part of Cloudflare, which supports longevity but should not be allowed to create lock-in. |
-| Next.js | Capable, but app-oriented; ships more JavaScript; more complexity than a content site needs; best experience is tied to Vercel. |
-| Hugo | Very fast builds and mature multilingual support, but weak typed validation and Go templating; publish gates would be harder to enforce. |
-| Eleventy | Simple and flexible; we would have to build schema validation and conventions ourselves. |
-| SvelteKit | Good framework, but less content-specific tooling than Astro. |
-| WordPress (+ multilingual plugin) | Best ready-made editing UI, but requires a server and database, frequent security patching and plugins; slower; the provenance model fits poorly. |
+| **Astro + TypeScript** ✅ | Content collections with typed schemas validated at build time, which is how publish gates are enforced. Zero JavaScript by default; islands where needed. Built-in i18n routing, image optimisation, sitemap support. Static output deploys anywhere. MIT-licensed; part of Cloudflare since January 2026, so avoid lock-in. |
+| Next.js | App-oriented; more JavaScript and complexity than needed; best on Vercel. |
+| Hugo | Fast, multilingual; weak typed validation; awkward templating. |
+| Eleventy | Flexible; validation and conventions would be hand-built. |
+| SvelteKit | Capable; less content-specific tooling. |
+| WordPress | Server, database and patching; poor fit for provenance. |
 
-**Recommendation: Astro (latest stable major at scaffold time) + TypeScript in strict mode,
-static output.**
+## 3. Styling — Approved ([0009](../decisions/0009-modern-css-and-design-tokens.md))
 
-## 3. Styling
+**Decision: modern CSS with design tokens and Astro scoped styles.** Uses CSS custom properties,
+cascade layers where appropriate, container queries where useful, logical properties, responsive
+typography and language-specific typography rules. **No Tailwind** unless explicitly revisited.
+**No generic UI framework.**
 
 | Option | Assessment |
 |---|---|
-| **Modern CSS with design tokens** (custom properties, cascade layers, container queries, logical properties) + Astro component-scoped styles | No extra dependency. Tokens map directly from the design system. Fine-grained bilingual typography via `:lang(hi)` is natural. Long-term stable. |
-| Tailwind CSS v4 | Fast to iterate and widely known; works with Astro. Bespoke editorial typography and per-language rules are more awkward to express as utilities; adds a dependency and a build step. |
-| CSS-in-JS / component libraries | Unnecessary runtime or weight for a static content site; generic look. |
+| **Modern CSS + tokens + scoped styles** ✅ | No dependency; tokens map from the design system; `:lang(hi)` rules are natural; stable long term. |
+| Tailwind CSS v4 | Not chosen. Fast iteration, but less natural for bespoke editorial and per-language typography; adds a dependency. |
+| CSS-in-JS / component libraries | Rejected. Unnecessary weight; generic look. |
 
-**Recommendation: modern CSS with design tokens and Astro scoped styles; no utility framework
-or UI kit.** Tailwind remains a reasonable alternative if the decision partner prefers it.
-The choice does not affect any other part of the architecture.
+## 4. Content storage — Approved ([0010](../decisions/0010-repository-based-content.md))
 
-## 4. Content storage
-
-**Recommendation: Astro content collections in the repository.**
+**Decision: Astro content collections in the repository.**
 
 | Content | Format |
 |---|---|
-| Structured entities (Role, Place, Photo metadata, Coverage, Source, etc.) | One YAML file per entry, with localised fields side by side (`title.en`, `title.hi`). This keeps both languages of one fact in one record, so parity is visible in review. |
-| Long-form prose (biography, initiative bodies, policy pages) | Markdown/MDX, one file per language per entry, sharing an ID (e.g. `biography.en.md`, `biography.hi.md`). |
+| Structured entities | YAML, one file per entry; localised fields may live together (`title.hi`, `title.en`). |
+| Long-form prose | Markdown/MDX; translations may be separate language files sharing a stable ID (`biography.hi.md`, `biography.en.md`). |
 | Glossary | One structured file. |
-| Site configuration (visibility thresholds, feature switches such as provenance display) | One typed configuration file. |
+| Site configuration | One typed configuration file: visibility thresholds, homepage updates age, provenance display, analytics switch, storage options. |
 
-**Build-time validation** (fails the build):
+**Production build fails** ([0018](../decisions/0018-content-integrity-rules.md)) if:
 
-- schema conformance and reference integrity;
-- `unverified` status on any published item;
-- `devFixture` content in a production build;
-- `verified` items without a source;
-- core pages missing a reviewed translation, or with a stale one;
-- archive images that still contain location (GPS) metadata.
+- an `unverified` item is publishable;
+- development fixture data is included;
+- a required core translation is missing;
+- a required core translation is stale;
+- a `verified` item has no source;
+- a content reference is broken;
+- a published image contains GPS metadata;
+- required accessibility metadata is missing where the validation rule applies (e.g. alt text in
+  each language the item is published in).
 
-**Build-time warnings:** stale translations on non-core items, missing alt text in one language,
-items hidden by visibility rules.
+**Build warnings:** stale translations on non-core items; items hidden by visibility rules.
 
-Indicative layout (not to be created until approved):
+Indicative layout (not created until implementation is instructed):
 
 ```
 src/content/        entities (one folder per type)
-src/content/_dev/   development fixtures (blocked in production)
-src/assets/         web-ready images processed at build
+src/content/_dev/   development fixtures (blocked from preview and production)
+src/assets/         processed web-ready images
 docs/               specification, decisions, operations guide
 ```
 
-## 5. Images, documents and video
+## 5. Images, documents and video — Approved ([0011](../decisions/0011-image-and-media-strategy.md))
 
-**Images**
+**Images and documents (approved with modification)**
 
-- Build-time processing with Astro's image pipeline: responsive sizes, AVIF/WebP with fallback,
-  explicit dimensions to prevent layout shift, lazy loading below the fold.
-- Re-encoding strips embedded metadata. Raw images must never be placed where they are served
-  unprocessed, and a CI check scans committed images for GPS metadata.
-- **MVP:** web-ready masters (e.g. ≤ 2400 px long edge, already redacted) stored in the repository.
-- **When the archive grows** (proposed trigger: repository media exceeding ~500 MB or several
-  hundred items): move web masters to object storage (e.g. Cloudflare R2) and use on-demand image
-  resizing. The content model is unchanged.
-- **Preservation masters** (full-resolution scans) never go in git. They are kept in
-  family-controlled storage with backup (see G).
+- Astro build-time image processing: responsive sizes, modern formats with fallback, explicit
+  dimensions, lazy loading below the fold.
+- Re-encoding strips embedded metadata. Raw images are never placed where they are served
+  unprocessed. A check fails the build if a published image contains GPS metadata.
+- **At MVP:** processed web-ready image assets may live in the repository.
+- **Preservation/original masters are never committed to git.** Originals remain in separately
+  controlled family storage with backup.
+- **Storage migration threshold: configurable operational decision, not hard-coded.**
+  **Open** (OD-21): set when the actual inventory is known. Object storage (e.g. Cloudflare R2)
+  can be introduced later without changing the content model.
+- Documents are published only as redacted derivatives, with extracted text generated after
+  redaction.
 
-**Documents (PDF)**
+**Video (approved conditionally)**
 
-- Redacted derivative PDFs served as files, with a generated thumbnail and extracted text stored
-  as metadata. Large files move to object storage under the same trigger.
-
-**Video**
-
-- **Recommended:** embed from YouTube (privacy-enhanced domain) behind a lightweight click-to-load
-  facade, so no third-party code loads until the visitor chooses to play. This requires an
-  official channel owned by the person or family.
-- Alternative: self-hosted streaming (e.g. Cloudflare Stream) is paid and only justified if
-  YouTube is unsuitable for rights or privacy reasons.
+- Use a provider such as YouTube behind a click-to-load facade **if** an appropriate official
+  channel exists **and** the family chooses to use it.
+- The Video entity uses a **provider abstraction** (provider + identifier, or self-hosted file),
+  so the content model is never permanently dependent on YouTube.
 - Captions and transcripts stored as content.
 
-## 6. Search and archive browsing
+## 6. Search and archive browsing — Approved ([0017](../decisions/0017-search-deferred.md))
 
-- **MVP:** no search. Archive browsing via pre-rendered pages by type, decade and theme
-  (static, shareable URLs, no JavaScript required).
-- **Later:** Pagefind, a static search index generated at build time with no server and no
-  third-party service. Triggered when the archive is large enough to justify it (open: proposed
-  around 100 published archive items). Hindi search quality must be tested before adoption.
+- **No search at MVP.**
+- Archive browsing via static pages and taxonomy filters (type, decade, theme), with shareable
+  URLs and no JavaScript required.
+- Taxonomy and content model designed so that static search (e.g. Pagefind) can be added later
+  without restructuring. Adding search requires a future decision; Hindi search quality must be
+  tested first.
 
-## 7. Forms and contact
+## 7. Contact — Approved ([0015](../decisions/0015-mvp-contact-strategy.md))
 
-- **MVP:** links only: `mailto:`, `tel:`, WhatsApp click-to-chat, social profiles. No visitor
-  data passes through the website.
-- **If a contact form is approved later:** a single serverless endpoint (Cloudflare Worker or
-  equivalent) → Cloudflare Turnstile (privacy-friendly bot protection) → server-side validation
-  and rate limiting → forward to an approved inbox via a transactional email provider (to be
-  selected) → **no storage by default**. Requires a privacy notice and the review in G.
-- Event registration, newsletters and public submissions each require separate privacy review
-  and approval.
+- **Links only at MVP:** potential methods are WhatsApp, phone, email and official social
+  profiles, depending on the family's approved channels (FI-08).
+- **No server-side contact form.** No visitor information passes through or is stored by the
+  website.
+- Any future form requires a separate privacy/security decision. (A possible future shape:
+  serverless endpoint → privacy-friendly bot protection → validation and rate limiting → forward
+  without storage. Not approved.)
 
-## 8. Hosting
+## 8. Hosting — Approved ([0012](../decisions/0012-cloudflare-hosting.md))
+
+**Decision: Cloudflare**, while keeping the site a portable static build that does not depend on
+proprietary Cloudflare runtime functionality unless needed.
 
 | Option | Assessment |
 |---|---|
-| **Cloudflare (Workers static assets or Pages)** | Free tier generous for static sites; strong presence in India; preview deployments per branch; R2 object storage with no egress fees; Turnstile; Workers for future endpoints; free cookieless analytics; Access to protect previews. Cloudflare currently steers new projects towards Workers with static assets; choose the product per its guidance at setup time. |
-| Vercel | Excellent developer experience, but the free Hobby plan is for non-commercial personal use; whether this site qualifies is ambiguous. Paid plans are priced per team member. |
-| Netlify | Capable; built-in form handling. Free tier is credit-based; check limits. |
-| GitHub Pages | Requires a paid GitHub plan for a private repository; no serverless functions or per-PR previews. Not recommended. |
+| **Cloudflare** ✅ | Generous free static hosting; strong presence in India; per-branch previews; access control for previews; optional object storage, analytics and bot protection later. |
+| Vercel | Free Hobby plan is non-commercial personal use only; ambiguous for this site. |
+| Netlify | Capable; credit-based free tier; no decisive advantage. |
+| GitHub Pages | Paid plan needed for private repos; no previews or functions. |
 
-**Recommendation: Cloudflare.** The site remains a standard static build, so moving hosts later
-is straightforward.
+- **Open** (OD-22): specific product (Workers static assets or Pages), chosen at setup.
+- **Domain:** ownership should ultimately rest with the person/family, not an individual
+  developer. **Open** (FI-01): the actual domain and registrant. DNSSEC when set up.
+- No unnecessary paid services (OD-17 budget open).
 
-**Domain and DNS:** domain registered in the name of the person/family (open decision);
-DNS on Cloudflare with DNSSEC enabled.
-
-## 9. Deployment and environments
+## 9. Environments — Approved ([0013](../decisions/0013-environments-and-deployment.md))
 
 | Environment | Trigger | Content included | Access |
 |---|---|---|---|
-| **Local** | Developer machine | All statuses + dev fixtures | Developer |
-| **Preview** | Every pull request / branch | `published` + `review` items, no dev fixtures; hidden-sections report | **Restricted** (e.g. Cloudflare Access) and `noindex`. Used for family review. |
+| **Local** | Developer machine | All statuses + development fixtures | Developer |
+| **Restricted preview** | Each branch / pull request | `published` + `review`; **never development fixtures**; hidden-sections report | Invited reviewers only; `noindex` |
 | **Production** | Merge to `main` | `published` only | Public |
 
-## 10. CI/CD
+## 10. CI/CD — Approved ([0014](../decisions/0014-ci-strategy-github-actions.md)); not yet implemented
 
-GitHub Actions on every pull request:
+GitHub Actions will eventually enforce:
 
-1. Install with the frozen lockfile (pnpm, Node 24 per `.nvmrc`).
+1. Frozen dependency installation (pnpm, Node 24 per `.nvmrc`).
 2. Formatting and linting.
-3. Type and template checking (`astro check`).
-4. Content validation and publish gates (§4).
-5. Production build.
-6. Internal link check.
-7. Automated accessibility checks (e.g. axe) on built pages.
-8. Performance budgets (Lighthouse CI) on key templates.
-9. Image metadata/GPS scan; dev-fixture guard.
+3. Type and template checking.
+4. Content schema validation.
+5. Publish gates (§4).
+6. Production build.
+7. Internal-link checking.
+8. Accessibility checks.
+9. Performance checks.
+10. GPS/image metadata checks.
+11. Development-fixture protection.
 
-Dependency updates via Dependabot or Renovate, grouped and reviewed.
+Dependency updates via a reviewed, automated update tool (to be chosen at implementation).
 
-**Note:** branch protection rules on **private** repositories require a paid GitHub plan. On the
-free plan, CI still runs and reports on pull requests but cannot block merges. Options: upgrade,
-move the repository to an organisation on a paid plan, or rely on process. This is an open
-decision (see H).
+**Branch protection (resolved):** no GitHub upgrade or repository move solely for branch
+protection at this stage. Actions still run; merges follow the review process (never merge with
+failing checks). Revisit if team or project risk grows. The production hosting build runs the
+same publish gates.
 
-## 11. Analytics
+## 11. Analytics — Approved ([0016](../decisions/0016-analytics-strategy.md))
 
-| Option | Assessment |
-|---|---|
-| **Cloudflare Web Analytics** | Free, cookieless, no consent banner needed, minimal script. **Recommended** if analytics are wanted. |
-| Plausible / similar | Cookieless and privacy-focused; paid (or self-hosted). |
-| Google Analytics | Cookies, consent requirements, heavier script, more data shared with a third party. Not recommended. |
-| None | Simplest and most private; loses insight into what visitors use. |
+**Decision: Cloudflare Web Analytics**, configurable and disableable without architectural
+changes. **No Google Analytics.**
 
-Whether to have analytics at all is an open decision (see H).
+## 12. Runtime and dependencies — Approved ([0019](../decisions/0019-runtime-and-package-manager.md))
 
-## 12. Dependency policy
-
-- As few runtime and build dependencies as possible; each new dependency is justified in a
-  pull request.
-- Exact versions locked by `pnpm-lock.yaml`; Node 24 LTS.
-- No third-party scripts on public pages other than those approved (analytics, video facade on
-  click, Turnstile only on a form page).
+- Node 24 LTS (existing `.nvmrc`) and pnpm with a committed lockfile.
+- As few dependencies as possible; each new dependency justified in its pull request.
+- No third-party scripts on public pages other than approved ones (analytics; video only after
+  the visitor clicks).
 
 ## 13. Security headers (static configuration)
 
-Content-Security-Policy (strict, no inline scripts where possible), Strict-Transport-Security,
+Content-Security-Policy (strict; only approved origins), Strict-Transport-Security,
 Referrer-Policy, Permissions-Policy, X-Content-Type-Options, frame-ancestors restrictions.
+Detailed values to be set at implementation.
 
-## 14. Approvals requested
+## 14. Approval status
 
-| ID | Decision | Recommendation |
-|---|---|---|
-| T-01 | Framework | Astro + TypeScript (strict), static output |
-| T-02 | Styling | Modern CSS + design tokens + scoped styles (Tailwind as acceptable alternative) |
-| T-03 | Content storage | Content collections; YAML for structured entities, Markdown per language for prose |
-| T-04 | Image strategy | Build-time processing; repo masters at MVP; object storage at growth trigger |
-| T-05 | Video | YouTube embeds behind click-to-load facade |
-| T-06 | Search | None at MVP; Pagefind later |
-| T-07 | Contact | Links only at MVP; serverless form + Turnstile if approved |
-| T-08 | Hosting | Cloudflare |
-| T-09 | Environments | Local / restricted preview / production as in §9 |
-| T-10 | CI/CD | GitHub Actions with the checks in §10 |
-| T-11 | Analytics | Cloudflare Web Analytics, or none |
-| T-12 | Package manager / runtime | pnpm, Node 24 LTS |
+| ID | Decision | Status | Record |
+|---|---|---|---|
+| T-01 | Astro + TypeScript strict, static | Approved | [0008](../decisions/0008-astro-and-typescript.md) |
+| T-02 | Modern CSS + tokens + scoped styles; no Tailwind | Approved | [0009](../decisions/0009-modern-css-and-design-tokens.md) |
+| T-03 | Content collections; YAML + Markdown/MDX | Approved | [0010](../decisions/0010-repository-based-content.md) |
+| T-04 | Build-time images; masters never in git; configurable migration threshold | Approved with modification | [0011](../decisions/0011-image-and-media-strategy.md) |
+| T-05 | Video via provider abstraction (e.g. YouTube facade) | Approved conditionally | [0011](../decisions/0011-image-and-media-strategy.md) |
+| T-06 | No search at MVP | Approved | [0017](../decisions/0017-search-deferred.md) |
+| T-07 | Links-only contact | Approved | [0015](../decisions/0015-mvp-contact-strategy.md) |
+| T-08 | Cloudflare hosting, portable | Approved | [0012](../decisions/0012-cloudflare-hosting.md) |
+| T-09 | Local / restricted preview / production | Approved | [0013](../decisions/0013-environments-and-deployment.md) |
+| T-10 | GitHub Actions CI | Approved (not implemented) | [0014](../decisions/0014-ci-strategy-github-actions.md) |
+| T-11 | Cloudflare Web Analytics, configurable | Approved | [0016](../decisions/0016-analytics-strategy.md) |
+| T-12 | Node 24 LTS + pnpm | Approved | [0019](../decisions/0019-runtime-and-package-manager.md) |
+
+**Still open within this document:** OD-21 (storage migration threshold), OD-22 (Cloudflare
+product), FI-01 (domain), and implementation-time details (exact security header values,
+dependency-update tool).

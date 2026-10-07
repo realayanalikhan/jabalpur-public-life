@@ -8,7 +8,7 @@ Procedures are proposed and will be refined before launch.
 > Information Technology Act 2000 and rules under it, the Copyright Act 1957, and, if the
 > person's posture ever changes, Election Commission rules including the Model Code of Conduct.
 > Privacy notice, terms and takedown policy should be reviewed by a qualified professional
-> before launch (see H).
+> before launch (OD-18, see H). Nothing here is presented as legally approved.
 
 ## 1. Data classification
 
@@ -23,8 +23,9 @@ because git history is permanent. If restricted data is committed by mistake, fo
 
 ## 2. Visitor personal data
 
-- **MVP collects no visitor personal data:** no cookies, no forms, no accounts. Analytics, if
-  approved, are cookieless.
+- **MVP collects no visitor personal data:** no cookies, no forms, no accounts
+  ([0015](../decisions/0015-mvp-contact-strategy.md)). Analytics (Cloudflare Web Analytics) are
+  cookieless and can be disabled ([0016](../decisions/0016-analytics-strategy.md)).
 - Contact happens through links (email, phone, WhatsApp, social). Messages go directly to those
   services, not through the website. The privacy notice explains this.
 - **Any future data-collecting feature** (contact form, registration, newsletter, submissions)
@@ -43,7 +44,7 @@ because git history is permanent. If restricted data is committed by mistake, fo
 - Publish only what the family explicitly approves for publication.
 - Use dedicated public contact channels; never publish personal mobile numbers or home addresses.
 - Prefer minimal personal detail (e.g. publishing a birth year or no birth date rather than a full
-  date of birth). Policy is an open decision.
+  date of birth). Policy is an open decision (OD-23).
 - Information about other family members is published only with their consent.
 
 ## 4. Archive documents
@@ -100,7 +101,7 @@ receive → catalogue (restricted storage) → rights check → personal-data ch
 
 ## 8. Corrections
 
-- A public Corrections & Feedback page with at least one channel (see H for which).
+- A public Corrections & Feedback page with at least one link-based channel ([0015](../decisions/0015-mvp-contact-strategy.md); which channels depends on FI-08).
 - Proposed service level: acknowledge within 7 days; resolve or explain within 30 days.
 - Outcomes: correct, clarify, add a source, remove, or retain with an explanatory note.
 - Material corrections to facts (not typos) receive a dated correction note on the page.
@@ -125,7 +126,7 @@ Every asset records a rights status:
 | Owned by the person/family (and creator is known or assigned) | Yes |
 | Licensed / permission granted (recorded) | Yes, within the permission |
 | Public domain or official publication permitting reuse | Yes, with attribution |
-| Third-party, rights unclear (e.g. newspaper clippings, press photographers) | **Policy is an open decision.** Default until decided: citation, short excerpt and link only |
+| Third-party, rights unclear (e.g. newspaper clippings, press photographers) | **Default: citation, short excerpt and link only.** Full reproduction only where rights or permission are established and recorded ([0006](../decisions/0006-archive-strategy.md)). |
 | Unknown | No. Citation only. |
 
 - Photographer credits are shown wherever known.
@@ -138,7 +139,7 @@ Every asset records a rights status:
   domain registrar, email accounts used for the site, YouTube and social profiles.
 - **Ownership:** domain, hosting and repository should ultimately be owned by the person/family
   (or an organisation account they control), with the developer as a collaborator. The repository
-  currently sits on a personal account; transfer plan is an open decision.
+  currently sits on a personal account; transfer plan is open (FI-01, see H).
 - Least-privilege access; remove access when people leave.
 - Registrar transfer lock and DNSSEC.
 - No secrets in the repository; secrets stored in the hosting provider's encrypted settings;
