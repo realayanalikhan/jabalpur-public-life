@@ -1,0 +1,8 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: review
+verification: unverified
+type: visit
+date: { value: "1900" }
+title: { hi: "[DEV] समीक्षाधीन परीक्षण गतिविधि", en: "[DEV] Test update in review" }

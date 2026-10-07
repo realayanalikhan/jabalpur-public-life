@@ -1,0 +1,11 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: published
+verification: supplied
+originalLanguage: hi
+displayName: { hi: "[DEV] परीक्षण व्यक्ति क", en: "[DEV] Test Person A" }
+nameConfirmation: pending
+descriptor: { hi: "[DEV] परीक्षण विवरण", en: "[DEV] Test descriptor" }
+shortBio: { hi: "[DEV] परीक्षण के लिए छोटा परिचय।", en: "[DEV] Short introduction for testing." }
+translations: { en: { state: in-review } }

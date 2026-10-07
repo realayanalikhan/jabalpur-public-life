@@ -1,0 +1,3 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+DEVK7Q: { collection: photos, item: dev-photo-a }

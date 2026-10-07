@@ -1,0 +1,6 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: published
+name: { hi: "[DEV] परीक्षण इलाका क", en: "[DEV] Test Locality A" }
+type: locality

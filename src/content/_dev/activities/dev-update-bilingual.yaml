@@ -1,0 +1,11 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: published
+verification: supplied
+type: event
+date: { value: "1900-01-15" }
+title: { hi: "[DEV] परीक्षण गतिविधि (दोनों भाषाएँ)", en: "[DEV] Test update (both languages)" }
+body: { hi: "[DEV] परीक्षण पाठ।", en: "[DEV] Test text." }
+place: dev-locality-a
+occasion: dev-occasion-a
