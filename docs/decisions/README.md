@@ -36,7 +36,8 @@ Relationship conventions:
 | [0020](0020-occasion-connective-archive-entity.md) | Occasion as the connective archive entity (amends 0004) | Accepted | 2026-10-07 |
 | [0021](0021-language-switching-and-single-language-content.md) | Language switching, `x-default` and single-language content (clarifies 0002) | Accepted | 2026-10-07 |
 | [0022](0022-archive-browsing-model.md) | Archive browsing model (clarifies 0017) | Accepted | 2026-10-07 |
-| [0023](0023-public-reference-identifiers.md) | Public reference identifiers for archive items | **Proposed** | 2026-10-07 |
+| [0023](0023-public-reference-identifiers.md) | Public reference identifiers for archive items | Accepted (restrained form) | 2026-10-07 |
 | [0024](0024-typography-system.md) | Typography system: Noto Serif Devanagari + Source Serif 4 + system sans UI | Accepted | 2026-10-07 |
 | [0025](0025-local-material-visual-palette.md) | Local-material visual palette | Accepted with provisional values | 2026-10-07 |
 | [0026](0026-verification-and-source-presentation.md) | Verification and source presentation | Accepted | 2026-10-07 |
+| [0027](0027-archive-item-page-principles.md) | Archive item page principles | Accepted | 2026-10-07 |

@@ -24,6 +24,7 @@ permission to implement every field immediately. All person-specific values rema
 | `translation` | Per language: state (`missing`, `machine-draft`, `in-review`, `reviewed`), reviewer, review date, and a fingerprint of the original text at review time. |
 | `themes` | References to Theme entries. |
 | `internalNotes` | Never rendered or shipped. |
+| `reference` | **Archive items only** (Photo, Video, Document, Coverage): permanent, short, opaque, non-sequential public identifier; never encodes dates, claims or changeable categories; never reused. Shown only in the item details, citation and correction pathway ([0023](../decisions/0023-public-reference-identifiers.md)). |
 | `devFixture` | `true` only for synthetic development data; blocks production builds. |
 | `createdAt` / `updatedAt` | Maintenance metadata. |
 

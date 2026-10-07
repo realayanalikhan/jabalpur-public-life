@@ -93,7 +93,7 @@ They are filters within Archive and Public Life.
 | **Documents** | Browse documents | Document | When threshold met |
 | **In the Press** | Media coverage by date/outlet/language | Coverage | When threshold met |
 | **Video** | Videos and interviews | Video | When threshold met |
-| **Archive item detail** | The item, its caption, credit, rights, provenance and related items ("From the same occasion" first) | Item + Source, Place, Theme, Occasion | Per item |
+| **Archive item detail** | The item page in the order set by [0027](../decisions/0027-archive-item-page-principles.md): media, caption, title, date/type/place, source label, optional narrative, details, occasion, rights/credit (with the public reference, [0023](../decisions/0023-public-reference-identifiers.md)), use and cite, related items ("From the same occasion" first), correction pathway | Item + Source, Place, Theme, Occasion | Per item |
 | **Collection** | A curated set or narrative story | Collection + items | Per collection |
 | **Updates** | Dated current activities, newest first | Activity | When ≥ 1 published activity |
 | **Events** | Upcoming events first, then past | Activity (type = event) | When ≥ 1 event |
