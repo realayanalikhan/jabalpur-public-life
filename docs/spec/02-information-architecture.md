@@ -84,7 +84,7 @@ They are filters within Archive and Public Life.
 | **Home** | A timeless introduction; route visitors to the record and archive | Person, Role, Collection/Photo (curated), Activity | Always (launch requires identity + short bio) |
 | **About** | The person's story in prose; Jabalpur connection as a thread | Person (bios), Place, Photo | Always (launch requirement) |
 | **Public Life — Overview** | A factual summary of public life with links into detail | Role, Organisation, Initiative, TimelineEvent | When any child page is visible |
-| **Timeline** | Chronological view of all dated content | Generated from Role, Initiative, Activity, Coverage, TimelineEvent | When threshold met |
+| **Timeline** | Chronological view of all dated content | Generated from Role, Initiative, Activity, Coverage, Occasion (`onTimeline`), TimelineEvent ([0020](../decisions/0020-occasion-connective-archive-entity.md)) | When threshold met |
 | **Roles & Terms** | Positions held, with periods, places and sources | Role, Organisation, Place, Source | When ≥ 1 publishable role |
 | **Work & Initiatives** | Public-service and community work | Initiative, Place, Theme, Photo, Source | When ≥ 1 publishable initiative |
 | **Initiative detail** | One initiative: what, where, when, outcomes (sourced only), media | Initiative and relations | Per item |
@@ -93,7 +93,7 @@ They are filters within Archive and Public Life.
 | **Documents** | Browse documents | Document | When threshold met |
 | **In the Press** | Media coverage by date/outlet/language | Coverage | When threshold met |
 | **Video** | Videos and interviews | Video | When threshold met |
-| **Archive item detail** | The item, its caption, credit, rights, provenance and related items | Item + Source, Place, Theme | Per item |
+| **Archive item detail** | The item, its caption, credit, rights, provenance and related items ("From the same occasion" first) | Item + Source, Place, Theme, Occasion | Per item |
 | **Collection** | A curated set or narrative story | Collection + items | Per collection |
 | **Updates** | Dated current activities, newest first | Activity | When ≥ 1 published activity |
 | **Events** | Upcoming events first, then past | Activity (type = event) | When ≥ 1 event |
@@ -172,7 +172,8 @@ Relationships in the content model drive navigation between sections:
 
 - a Role links to its Place, its Organisation and to Initiatives carried out during it;
 - an Initiative links to Places, Themes, Photos and Coverage;
-- an archive item links to related items by shared Place, Theme, Collection or date range;
+- an archive item links first to other items from the same Occasion ([0020](../decisions/0020-occasion-connective-archive-entity.md)), then to related items by shared Place, Theme, Collection or date range;
+- an Update may link to the Occasion it reports on, and so to that occasion's archive material;
 - Timeline entries link to their source item.
 
 Search is added only when the archive justifies it (see F §6).

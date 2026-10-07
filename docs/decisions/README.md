@@ -17,7 +17,7 @@ Relationship conventions:
 | [0001](0001-product-purpose-and-posture.md) | Product purpose and political posture | Accepted | 2026-10-07 |
 | [0002](0002-bilingual-strategy.md) | Bilingual strategy (Hindi default, English fully supported) | Accepted; clarified by 0021 | 2026-10-07 |
 | [0003](0003-information-architecture.md) | Information architecture and conditional sections | Accepted | 2026-10-07 |
-| [0004](0004-content-and-verification-model.md) | Content model and verification model | Accepted | 2026-10-07 |
+| [0004](0004-content-and-verification-model.md) | Content model and verification model | Accepted; amended by 0020 | 2026-10-07 |
 | [0005](0005-design-direction.md) | Design direction | Accepted | 2026-10-07 |
 | [0006](0006-archive-strategy.md) | Archive strategy | Accepted | 2026-10-07 |
 | [0007](0007-no-cms-at-mvp.md) | No CMS at MVP | Accepted | 2026-10-07 |
@@ -33,6 +33,7 @@ Relationship conventions:
 | [0017](0017-search-deferred.md) | Search deferred; archive browsing by taxonomy | Accepted; clarified by 0022 | 2026-10-07 |
 | [0018](0018-content-integrity-rules.md) | Translation and content integrity rules | Accepted | 2026-10-07 |
 | [0019](0019-runtime-and-package-manager.md) | Runtime and package manager: Node 24 LTS + pnpm | Accepted | 2026-10-07 |
+| [0020](0020-occasion-connective-archive-entity.md) | Occasion as the connective archive entity (amends 0004) | Accepted | 2026-10-07 |
 | [0021](0021-language-switching-and-single-language-content.md) | Language switching, `x-default` and single-language content (clarifies 0002) | Accepted | 2026-10-07 |
 | [0022](0022-archive-browsing-model.md) | Archive browsing model (clarifies 0017) | Accepted | 2026-10-07 |
 | [0023](0023-public-reference-identifiers.md) | Public reference identifiers for archive items | **Proposed** | 2026-10-07 |

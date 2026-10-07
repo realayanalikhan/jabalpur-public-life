@@ -129,7 +129,7 @@ IDs are stable so later work can reference them.
 - **FR-N1** Sections and sub-sections appear only when they meet their visibility rule; hidden sections are removed from navigation, sitemap and internal links.
 - **FR-N2** Every page has an equivalent in the other language, or a clear notice if it does not.
 - **FR-N3** Breadcrumbs on all pages below section level.
-- **FR-N4** Related content is linked automatically through shared entities (place, theme, role, date range).
+- **FR-N4** Related content is linked automatically through shared entities (occasion, place, theme, role, date range); items from the same Occasion are shown first ([0020](../decisions/0020-occasion-connective-archive-entity.md)).
 
 ### Bilingual (FR-L)
 
@@ -146,6 +146,7 @@ IDs are stable so later work can reference them.
 - **FR-A3** Collections group items into curated sets or stories.
 - **FR-A4** Coverage items record outlet, date, original-language headline, link, archive link and rights status.
 - **FR-A5** Items with unknown or restrictive rights are displayed as citations, not reproductions.
+- **FR-A6** Archive items and Updates may reference the real-world Occasion they document or report; an item page shows the other published material from the same Occasion ([0020](../decisions/0020-occasion-connective-archive-entity.md)).
 
 ### Updates (FR-U)
 

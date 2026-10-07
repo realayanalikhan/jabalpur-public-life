@@ -38,6 +38,7 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 | DP-04 | Glossary entries (interface, archive, date, typography conventions) | Framework in [09](09-language-glossary.md). Entries move from *proposed* to *approved* there. Names of the person depend on FI-06. | OD-20, OD-16, FI-06 | 09 |
 | DP-05 | Homepage and key page wireframes | Concept in research §14–§16, using placeholders only. | DP-01, DP-02 (provisional), DP-04 | B; research §14–§16 |
 | DP-06 | River-line motif execution | Direction approved ([0005](../decisions/0005-design-direction.md)); execution (weight, where it bends, footer use) in the design system. | DP-02 | E §5; research §13.6 |
+| DP-07 | Whether Occasions get standalone public pages | **Open.** [0020](../decisions/0020-occasion-connective-archive-entity.md) adds no route. Occasions drive "From the same occasion" blocks and Timeline entries. A standalone occasion page would be an IA addition and needs its own decision. | DP-05 | C §4.1; B §3 |
 
 ## 3. Implementation-phase decisions
 
@@ -152,6 +153,7 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 | Single-language items | **Resolved:** `noindex` notice page at the counterpart path; no pretend translations; excluded from hreflang/sitemaps | [0021](../decisions/0021-language-switching-and-single-language-content.md); B §8, D §6–§7 |
 | Navigation language label | **Resolved:** `[हिंदी \| EN]` sketch removed | [0021](../decisions/0021-language-switching-and-single-language-content.md); B §1 |
 | Archive browsing model | **Resolved:** type · time (period/decade) · theme · place, editorial first, no faceted UI | [0022](../decisions/0022-archive-browsing-model.md); A FR-A2, B §7, C §6, F §6 |
+| Material about one real-world occasion | **Resolved:** Occasion entity connects archive items and updates; `onTimeline` flag; TimelineEvent only for milestones without material | [0020](../decisions/0020-occasion-connective-archive-entity.md) (amends 0004); A FR-A6, FR-N4; B §3, §6; C §4, §4.1, §5, §6, §11 |
 | Corrections response times | **Clarified:** guidance only; open as OD-24 | G §8 |
 | Performance targets | **Clarified:** working direction; open as OD-25 | A §8 |
 | Duplicate OD-23 / FI-07 | **Resolved:** OD-23 merged into FI-07 | Part 5 |

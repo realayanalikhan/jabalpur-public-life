@@ -17,7 +17,7 @@ This folder is the project specification. Approved decisions are recorded separa
 |---|---|---|---|
 | A | [Product Requirements](01-product-requirements.md) | Accepted (MVP scope and numeric targets: working direction) | 0001 |
 | B | [Information Architecture](02-information-architecture.md) | Accepted | 0003, 0021, 0022 |
-| C | [Content Architecture](03-content-architecture.md) | Accepted (entity model as working direction) | 0004, 0006 |
+| C | [Content Architecture](03-content-architecture.md) | Accepted (entity model as working direction) | 0004, 0006, 0020, 0022 |
 | D | [Bilingual Architecture](04-bilingual-architecture.md) | Accepted | 0002, 0018, 0021 |
 | E | [Design Brief](05-design-brief.md) | Accepted direction; typography and palette **provisional** pending visual tests; design system produced in design phase | 0005, 0009 |
 | F | [Technical Architecture](06-technical-architecture.md) | **Approved**, with a few setup/operational items open | 0007–0019, 0022 |
@@ -78,6 +78,7 @@ This folder is the project specification. Approved decisions are recorded separa
 | Single-language items: `noindex` notice page at the counterpart path; no pretend translations; excluded from hreflang and sitemaps; section visibility counts items once | B §8 (new), D §4, D §6, D §7 | [0021](../decisions/0021-language-switching-and-single-language-content.md) |
 | `[हिंदी \| EN]` navigation sketch removed | B §1 | [0021](../decisions/0021-language-switching-and-single-language-content.md) |
 | Archive browsing model: type · time (period/decade) · theme · place; editorial first; no faceted UI; no search | A FR-A2, B §7 (new), C §6, F §6 | [0022](../decisions/0022-archive-browsing-model.md) |
+| **Occasion** added as the connective archive entity: archive items and updates may reference the real-world occasion they document; `onTimeline` flag; TimelineEvent limited to milestones without material; Occasion vs TimelineEvent vs Activity vs Initiative vs archive item distinguished | A FR-A6 (new), FR-N4; B §3, §6; C §4, §4.1 (new), §5, §6, §11 | [0020](../decisions/0020-occasion-connective-archive-entity.md) (amends [0004](../decisions/0004-content-and-verification-model.md)) |
 | Public reference identifiers analysed and **proposed** (not adopted) | — | [0023](../decisions/0023-public-reference-identifiers.md) (Proposed) |
 | Corrections response times marked as proposed guidance; open as OD-24 | G §8 | — |
 | Performance targets explicitly marked working direction; open as OD-25 | A §8 | — |
