@@ -2,9 +2,9 @@
 
 A premium bilingual (English and Hindi) public-life profile and archive.
 
-**Status: specification phase. No site code yet.** See
-[Project Specification v1](docs/spec/README.md). The technical architecture is proposed and
-not yet approved.
+**Status: specification approved; implementation not started. No site code yet.** See
+[Project Specification v1](docs/spec/README.md) and the approved
+[decision records](docs/decisions/README.md).
 
 Do not add content about any person or organisation until it has been supplied and confirmed.
 No fictional or placeholder person-specific content may be committed.
@@ -13,7 +13,7 @@ No fictional or placeholder person-specific content may be committed.
 
 ```
 docs/spec/        Project specification (requirements, IA, content, bilingual, design,
-                  technical proposal, security/privacy, open decisions)
+                  technical architecture, security/privacy, open decisions)
 docs/decisions/   Approved decision records (one file per decision)
 ```
 

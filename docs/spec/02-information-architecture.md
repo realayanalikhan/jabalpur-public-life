@@ -1,6 +1,6 @@
 # B. Information Architecture
 
-**Status:** Accepted. Visibility thresholds are open (see [H](08-open-decisions.md)).
+**Status:** Accepted ([0003](../decisions/0003-information-architecture.md)). Visibility thresholds accepted as configuration-driven initial values.
 URL paths below are illustrative; the URL scheme is defined in [D](04-bilingual-architecture.md).
 
 ## 1. Navigation
@@ -8,7 +8,7 @@ URL paths below are illustrative; the URL scheme is defined in [D](04-bilingual-
 ### Primary navigation
 
 ```
-[Wordmark → Home]   About · Public Life · Archive · Updates · Connect   [EN | हिन्दी]
+[Wordmark → Home]   About · Public Life · Archive · Updates · Connect   [हिंदी | EN]
 ```
 
 - The wordmark (the person's public name, once supplied) links to Home.
@@ -109,9 +109,10 @@ items. If the rule is not met:
 - parent pages hide links to it;
 - the preview build lists it in a maintainer-only "hidden sections" report, with the reason.
 
-Proposed starting thresholds (open decision, see H):
+Initial thresholds (accepted). They are defined in site configuration and never hard-coded in
+components ([0003](../decisions/0003-information-architecture.md)):
 
-| Section | Proposed minimum |
+| Section | Initial minimum (configurable) |
 |---|---|
 | Timeline | 5 dated, publishable items |
 | Roles & Terms | 1 role |
@@ -134,7 +135,7 @@ The homepage is a stack of modules. Each module hides itself if it has no conten
 | 2 | Public life at a glance (roles summary) | Roles & Terms visible |
 | 3 | From the archive (curated selection or featured collection) | Archive visible |
 | 4 | Timeline glimpse | Timeline visible |
-| 5 | Recent updates | Updates visible **and** newest update is younger than a configured age (proposed: 6 months) |
+| 5 | Recent updates | Updates visible **and** newest update is younger than a configurable age (initially 6 months) |
 | 6 | Connect strip | Connect visible |
 
 Module 5 sits low on the page and hides itself when stale. This supports the timeless-homepage

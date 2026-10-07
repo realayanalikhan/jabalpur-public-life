@@ -82,7 +82,8 @@ unknown, each section is built so it can launch empty-and-hidden and appear when
 - Repository-based content with schema validation and publish gates.
 - Automatic section visibility.
 - Archive browsing by type, decade and theme (no full-text search at MVP).
-- Contact via links only (e.g. email, WhatsApp, social) unless a form is approved (see H).
+- Contact via links only (WhatsApp, phone, email, official social profiles); no contact form
+  ([0015](../decisions/0015-mvp-contact-strategy.md)).
 
 ### 5.2 Launch criteria (minimum content to go public)
 
@@ -160,7 +161,7 @@ IDs are stable so later work can reference them.
 ### Verification and provenance (FR-V)
 
 - **FR-V1** Sources are stored as separate entries and linked to the items they support.
-- **FR-V2** How much provenance is visible to visitors is configurable (decision pending, see H).
+- **FR-V2** Provenance is shown to visitors as concise labels with optional fuller source details; the display level is configurable ([0004](../decisions/0004-content-and-verification-model.md)).
 - **FR-V3** A public "How We Verify" page explains the verification statuses.
 - **FR-V4** Material factual corrections can carry a public correction note.
 
@@ -188,7 +189,7 @@ Numeric targets are working direction and may be tuned in the technical phase.
 | **Mobile-first** | Designed from a 360 px viewport upward; no horizontal scrolling; touch targets ≥ 44 px. |
 | **Browser support** | Current and previous major versions of Chrome (incl. Android), Safari (incl. iOS), Firefox, Edge; graceful on older Android WebViews. Works without JavaScript. |
 | **Security** | Static output by default; minimal third-party scripts; security headers; 2FA on all accounts (see G). |
-| **Privacy** | No cookies or visitor data collection at MVP; cookieless analytics only if approved. |
+| **Privacy** | No cookies or visitor data collection at MVP; cookieless Cloudflare Web Analytics, configurable and disableable ([0016](../decisions/0016-analytics-strategy.md)). |
 | **Reliability** | Static hosting on a global CDN; no runtime dependency for core pages. |
 | **Maintainability** | Minimal dependencies; typed schemas; documented content workflow; decision records. |
 | **Portability** | Static output deployable to any static host; content in open formats (Markdown, YAML/JSON, standard image files). |

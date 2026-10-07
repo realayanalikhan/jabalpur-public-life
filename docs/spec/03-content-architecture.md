@@ -1,6 +1,6 @@
 # C. Content Architecture
 
-**Status:** Working direction. This is a conceptual model, not a field-by-field schema, and not
+**Status:** Accepted ([0004](../decisions/0004-content-and-verification-model.md)); entity model is working direction. This is a conceptual model, not a field-by-field schema, and not
 permission to implement every field immediately. All person-specific values remain empty.
 
 ## 1. Design goals
@@ -42,7 +42,7 @@ Displays never show more precision than is recorded.
 
 | Status | Meaning | Publish requirement | Public presentation |
 |---|---|---|---|
-| `verified` | Confirmed by reliable documentation or an appropriate independent source | ≥ 1 Source | To be decided in UX phase |
+| `verified` | Confirmed by reliable documentation or an appropriate independent source | ≥ 1 Source | Concise label (e.g. "Source: Municipal record") with optional fuller source details ([0004](../decisions/0004-content-and-verification-model.md)) |
 | `supplied` | Provided by the person or family, not independently documented | Internal record of who supplied it and when | Attributed (e.g. "as provided by the family"), exact wording to be decided |
 | `media-reported` | Reported by media coverage | Link to a Coverage item or Source | Attributed to the outlet |
 | `unverified` | Not yet confirmed | **Cannot be published.** Build fails. | Never shown |
