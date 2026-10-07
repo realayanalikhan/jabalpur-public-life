@@ -133,7 +133,7 @@ Design direction is in [E](05-design-brief.md). Bilingual technical requirements
 
 | Item | Approach |
 |---|---|
-| Dates | Locale-aware formatting (`en-IN`, `hi-IN`) respecting date precision. |
+| Dates | Locale-aware formatting (`en-IN`, `hi-IN`) respecting date precision, following the conventions in [glossary §5](09-language-glossary.md#5-dates-and-numbers) (month names per CLDR `hi-IN`). |
 | Numbers | Indian digit grouping (lakh/crore) in both languages. |
 | Digits on Hindi pages | **Western numerals (0–9)** ([0002](../decisions/0002-bilingual-strategy.md)). |
 | Spelling of "Hindi" in Hindi | **"हिंदी"**, used consistently ([0002](../decisions/0002-bilingual-strategy.md)). |

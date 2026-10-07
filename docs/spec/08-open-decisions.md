@@ -1,6 +1,6 @@
 # H. Open Decisions
 
-**Status:** Living list (updated for spec v1.3). When an item is decided, record it in
+**Status:** Living list (updated for spec v1.4). When an item is decided, record it in
 [`../decisions/`](../decisions/README.md) and move it to the Resolved section with a link.
 IDs are never reused.
 
@@ -31,7 +31,7 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 
 | ID | Decision | Current position | Depends on | Ref |
 |---|---|---|---|---|
-| DP-04 | Glossary entries (interface, archive, verification labels, date, typography conventions) | **Open.** Framework in [09](09-language-glossary.md); entries move from *proposed* to *approved* there. Includes final wording of verification labels ([0026](../decisions/0026-verification-and-source-presentation.md)) and the reference label ([0023](../decisions/0023-public-reference-identifiers.md)). Names of the person depend on FI-06. | OD-20, OD-16, FI-06 | 09 |
+| DP-04 | Glossary entries | **Final review done** ([glossary v2.1](09-language-glossary.md#14-final-status-summary)). **Approved editorial:** conventions confirmed by decisions or the final review (हिंदी, Western numerals, CLDR month names, nuqta and anusvara rules, danda, curly quotes, plain colon, en dash ranges, middle-dot metadata, caption order). **Recommended:** all terminology, incl. अभिलेखागार, गतिविधियाँ, मीडिया में, हम जानकारी कैसे जाँचते हैं, उपयोग की शर्तें और सामग्री हटाने का अनुरोध. **Open:** approval of Recommended terms, then reviewer confirmation (OD-16). Romanisation stays OD-20. Family-specific terms are family input. | Decision partner, OD-16, OD-20, FI-06 | 09 |
 | DP-05 | Homepage and key page wireframes | **Open.** Conceptual wireframes exist ([design 04](../design/04-homepage-wireframe.md), [06](../design/06-key-page-wireframes.md)); they are design direction, not permission to code. Finalised after DP-04 and the homepage decisions HP-01/HP-02. | DP-04, HP-01, HP-02 | B; design 04, 06 |
 | DP-06 | River-line motif execution | **Direction tested and settled** ([0005](../decisions/0005-design-direction.md); [design 03 §8](../design/03-visual-direction.md#8-the-river-line)): primarily the **Timeline spine**; at most one restrained rule above the footer; never decorative elsewhere, never animated, never a logo, never competing with photography or typography; the site must work perfectly without it. **Open:** execution details (stroke weight, where it bends) in the design system. | Design system | E §5 |
 | DP-07 | Whether Occasions get standalone public pages | **Open.** The model is approved ([0020](../decisions/0020-occasion-connective-archive-entity.md)): Occasions connect material, and archive items, the Timeline and updates can reference them. **Recommendation:** an Occasion should receive a standalone public page **only when it has enough related material for the page to be editorially useful**; otherwise it remains a relationship/metadata layer. No route is created until decided, informed by the archive inventory. | FI-03, DP-05 | C §4.1; B §3 |
@@ -51,6 +51,7 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 | IP-04 | Preview access mechanism | Restricted preview approved ([0013](../decisions/0013-environments-and-deployment.md)); mechanism (e.g. Cloudflare Access) set at setup. | F §9 |
 | IP-05 | Field-level content schemas | Added in stages as real content requires (C §1, §11). | C |
 | IP-06 | Configuration values | Visibility thresholds (initial values in B §4.1), homepage updates age, decade-merge minimum and lens-value minimums ([0022](../decisions/0022-archive-browsing-model.md)). | B §4, B §7 |
+| IP-07 | Test, lint, format and audit tooling; reference-ID alphabet and length; 404 handling per host | Chosen at implementation within the [scaffold plan](../implementation/01-technical-scaffold-plan.md) and the decision records; recorded in the pull request | [Plan §2, §18](../implementation/01-technical-scaffold-plan.md#18-final-architecture-checkpoint) |
 
 ## 4. Family and budget input required
 
