@@ -1,0 +1,3 @@
+# Issued public reference identifiers (0023). Key = reference code.
+# Never delete or reuse an entry; mark it retired instead. Generate codes with `pnpm ref:new`.
+{}
