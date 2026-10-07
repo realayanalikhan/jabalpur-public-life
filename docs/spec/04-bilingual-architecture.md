@@ -119,6 +119,8 @@ Design direction is in [E](05-design-brief.md). Bilingual technical requirements
 - Typefaces chosen as **pairs** with compatible weights and vertical metrics. They need not come
   from one family or foundry: a Devanagari face and a separate Latin face are acceptable when their
   proportions are measured to sit together (see [E §2](05-design-brief.md#2-typography-direction)).
+  The approved system is Noto Serif Devanagari + Source Serif 4 + system sans for interface text
+  ([0024](../decisions/0024-typography-system.md)).
 - Larger line height for Devanagari to accommodate vowel marks above and below.
 - Hindi body text optically sized slightly larger than English for equal readability.
 - No forced uppercase, letter-spacing or synthetic italics on Devanagari (the script has no

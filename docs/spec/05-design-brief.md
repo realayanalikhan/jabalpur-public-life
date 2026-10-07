@@ -1,6 +1,6 @@
 # E. Design Brief
 
-**Status:** Accepted direction ([0005](../decisions/0005-design-direction.md)). The design system itself is produced in the design phase. This
+**Status:** Accepted direction ([0005](../decisions/0005-design-direction.md)); typography approved ([0024](../decisions/0024-typography-system.md)); palette direction approved with provisional values ([0025](../decisions/0025-local-material-visual-palette.md)). The design system itself is produced in the design phase. This
 brief sets its constraints.
 
 ## 1. Visual character
@@ -35,20 +35,21 @@ Typography carries most of the design.
     Latin face with compatible proportions;
   - the **device's system sans for interface text** (navigation, buttons, labels, filters,
     breadcrumbs, metadata lines), which needs no web-font download.
-- **Leading candidate (not locked)** ([research §13.3](../research/01-visual-product-research.md#133-typography)):
+- **Approved typography** ([0024](../decisions/0024-typography-system.md), based on the rendered
+  [bilingual test](../design/01-bilingual-typography-test.md)):
   - **Noto Serif Devanagari** (Hindi) + **Source Serif 4** (English) for content;
   - **system sans** for interface text;
-  - both faces are OFL; about 125 KB of fonts on a Hindi page (research estimate).
-- **Alternative to test against it:** **Tiro Devanagari Hindi** (Hindi) + **Literata** (English).
-  - Tiro Devanagari Hindi has only Regular and Italic: **no bold**.
-  - **Tiro Devanagari Hindi does not include a matching Latin text font.** Its Latin characters are
-    a transliteration subset, so English needs a separate Latin face.
+  - weights: Noto Serif Devanagari 400/600; Source Serif 4 400, 400 italic, 600;
+  - about 123 KB of fonts on a Hindi page and about 60–110 KB on an English page.
+  - Final implementation QA must include a physical mid-range Android device.
+- **Rejected alternative:** **Tiro Devanagari Hindi** + **Literata**. Tiro has no bold weight, its
+  traditional ख reads as "रव", it sets a gap before the danda, and Literata looks oversized beside
+  it. Tiro Devanagari Hindi also **does not include a matching Latin text font**; its Latin
+  characters are a transliteration subset.
 - **Not chosen as core faces:**
   - Noto Sans Devanagari, Mukta and Hind (sans; the system sans covers interface text);
   - Eczar and Martel (display or very tall vowel marks);
   - Murty Hindi (its free licence does not permit web use).
-- **The final pairing is not decided.** It is chosen after a **bilingual visual test** (§11) on a
-  mid-range Android viewport, then recorded in a decision record.
 - **Rules:**
   - Hindi body text slightly larger than English; Devanagari line height roughly 1.7–1.8, Latin roughly 1.5–1.6.
   - Comfortable line length (about 60–75 characters in English; equivalent width in Hindi).
@@ -88,10 +89,12 @@ Typography carries most of the design.
   - **Narmada blue-green** for the accent;
   - one **restrained warm tone** from marble, brick and lime plaster.
   The earlier "sandstone/basalt" wording is withdrawn: the research found no Jabalpur source for it.
-- **Provisional values:** the research proposes approximately marble off-white `#F5F3EE`, granite
-  ink `#1F2627` and Narmada blue-green `#1F5357`, plus a warm tint. **These are estimates. They are
-  not design tokens.** They become tokens only after visual validation against authentic Jabalpur
-  photography and contrast checks (§11).
+- **Status** ([0025](../decisions/0025-local-material-visual-palette.md)): the **conceptual palette is
+  accepted**. The exact values remain **provisional candidates**: marble off-white `#F5F3EE`, granite
+  ink `#1F2627`, Narmada blue-green `#1F5357`, and a warm tint. **They are not production design
+  tokens.** They become tokens only after validation against authentic project imagery, dry-season
+  Narmada photographs and contrast checks (DP-08; [palette test](../design/02-palette-validation.md)).
+  The Narmada hue in particular is not yet validated.
 - **No colour-coding of verification statuses or media types.** Use text labels (see §8).
 - **Party colours are not used in the interface.** If party affiliation is displayed, it is
   displayed as factual text.
@@ -163,13 +166,15 @@ see [C §3](03-content-architecture.md#3-verification-model)) · timeline · rol
 card and detail · archive grid · archive item viewer with metadata, credit, rights and provenance
 panel · coverage card (with original-language headline) · collection/story layout · update card
 and event (upcoming/past) · contact block · press kit downloads · verification label ·
-correction note · "not available in this language" notice · empty-free layouts (how each
+correction note · source marker, "Sources and notes" section, and Level-1 label with Level-2
+details ([0026](../decisions/0026-verification-and-source-presentation.md)) · "not available in this language" notice · empty-free layouts (how each
 component behaves when optional fields are missing) · 404.
 
-## 11. Design phase deliverables (proposed)
+## 11. Design phase deliverables
 
 1. Moodboard and two or three contrasting visual directions.
-2. **Bilingual visual test page** comparing the leading typography candidate with the alternative
+2. **Done:** [bilingual typography test](../design/01-bilingual-typography-test.md), recorded as
+   [0024](../decisions/0024-typography-system.md). **Bilingual visual test page** comparing the leading typography candidate with the alternative
    (§2). Viewed on a mid-range Android viewport, it uses:
    - real representative Hindi and English text (non-biographical);
    - navigation labels;
@@ -178,7 +183,8 @@ component behaves when optional fields are missing) · 404.
    - captions;
    - mixed-language lines.
    The result is recorded as the typography decision.
-3. **Palette test** of the provisional colours (§4) against authentic Jabalpur imagery, with contrast
+3. **Done (partially validated):** [palette test](../design/02-palette-validation.md), recorded as
+   [0025](../decisions/0025-local-material-visual-palette.md); exact values pending DP-08. **Palette test** of the provisional colours (§4) against authentic Jabalpur imagery, with contrast
    checks. Only then is the colour and token system finalised.
 4. Mobile-first page designs for Home, About, Timeline, an archive item and Updates.
 5. Component specifications including missing-field behaviour.

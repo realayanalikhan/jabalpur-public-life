@@ -52,7 +52,8 @@ treated as `supplied` overall. Any statement inside long-form text that is not s
 removed before publishing; this is an editorial review step, since it cannot be automated.
 
 **Sources and notes (presentation of provenance).** No academic-style footnote clutter
-([0004](../decisions/0004-content-and-verification-model.md)). Traceability is unchanged.
+([0004](../decisions/0004-content-and-verification-model.md); presentation fixed by
+[0026](../decisions/0026-verification-and-source-presentation.md)). Traceability is unchanged.
 
 - **Specific factual claims** inside long-form text (dates, positions, figures) carry a **concise
   source/reference marker** where useful. The marker links to its entry in the page's notes section.

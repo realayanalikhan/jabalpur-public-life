@@ -17,8 +17,8 @@ Relationship conventions:
 | [0001](0001-product-purpose-and-posture.md) | Product purpose and political posture | Accepted | 2026-10-07 |
 | [0002](0002-bilingual-strategy.md) | Bilingual strategy (Hindi default, English fully supported) | Accepted; clarified by 0021 | 2026-10-07 |
 | [0003](0003-information-architecture.md) | Information architecture and conditional sections | Accepted | 2026-10-07 |
-| [0004](0004-content-and-verification-model.md) | Content model and verification model | Accepted; amended by 0020 | 2026-10-07 |
-| [0005](0005-design-direction.md) | Design direction | Accepted | 2026-10-07 |
+| [0004](0004-content-and-verification-model.md) | Content model and verification model | Accepted; amended by 0020; clarified by 0026 | 2026-10-07 |
+| [0005](0005-design-direction.md) | Design direction | Accepted; clarified by 0024, 0025 | 2026-10-07 |
 | [0006](0006-archive-strategy.md) | Archive strategy | Accepted | 2026-10-07 |
 | [0007](0007-no-cms-at-mvp.md) | No CMS at MVP | Accepted | 2026-10-07 |
 | [0008](0008-astro-and-typescript.md) | Framework: Astro + TypeScript (strict), static output | Accepted | 2026-10-07 |
@@ -37,3 +37,6 @@ Relationship conventions:
 | [0021](0021-language-switching-and-single-language-content.md) | Language switching, `x-default` and single-language content (clarifies 0002) | Accepted | 2026-10-07 |
 | [0022](0022-archive-browsing-model.md) | Archive browsing model (clarifies 0017) | Accepted | 2026-10-07 |
 | [0023](0023-public-reference-identifiers.md) | Public reference identifiers for archive items | **Proposed** | 2026-10-07 |
+| [0024](0024-typography-system.md) | Typography system: Noto Serif Devanagari + Source Serif 4 + system sans UI | Accepted | 2026-10-07 |
+| [0025](0025-local-material-visual-palette.md) | Local-material visual palette | Accepted with provisional values | 2026-10-07 |
+| [0026](0026-verification-and-source-presentation.md) | Verification and source presentation | Accepted | 2026-10-07 |

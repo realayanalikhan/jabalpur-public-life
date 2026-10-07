@@ -1,6 +1,6 @@
 # 0004 — Content model and verification model
 
-- **Status:** Accepted (entity model as working direction); amended by [0020](0020-occasion-connective-archive-entity.md)
+- **Status:** Accepted (entity model as working direction); amended by [0020](0020-occasion-connective-archive-entity.md); presentation clarified by [0026](0026-verification-and-source-presentation.md)
 - **Date:** 2026-10-07
 - **Deciders:** Product/technical decision partner (relayed by the project owner)
 - **Related:** [Spec C](../spec/03-content-architecture.md); OD-02
