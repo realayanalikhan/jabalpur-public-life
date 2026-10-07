@@ -30,20 +30,34 @@ headshots).
 
 Typography carries most of the design.
 
-- **Structure:** a serif for headings and display text paired with a highly legible text face
-  for body and interface; both in matched Devanagari + Latin designs.
-- **Candidates to evaluate** (open-licence, Devanagari + Latin):
-  - Tiro Devanagari Hindi (with its matching Latin): editorial serif
-  - Noto Serif Devanagari / Noto Sans Devanagari (with Noto Latin): very broad coverage, neutral
-  - Mukta: clean humanist sans
-  - Eczar, Martel: characterful Devanagari serifs
-  - Final choice is made in the design phase by testing real bilingual text on low-end phones.
+- **Structure:**
+  - an **editorial serif for content** (headings, body, captions), as a Devanagari face plus a
+    Latin face with compatible proportions;
+  - the **device's system sans for interface text** (navigation, buttons, labels, filters,
+    breadcrumbs, metadata lines), which needs no web-font download.
+- **Leading candidate (not locked)** ([research §13.3](../research/01-visual-product-research.md#133-typography)):
+  - **Noto Serif Devanagari** (Hindi) + **Source Serif 4** (English) for content;
+  - **system sans** for interface text;
+  - both faces are OFL; about 125 KB of fonts on a Hindi page (research estimate).
+- **Alternative to test against it:** **Tiro Devanagari Hindi** (Hindi) + **Literata** (English).
+  - Tiro Devanagari Hindi has only Regular and Italic: **no bold**.
+  - **Tiro Devanagari Hindi does not include a matching Latin text font.** Its Latin characters are
+    a transliteration subset, so English needs a separate Latin face.
+- **Not chosen as core faces:**
+  - Noto Sans Devanagari, Mukta and Hind (sans; the system sans covers interface text);
+  - Eczar and Martel (display or very tall vowel marks);
+  - Murty Hindi (its free licence does not permit web use).
+- **The final pairing is not decided.** It is chosen after a **bilingual visual test** (§11) on a
+  mid-range Android viewport, then recorded in a decision record.
 - **Rules:**
   - Hindi body text slightly larger than English; Devanagari line height roughly 1.7–1.8, Latin roughly 1.5–1.6.
   - Comfortable line length (about 60–75 characters in English; equivalent width in Hindi).
   - No uppercase transforms, letter-spacing or italics on Devanagari; emphasis by weight.
   - Tabular figures in timelines and data.
-  - At most two families, limited weights, subset and self-hosted (performance).
+  - **Web fonts:** at most **two self-hosted font families**: one Devanagari and one Latin, both
+    used for content. The **device's system sans** used for interface text is not a web font and
+    does not count towards this limit. No third web font is added for interface text. Weights are
+    limited, subset by script, and self-hosted (performance).
 
 ## 3. Photography
 
@@ -66,8 +80,19 @@ Typography carries most of the design.
 - **Base:** paper-like off-white and deep ink near-black. Mostly typographic and neutral, so
   photographs carry the colour.
 - **Accent:** one restrained accent taken from the Narmada (deep blue-green), plus at most one
-  warm secondary taken from local stone (sandstone/basalt tones).
-- **Inspiration:** the white and grey marble of Bhedaghat, Narmada water, local stone and brick.
+  restrained warm tone. The warm tone is inspired by local marble, brick and lime-plaster imagery
+  where appropriate, for example the pink-cream bands of the Bhedaghat marble.
+- **Material direction** ([research §7, §13.2](../research/01-visual-product-research.md#132-colour)):
+  - **marble** (white, grey, pink and bluish-grey Bhedaghat marble) for paper and surfaces;
+  - **granite** (Madan Mahal, Balancing Rock) for ink and text;
+  - **Narmada blue-green** for the accent;
+  - one **restrained warm tone** from marble, brick and lime plaster.
+  The earlier "sandstone/basalt" wording is withdrawn: the research found no Jabalpur source for it.
+- **Provisional values:** the research proposes approximately marble off-white `#F5F3EE`, granite
+  ink `#1F2627` and Narmada blue-green `#1F5357`, plus a warm tint. **These are estimates. They are
+  not design tokens.** They become tokens only after visual validation against authentic Jabalpur
+  photography and contrast checks (§11).
+- **No colour-coding of verification statuses or media types.** Use text labels (see §8).
 - **Party colours are not used in the interface.** If party affiliation is displayed, it is
   displayed as factual text.
 - **Contrast:** all text and interactive elements meet WCAG 2.2 AA in every theme.
@@ -133,7 +158,8 @@ throughout the content.
 ## 10. Components the design system must cover
 
 Header and navigation · language switch · footer · homepage introduction · section landing
-pattern · prose/biography layout with footnotes · timeline · role/term card · initiative
+pattern · prose/biography layout with a "Sources and notes" section (no academic-style footnotes;
+see [C §3](03-content-architecture.md#3-verification-model)) · timeline · role/term card · initiative
 card and detail · archive grid · archive item viewer with metadata, credit, rights and provenance
 panel · coverage card (with original-language headline) · collection/story layout · update card
 and event (upcoming/past) · contact block · press kit downloads · verification label ·
@@ -143,7 +169,16 @@ component behaves when optional fields are missing) · 404.
 ## 11. Design phase deliverables (proposed)
 
 1. Moodboard and two or three contrasting visual directions.
-2. Type pairing tests with real-length bilingual sample text (synthetic, non-biographical).
-3. Colour and token system, including contrast checks.
+2. **Bilingual visual test page** comparing the leading typography candidate with the alternative
+   (§2). Viewed on a mid-range Android viewport, it uses:
+   - real representative Hindi and English text (non-biographical);
+   - navigation labels;
+   - dates in each precision;
+   - archive metadata;
+   - captions;
+   - mixed-language lines.
+   The result is recorded as the typography decision.
+3. **Palette test** of the provisional colours (§4) against authentic Jabalpur imagery, with contrast
+   checks. Only then is the colour and token system finalised.
 4. Mobile-first page designs for Home, About, Timeline, an archive item and Updates.
 5. Component specifications including missing-field behaviour.

@@ -48,10 +48,21 @@ Displays never show more precision than is recorded.
 | `unverified` | Not yet confirmed | **Cannot be published.** Build fails. | Never shown |
 
 **Granularity.** Verification applies per item. Long-form text (e.g. the long biography) is
-treated as `supplied` overall. Specific verifiable facts inside it (dates, positions, figures)
-should carry inline source references. Any statement inside long-form text that is not
-supportable is removed before publishing; this is an editorial review step, since it cannot be
-automated.
+treated as `supplied` overall. Any statement inside long-form text that is not supportable is
+removed before publishing; this is an editorial review step, since it cannot be automated.
+
+**Sources and notes (presentation of provenance).** No academic-style footnote clutter
+([0004](../decisions/0004-content-and-verification-model.md)). Traceability is unchanged.
+
+- **Specific factual claims** inside long-form text (dates, positions, figures) carry a **concise
+  source/reference marker** where useful. The marker links to its entry in the page's notes section.
+  Running text has no discursive footnotes.
+- **Longer pages and content** (biography, initiative bodies, collection introductions) end with a
+  **"Sources and notes"** section listing those sources.
+- **Items and role rows** show the concise provenance label, with **optional fuller source details**
+  on demand, as above.
+- The rules are unchanged: `verified` requires a source, `unverified` is never published, and
+  internal sources are never rendered ([0018](../decisions/0018-content-integrity-rules.md)).
 
 **Raising a status.** An item moves from `supplied` to `verified` when a source is added. History
 is kept in git.
@@ -113,7 +124,7 @@ These are generated from the entities, never edited by hand:
 |---|---|
 | **Timeline** | Every publishable dated item: Role start/end, Initiative period, Activity, Coverage, TimelineEvent. TimelineEvent is used only for milestones not represented elsewhere. |
 | **Public Life overview** | Roles, Organisations, Initiatives |
-| **Archive browse** | Photo, Document, Coverage, Video, grouped by type, decade and theme |
+| **Archive browse** | Photo, Document, Coverage, Video, browsed one lens at a time by type, time (period derived from Roles, or decade), theme and place ([0022](../decisions/0022-archive-browsing-model.md)) |
 | **Related items** | Shared Place, Theme, Collection, Role or overlapping date range |
 | **Press Kit** | Person bios + press-approved Photos + press ContactMethod |
 | **Structured data (SEO)** | Person, published Roles (non-`unverified`), Photos, upcoming Events |

@@ -142,7 +142,7 @@ IDs are stable so later work can reference them.
 ### Archive (FR-A)
 
 - **FR-A1** Archive items (photo, document, coverage, video) have their own pages with caption, date, place, credit, rights and provenance.
-- **FR-A2** Archive browsing by type, decade and theme, with shareable URLs.
+- **FR-A2** Archive browsing one lens at a time by type, time (period or decade), theme and place, on static pages with shareable URLs; editorial curation comes first; no faceted filter interface ([0022](../decisions/0022-archive-browsing-model.md)).
 - **FR-A3** Collections group items into curated sets or stories.
 - **FR-A4** Coverage items record outlet, date, original-language headline, link, archive link and rights status.
 - **FR-A5** Items with unknown or restrictive rights are displayed as citations, not reproductions.
@@ -180,11 +180,15 @@ IDs are stable so later work can reference them.
 
 ## 8. Non-functional requirements
 
-Numeric targets are working direction and may be tuned in the technical phase.
+**Status of numeric targets:** the numbers in this table (for example LCP, INP, CLS and touch-target
+sizes) are **working direction, not formally decided requirements**. No decision record approves
+them. They guide design and implementation and are to be confirmed or tuned in the technical phase
+(OD-25 in [H](08-open-decisions.md)). The WCAG 2.2 AA target is approved separately
+([0005](../decisions/0005-design-direction.md)).
 
 | Area | Requirement |
 |---|---|
-| **Performance** | Measured on a mid-range Android phone over 4G at the 75th percentile: LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1. Content pages ship near-zero JavaScript. Responsive, modern-format images. Fonts subset and self-hosted. |
+| **Performance** (targets: working direction, OD-25) | Measured on a mid-range Android phone over 4G at the 75th percentile: LCP ≤ 2.5 s, INP ≤ 200 ms, CLS ≤ 0.1. Content pages ship near-zero JavaScript. Responsive, modern-format images. Fonts subset and self-hosted. |
 | **Accessibility** | WCAG 2.2 AA. Correct `lang` on all text, including inline phrases in the other language. Usable by keyboard and screen readers in both languages. |
 | **Mobile-first** | Designed from a 360 px viewport upward; no horizontal scrolling; touch targets ≥ 44 px. |
 | **Browser support** | Current and previous major versions of Chrome (incl. Android), Safari (incl. iOS), Firefox, Edge; graceful on older Android WebViews. Works without JavaScript. |

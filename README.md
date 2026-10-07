@@ -14,7 +14,8 @@ No fictional or placeholder person-specific content may be committed.
 ```
 docs/spec/        Project specification (requirements, IA, content, bilingual, design,
                   technical architecture, security/privacy, open decisions)
-docs/decisions/   Approved decision records (one file per decision)
+docs/decisions/   Decision records (one file per decision)
+docs/research/    Design and product research (inputs, not decisions)
 ```
 
 ## Prerequisites

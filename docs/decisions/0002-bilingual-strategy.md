@@ -1,6 +1,6 @@
 # 0002 — Bilingual strategy (Hindi default, English fully supported)
 
-- **Status:** Accepted
+- **Status:** Accepted; clarified by [0021](0021-language-switching-and-single-language-content.md)
 - **Date:** 2026-10-07
 - **Deciders:** Product/technical decision partner (relayed by the project owner)
 - **Related:** [Spec D](../spec/04-bilingual-architecture.md); OD-01, OD-04, OD-05, OD-10
