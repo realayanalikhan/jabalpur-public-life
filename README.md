@@ -1,14 +1,20 @@
 # Jabalpur Public Life
 
-Website project. **Status: repository and environment set up only — no site code yet.**
+A premium bilingual (English and Hindi) public-life profile and archive.
 
-The subject, content, scope and stack are still to be decided. Do not add content
-about any person or organisation until it has been supplied and confirmed.
+**Status: specification phase. No site code yet.** See
+[Project Specification v1](docs/spec/README.md). The technical architecture is proposed and
+not yet approved.
+
+Do not add content about any person or organisation until it has been supplied and confirmed.
+No fictional or placeholder person-specific content may be committed.
 
 ## Repository layout
 
 ```
-docs/decisions/   Architecture/product decision records (one file per decision)
+docs/spec/        Project specification (requirements, IA, content, bilingual, design,
+                  technical proposal, security/privacy, open decisions)
+docs/decisions/   Approved decision records (one file per decision)
 ```
 
 ## Prerequisites
