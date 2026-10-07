@@ -1,231 +1,359 @@
-# 09. Language Glossary (framework)
+# 09. Language Glossary and Content Conventions
 
-**Status:** Framework (spec v1.2). **This is not a finished glossary.** No entry below is approved
-unless its status says so. The person's names and all person-specific terms are deliberately absent.
+- **Version:** 2 (spec v1.4)
+- **Status:** Conventions and terminology that can be fixed **without family-specific information**.
+  Entries marked **Recommended** await approval by the decision partner. They then become
+  **Approved editorial**, and stay subject to confirmation by the Hindi/English reviewer once
+  appointed (OD-16). Entries already set by decision records are marked **Approved editorial**.
+  Romanisation (OD-20) remains **open**. Family-specific terms are listed in §12 and are never inferred.
+- **Based on:** [0002](../decisions/0002-bilingual-strategy.md), [0021](../decisions/0021-language-switching-and-single-language-content.md),
+  [0023](../decisions/0023-public-reference-identifiers.md), [0024](../decisions/0024-typography-system.md),
+  [0026](../decisions/0026-verification-and-source-presentation.md), [spec B](02-information-architecture.md),
+  [research §8, §17](../research/01-visual-product-research.md#17-bilingual-design-system),
+  [design implementation brief](../design/07-implementation-brief.md).
 
 ## 1. Purpose and authority
 
-- This glossary will become the **source of truth for bilingual content**: interface labels,
-  recurring terms, date and number formats, punctuation, romanisation, and the canonical spellings
-  of names and places.
-- Translators, editors and the Hindi/English reviewer (OD-16) must follow it. Deviations are
-  reviewed, not improvised.
-- It implements [0002](../decisions/0002-bilingual-strategy.md):
-  - "हिंदी", Western numerals and one romanisation convention;
-  - human-reviewed translations;
-  - the label and notice wording required by
-    [0021](../decisions/0021-language-switching-and-single-language-content.md).
-- **Relationship to the content model:** spec C defines a `GlossaryTerm` entity. This document is
-  the authoring source until implementation, when approved entries move into the content
-  collections. After that, the content collection is authoritative and this document describes the
-  conventions.
-- **Do not invent:** no personal names, no political terminology, no claims. Where research proposed
-  candidate wording, it is shown with status **proposed** and its source.
+- This document is the **source of truth for bilingual wording and conventions**: interface labels,
+  recurring terms, dates, numbers, punctuation, captions, verification wording and metadata labels.
+- At implementation, every interface string is read from glossary keys
+  ([technical scaffold plan §9](../implementation/01-technical-scaffold-plan.md#9-bilingual-routing-and-strings)).
+  No Hindi page may show English interface text, and no wording drifts between pages.
+- **Tone:** natural, dignified, editorial Hindi, neither bureaucratic nor colloquial. English is
+  plain British English. Translation is by meaning, not word for word: the two editions say the same
+  thing in the way each language says it best.
+- **Proper names are never translated by assumption.** Family-confirmed spellings override every
+  convention in this document (§12, §13).
 
 ## 2. Status system
 
-| Status | Meaning | Who sets it | May appear in published content? |
+| Status | Meaning | Set by | May be published? |
 |---|---|---|---|
-| **proposed** | A candidate, from research or an editor. Not decided. | Anyone, with a source | **No.** Allowed in design mock-ups and visual tests only |
-| **approved** | Decided for use | Decision partner, with the Hindi/English reviewer for language entries (OD-16) | Yes |
-| **family-confirmed** | A name, spelling or personal fact confirmed by the person or family | Recorded from family input (FI-06 and related) | Yes. Required for the person's names and family-related entries |
-| **deprecated** | Replaced or withdrawn; kept so old usage can be found and corrected | Decision partner | No. Must point to its replacement |
+| **Proposed** | A candidate under discussion | Anyone, with a reason | No (mock-ups and tests only) |
+| **Recommended** | A proposal this document recommends for approval | This glossary | No, until approved |
+| **Approved editorial** | Approved wording for generic terms and conventions | Decision partner; Hindi entries confirmed by the reviewer (OD-16) when appointed | Yes |
+| **Family-confirmed** | A proper name, spelling, title or personal fact confirmed by the person or family | Family input (spec H §4) | Yes. **Overrides** any generic convention or translation assumption for that name |
+| **Deprecated** | Withdrawn or replaced; kept so old usage can be found and fixed | Decision partner | No. Must name its replacement |
 
 Rules:
-- Only **approved** or **family-confirmed** entries may be used in published content.
-- Names of the person and family-related terms need **family-confirmed**. "approved" alone is not
-  enough.
-- Entries are never deleted. They are deprecated, and their key is never reused.
+- Only **Approved editorial** and **Family-confirmed** entries may appear in published content.
+- Keys are never reused.
+- A change to an approved entry creates a new entry, and the old one is deprecated.
 
-## 3. Entry format
+## 3. Navigation and interface labels
 
-| Field | Description |
-|---|---|
-| **Key** | Stable identifier in Latin script (e.g. `nav.archive`, `date.approximate`) |
-| **Concept** | What the term means and where it is used |
-| **English** | The English form |
-| **Hindi** | The Hindi form (Devanagari) |
-| **Romanised** | Romanised form, where needed (names, places, slugs), per §9 |
-| **Usage notes** | Context, length limits (e.g. must fit navigation at 360 px), grammatical notes |
-| **Avoid** | Rejected variants, so they are not reintroduced |
-| **Status** | proposed · approved · family-confirmed · deprecated |
-| **Source** | Research reference, official usage, family input, or editor |
-| **Decided by / date** | For approved and family-confirmed entries |
-| **Related** | Decision records or spec sections |
+Principles:
+- Prefer **common, dignified nouns** over Sanskritised officialese or loanwords, unless a loanword is
+  the natural word (वीडियो, मीडिया, प्रेस किट).
+- The same concept uses the same word in navigation, headings, breadcrumbs and links.
+- Labels must fit the mobile menu without truncation. The Hindi primary navigation measured about
+  371 px, so the menu is used below about 400 px ([0024](../decisions/0024-typography-system.md)).
 
-## 4. Navigation and interface labels
-
-Decisions needed for every label below:
-- **Register:** common, everyday Hindi or formal/Sanskritised Hindi. The research recommends common
-  nouns (research §17, [Hindwi](https://www.hindwi.org/)).
-- **Length:** the full Hindi navigation must fit at 360 px without truncation (spec B §1).
-- **Consistency:** the same concept always uses the same word across navigation, headings and
-  breadcrumbs.
-
-| Key | English | Hindi | Status | Source / note |
+| Key | English | Hindi | Reason | Status |
 |---|---|---|---|---|
-| `lang.switch.to-en` | English | — | **approved** | Label shown on Hindi pages ([0021](../decisions/0021-language-switching-and-single-language-content.md)) |
-| `lang.switch.to-hi` | — | हिंदी | **approved** | Label shown on English pages ([0002](../decisions/0002-bilingual-strategy.md), [0021](../decisions/0021-language-switching-and-single-language-content.md)) |
-| `lang.switch.a11y` | Read this page in English | यह पेज हिंदी में पढ़ें | proposed | Accessible names (research §17) |
-| `nav.home` | Home | — | — | To be proposed |
-| `nav.about` | About | परिचय | proposed | Research §17 |
-| `nav.public-life` | Public Life | सार्वजनिक जीवन | proposed | Research §17 |
-| `nav.archive` | Archive | अभिलेखागार / संग्रह | proposed (choose one) | Research §17: the first is precise but long; the second is short but also means "collection" (see `archive.collection`) |
-| `nav.updates` | Updates | गतिविधियाँ | proposed | Research §17 |
-| `nav.connect` | Connect | संपर्क | proposed | Research §17 |
-| `nav.public-life.overview` | Overview | — | — | To be proposed |
-| `nav.public-life.timeline` | Timeline | समयरेखा | proposed | Research §17 |
-| `nav.public-life.roles` | Roles & Terms | पद और कार्यकाल | proposed | Research §17. Must agree with §5 terminology |
-| `nav.public-life.work` | Work & Initiatives | कार्य और पहल | proposed | Research §17 |
-| `nav.archive.photographs` | Photographs | तस्वीरें | proposed | Research §17 |
-| `nav.archive.documents` | Documents | दस्तावेज़ | proposed | Research §17. Nuqta policy (§8) applies |
-| `nav.archive.press` | In the Press | प्रेस में | proposed | Research §17 |
-| `nav.archive.video` | Video | वीडियो | proposed | Research §17 |
-| `nav.updates.current` | Current activities | — | — | To be proposed |
-| `nav.updates.events` | Events | — | — | To be proposed |
-| `nav.updates.announcements` | Announcements | — | — | To be proposed |
-| `nav.press-kit` | Press Kit | प्रेस किट | proposed | Research §17 |
-| `nav.how-we-verify` | How We Verify | हम कैसे पुष्टि करते हैं | proposed | Research §17 |
-| `nav.corrections` | Corrections & Feedback | सुधार और सुझाव | proposed | Research §17 |
-| `nav.privacy` | Privacy | निजता | proposed | Research §17 |
-| `nav.terms` | Terms / Takedown | शर्तें | proposed | Research §17. Takedown wording still needed |
-| `ui.menu`, `ui.skip-to-content`, `ui.breadcrumb.home`, `ui.last-updated`, `ui.404.*` | — | — | — | Interface strings to be proposed. English must never remain on Hindi pages |
-| `notice.not-available` | This item is available in Hindi only | यह सामग्री केवल अंग्रेज़ी में उपलब्ध है | proposed | Notice pages ([0021](../decisions/0021-language-switching-and-single-language-content.md)). Each language's text describes the *other* language: the English text appears on `/en/` notice pages for Hindi-only items, and the Hindi text on `/hi/` notice pages for English-only items. Final wording by reviewer |
-| `label.only-in` | In Hindi only | केवल अंग्रेज़ी में | proposed | Listing labels (research §17). As above, each language's text names the other language |
+| `nav.home` | Home | मुखपृष्ठ | Standard, dignified Hindi for a site's home page; used in breadcrumbs. "होम" is a loan and less editorial | Recommended |
+| `nav.about` | About | परिचय | Natural "introduction/about"; short | Recommended |
+| `nav.about.biography` | Biography | जीवन-परिचय | The established Hindi term for a biographical account. "जीवनी" suggests a book-length biography | Recommended |
+| `nav.public-life` | Public Life | सार्वजनिक जीवन | Direct and natural; matches the site's thesis | Recommended |
+| `nav.public-life.overview` | Overview | एक नज़र में | Natural editorial "at a glance". "अवलोकन" reads as government-report language | Recommended |
+| `nav.public-life.timeline` | Timeline | समयरेखा | Widely understood (also used on Hindi Wikipedia). "कालक्रम" is more literary but less familiar | Recommended |
+| `nav.public-life.roles` | Roles & Terms | पद और कार्यकाल | Natural pairing; "कार्यकाल" is the ordinary word for a term of office | Recommended |
+| `nav.public-life.work` | Work & Initiatives | कार्य और पहल | Natural; "पहल" (initiative) is common and does not imply success or scale | Recommended |
+| `nav.archive` | Archive | **अभिलेखागार** | See §4 | Recommended |
+| `nav.archive.photographs` | Photographs | तस्वीरें | The everyday word; warm rather than technical. "छायाचित्र" is formal; "फ़ोटो" is a loan | Recommended |
+| `nav.archive.documents` | Documents | दस्तावेज़ | The standard word (with nuqta, §6) | Recommended |
+| `nav.archive.press` | In the Press | मीडिया में | Coverage includes print, online, TV, radio and interviews (spec C). "मीडिया में" is accurate where "प्रेस में" suggests print only. Meaning-equivalent, not literal | Recommended |
+| `nav.archive.video` | Video | वीडियो | Standard loan | Recommended |
+| `nav.updates` | Updates | गतिविधियाँ | "Activities": accurate for current activities, events and announcements, with no campaign tone. "अपडेट" is a loan | Recommended |
+| `nav.updates.events` | Events | कार्यक्रम | The ordinary word for events and programmes | Recommended |
+| `nav.updates.announcements` | Announcements | घोषणाएँ | Standard; chandrabindu per §6 | Recommended |
+| `nav.connect` | Connect | संपर्क | Standard for contact; "कॉन्टैक्ट" is avoided | Recommended |
+| `nav.press-kit` | Press Kit | प्रेस किट | The term journalists use; a Hindi coinage would be less clear | Recommended |
+| `nav.how-we-verify` | How We Verify | स्रोत और पुष्टि | "Sources and verification": short enough for the footer, and names the subject without a first-person claim. Also the page title | Recommended |
+| `nav.corrections` | Corrections & Feedback | सुधार और सुझाव | Natural pairing ("corrections and suggestions") | Recommended |
+| `nav.privacy` | Privacy | निजता | Standard (page title "निजता नीति") | Recommended |
+| `nav.terms` | Terms / Takedown | उपयोग की शर्तें और हटाने के अनुरोध | "Terms of use and removal requests": plain, not legalistic. Long, but footer links can wrap | Recommended |
+| `lang.switch.to-en` | English | — | Label on Hindi pages | **Approved editorial** ([0021](../decisions/0021-language-switching-and-single-language-content.md)) |
+| `lang.switch.to-hi` | — | हिंदी | Label on English pages | **Approved editorial** ([0002](../decisions/0002-bilingual-strategy.md)) |
+| `lang.switch.a11y` | Read this page in English | यह पेज हिंदी में पढ़ें | Accessible name of the switch (each text in its own language) | Recommended |
+| `ui.menu` | Menu | मेनू | The understood loan | Recommended |
+| `ui.skip` | Skip to content | मुख्य सामग्री पर जाएँ | Natural imperative | Recommended |
+| `ui.breadcrumb` | You are here | आप यहाँ हैं | Accessible label for the breadcrumb | Recommended |
+| `ui.last-updated` | Last updated | अंतिम संशोधन | Dignified, short | Recommended |
+| `ui.read-more` | Read more | आगे पढ़ें | Natural | Recommended |
+| `ui.not-found` | Page not found | यह पेज नहीं मिला | Plain | Recommended |
 
-## 5. Public-life terminology
+## 4. "Archive": resolved recommendation
 
-These terms describe roles and public service. Hindi forms are **deliberately not proposed here**.
-They must follow **official usage in the relevant records** (e.g. the designation as used by the
-municipal body) and be reviewed by the Hindi/English reviewer. Nothing here asserts any fact about
-the person.
-
-| Key | Concept (English) | Decision needed |
-|---|---|---|
-| `role.councillor` | The municipal councillor designation | Official Hindi and English designation as used in municipal records; whether to show both |
-| `role.ward` | Ward (municipal electoral area) | Official form; how ward names and numbers are written |
-| `role.term` | Term of office | Wording for a term and for date ranges of terms |
-| `role.how-obtained.*` | Elected / appointed / nominated / other | Neutral, factual wording for each value |
-| `role.committee` | Committee membership | Official committee names as used in records |
-| `org.municipal-body` | The municipal body | Official name in both languages |
-| `org.party` | Political party (if displayed) | Depends on FI-05. Official party names only, as text |
-| `work.initiative` | Initiative (sustained programme of work) | Term that does not imply success or scale |
-| `work.public-service` | Public service | Neutral term; avoid promotional epithets |
-| `work.community-activity` | Community activity | Neutral term |
-| `occasion` | Occasion ([0020](../decisions/0020-occasion-connective-archive-entity.md)) | Hindi term (e.g. a neutral word for "occasion/event") |
-
-Principles to decide (proposed):
-- Use official designations rather than descriptive or honorific ones.
-- Avoid promotional epithets in either language.
-- Use the same term for the same role everywhere.
-
-## 6. Archive terminology
-
-| Key | English | Hindi | Status | Source / note |
-|---|---|---|---|---|
-| `archive.photograph` | Photograph | तस्वीर | proposed | Research §17 (plural in navigation) |
-| `archive.document` | Document | दस्तावेज़ | proposed | Research §17; nuqta policy (§8) |
-| `archive.press` | Press coverage | — | — | To be proposed; must agree with `nav.archive.press` |
-| `archive.video` | Video | वीडियो | proposed | Research §17 |
-| `archive.collection` | Collection | संग्रह | proposed | Research §16. Conflicts with `nav.archive` if संग्रह is chosen there |
-| `meta.date` | Date | तिथि | proposed | Research §17 |
-| `meta.place` | Place | स्थान | proposed | Research §17 |
-| `meta.source` | Source | स्रोत | proposed | Research §16–§17 |
-| `meta.credit` | Credit | — | — | To be proposed |
-| `meta.photo-credit` | Photo: ‹name› | फ़ोटो: ‹name› | proposed | Research §13.5; nuqta policy (§8) |
-| `meta.rights` | Rights / usage | — | — | To be proposed |
-| `meta.original-language` | Original in ‹language› | मूल ‹language› में | proposed | Spec D §6 |
-| `meta.reference` | Reference | — | — | [0023](../decisions/0023-public-reference-identifiers.md) accepted; Hindi label to be proposed. Shown only in item details, citation and correction pathway |
-| `verify.verified` | Verified · Source: ‹source type› | पुष्ट · स्रोत: ‹source type› | proposed | Research §16; final wording DP-03 |
-| `verify.supplied` | Provided by the family | परिवार द्वारा उपलब्ध | proposed | Research §16; final wording DP-03 |
-| `verify.media-reported` | Reported in ‹outlet›, ‹date› | ‹outlet› में प्रकाशित, ‹date› | proposed | Research §16; final wording DP-03 |
-| `verify.what-this-means` | What this means | — | — | Link to How We Verify |
-| `notes.heading` | Sources and notes | स्रोत और टिप्पणियाँ | proposed | Spec C §3 |
-| `related.same-occasion` | From the same occasion | — | — | [0020](../decisions/0020-occasion-connective-archive-entity.md) |
-| `item.cite` | Use and cite | — | — | Research §16 |
-| `item.suggest-correction` | Suggest a correction | — | — | Research §16 |
-| `lens.type`, `lens.time`, `lens.period`, `lens.decade`, `lens.theme`, `lens.place` | Type, Time, Period, Decade, Theme, Place | — | — | [0022](../decisions/0022-archive-browsing-model.md) |
-
-## 7. Date terminology
-
-Approved already: **Western numerals** on Hindi pages ([0002](../decisions/0002-bilingual-strategy.md));
-Indian digit grouping (spec D §9). Everything else below needs a decision.
-
-| Key | Concept | English (proposed) | Hindi decision needed |
+| Candidate | Meaning and register | Works for landing / types / collections / items? | Assessment |
 |---|---|---|---|
-| `date.month-names` | Month names | January … December | **Spelling of each Hindi month** (e.g. अक्टूबर vs अक्तूबर). Choose either the spelling produced by the date-formatting library (CLDR data) or a house spelling, in which case generated dates must be overridden to match |
-| `date.full` | Full date | 7 October 2026 | Order and form (research proposes "7 अक्टूबर 2026", day-month-year, no ordinal) |
-| `date.month-year` | Month and year | October 2026 | Form |
-| `date.year` | Year only | 1998 | Whether a word for "year" (सन् / वर्ष) is used before years, or the bare year |
-| `date.approximate` | Approximate date | c. 1998 | Word or abbreviation (research proposes लगभग; alternatives to consider) and placement |
-| `date.range` | Date range | 1998–2003 | En dash versus a "से … तक" construction; open-ended ranges ("since ‹year›") |
-| `date.decade` | Decade | 1990s | Form (e.g. a "का दशक" construction) and merged decades ("1960s–70s") |
-| `date.uncertain-month` | Month uncertain, year known | 1998 | Display only what is recorded (spec C §2) |
-| `date.calendar` | Calendar system | Gregorian | Proposed: Gregorian only; other calendars only when quoting a source |
-| `date.weekday` | Weekdays | Not used | Proposed: not shown; needs a Hindi form if ever used |
+| **अभिलेखागार** | "Archive" in the institutional, historical sense (a repository of records) | Landing: yes. Types: "अभिलेखागार › तस्वीरें" works. Collections stay **संग्रह**, so there's no clash. Items are **सामग्री** | **Strongest historical meaning; unambiguous.** Longer (fits the menu and desktop navigation; measured within the Hindi navigation width) |
+| अभिलेख | "Record(s)" (also inscription) | Ambiguous: the site's thesis calls the whole site a "record" (अभिलेख), and documents are a separate type | Conflates "the record" with "the archive section" |
+| संग्रह | "Collection" | Clashes with Collections (curated sets); sounds generic | Weakens the historical meaning, which the brief warns against |
+| पुरालेख | Archives / inscriptions (technical) | Too specialised; reads as epigraphy | Rejected |
+| संग्रहालय | Museum | Wrong institution | Rejected |
 
-## 8. Typography and punctuation conventions
+**Recommendation: अभिलेखागार** for the section and landing page.
 
-| Key | Convention | Decision needed | Notes |
-|---|---|---|---|
-| `type.nuqta` | Nuqta usage (e.g. फ़ोटो vs फोटो, दस्तावेज़ vs दस्तावेज) | Always / never / follow source in quotations | Affects labels, captions and credits |
-| `type.anusvara` | Anusvara vs chandrabindu and conjunct forms | General rule beyond the approved "हिंदी" | 0002 fixes "हिंदी" only |
-| `punct.sentence-end` | Danda (।) vs full stop in Hindi | Proposed: danda (research §17) | Never begin a line with a danda |
-| `punct.quotes` | Quotation marks | Form of double/single quotes in Hindi and English | Titles of works: Hindi in quotation marks, English in italics (research §13.3), to be confirmed |
-| `punct.dash` | Dashes and hyphens | En dash for ranges; hyphen policy | No automatic hyphenation (spec D §8) |
-| `num.digits` | Numerals | **approved:** Western numerals | [0002](../decisions/0002-bilingual-strategy.md) |
-| `num.grouping` | Large numbers | **approved:** Indian grouping | Spec D §9; whether to use digits plus लाख/करोड़ in prose |
-| `abbr.policy` | Abbreviations | Whether and how to abbreviate in Hindi (e.g. "Dr", organisation acronyms written in Latin or Devanagari) | Applies to both languages |
-| `abbr.honorifics` | Honorifics and titles in running text | Whether honorifics are used, and how, consistent with the neutral documentary posture ([0001](../decisions/0001-product-purpose-and-posture.md)) | Must be consistent across the site |
-| `type.emphasis` | Emphasis | Proposed: weight, never italic, in Hindi (spec D §8) | — |
-
-## 9. Romanisation (OD-20, open)
-
-One convention is required ([0002](../decisions/0002-bilingual-strategy.md)). **It is not chosen
-here.** Options to evaluate:
-
-| Option | Strengths | Weaknesses |
-|---|---|---|
-| Common/official English spellings as used in official English documents | Familiar; matches existing records and press | Inconsistent across words; may not exist for every term |
-| Hunterian transliteration (the Government of India's standard for geographic names) | Official basis; no diacritics; slug-friendly | Less familiar for personal names; still needs rules for edge cases |
-| ISO 15919 / IAST (with diacritics) | Precise and reversible | Diacritics are unfriendly in URLs and for general readers |
-| Hybrid: an official or established spelling where one exists, otherwise a documented scheme without diacritics | Practical | Needs clear precedence rules |
-
-Constraints:
-- URL slugs are Latin script without diacritics ([0002](../decisions/0002-bilingual-strategy.md)).
-- The person's romanised name is **family-confirmed** (FI-06), whatever convention is chosen.
-
-## 10. Names and places
-
-- **The person:** canonical names and spellings in Devanagari and Latin, and any known variants,
-  come **only from family-approved information** (FI-06). Status: **family-confirmed**. Nothing is
-  entered until then.
-- **Family members and private individuals:** named only with consent (spec G §6). Spellings are
-  family-confirmed.
-- **Other public figures:** spellings as in the cited sources; status approved.
-- **Places** (wards, localities, landmarks): proposed principle — use official names (municipal or
-  government usage) in both scripts, with established local variants recorded under "Avoid" or
-  usage notes. Not yet approved.
-- **Institutions and organisations:** official names in both languages where they exist.
-- **Newspapers and outlets:** masthead names as printed, in their original script, never as logos
-  ([research §16](../research/01-visual-product-research.md#16-archive-ux-concept)).
-
-## 11. Workflow
-
-1. An editor or the research adds an entry as **proposed**, with a source.
-2. The Hindi/English reviewer (OD-16) and the decision partner review it. It becomes **approved**, or
-   is rejected and recorded under "Avoid".
-3. Names and personal entries additionally need **family-confirmed** status from family input.
-4. Changes to an approved entry create a new entry. The old one is marked **deprecated**, with its
-   replacement.
-5. At implementation, approved entries move into the content collection. Interface strings are read
-   from glossary keys, so no Hindi page shows English chrome and no wording drifts.
-
-## 12. What must be resolved, and when
-
-| Before… | These categories must be **approved** |
+| Concept | Term |
 |---|---|
-| The bilingual visual test (DP-01) | None. **Proposed** navigation labels, date formats and archive labels are enough to test with |
-| Homepage and page wireframes (DP-05) | Navigation register and `nav.archive` choice (§4); date forms (§7) |
-| Content implementation | All of §4, §6, §7 and §8; romanisation (§9, OD-20); place and institution conventions (§10) |
-| Launch | The person's names (§10, **family-confirmed**); public-life terminology used in published content (§5) |
+| Archive landing | अभिलेखागार |
+| Photograph archive | अभिलेखागार › तस्वीरें |
+| Documents | अभिलेखागार › दस्तावेज़ |
+| Press | अभिलेखागार › मीडिया में |
+| Video | अभिलेखागार › वीडियो |
+| Collections | संग्रह (singular and plural) |
+| An individual archive item | सामग्री (e.g. "इस सामग्री के बारे में" = "About this item") |
+| "The record" in prose | अभिलेख (e.g. "सार्वजनिक जीवन का अभिलेख") |
+
+Status: **Recommended**.
+
+## 5. Dates and numbers
+
+**Approved editorial** (already decided): Western digits on Hindi pages ([0002](../decisions/0002-bilingual-strategy.md)) and
+Indian digit grouping (spec D §9). Dates are always written in words for the month, never as
+numeric dates such as `07/10/2026`, which are ambiguous.
+
+| Case | Hindi | English | Rule |
+|---|---|---|---|
+| Year | 1998 | 1998 | Bare year in metadata. In prose, "1998 में" / "in 1998" |
+| Month + year | मार्च 1998 | March 1998 | Month name, then year |
+| Full date | 7 अक्टूबर 2026 | 7 October 2026 | Day-month-year, no ordinal, no comma, no weekday |
+| Approximate | लगभग 1998 | c. 1998 | One word only: **"लगभग"** in Hindi, **"c."** in English. Not "करीब", "सन्" or "circa" spelled out |
+| Approximate month | लगभग मार्च 1998 | c. March 1998 | As above |
+| Decade | 1990 का दशक | 1990s | Merged decades: "1960–70 के दशक" / "1960s–70s" |
+| Date range (years) | 1998–2003 | 1998–2003 | Unspaced en dash between single tokens |
+| Date range (full dates) | 7 मार्च – 12 अप्रैल 1998 | 7 March – 12 April 1998 | Spaced en dash when either side contains spaces |
+| Ongoing | 1998 से अब तक | 1998–present | Only when currency is confirmed by a source or the family |
+| Before | 1998 से पहले | before 1998 | Only for a known upper bound |
+| After | 1998 के बाद | after 1998 | Only for a known lower bound |
+| Unknown date | *(omitted)* | *(omitted)* | Never "अज्ञात", "Unknown" or "N/A". The date field and its label are omitted. Undated items sort last and do not appear on the Timeline (spec B §4.3) |
+| Calendar | Gregorian | Gregorian | Other calendars only inside quotations from sources |
+| Large numbers | 2,50,000 · 2.5 लाख · 3 करोड़ | 2,50,000 · 2.5 lakh · 3 crore | Indian grouping in both. In prose, digits + लाख/करोड़ or lakh/crore |
+| Currency | ₹2,50,000 | ₹2,50,000 | Rupee sign, no space |
+
+Status: **Recommended** (except the items noted as Approved editorial above).
+
+### 5.1 Month names: resolved convention
+
+**Recommendation:** use the spellings produced by the standard locale data (CLDR) for `hi-IN`,
+which the platform's date formatting outputs:
+
+> जनवरी · फ़रवरी · मार्च · अप्रैल · मई · जून · जुलाई · अगस्त · सितंबर · **अक्टूबर** · नवंबर · दिसंबर
+
+**Rationale:**
+- Generated dates need no overrides, so no inconsistency between hand-written and generated dates.
+  Checked against CLDR 48 / ICU 78 on 2026-10-07: `7 अक्टूबर 2026`.
+- "अक्टूबर" (with ट) is the more widespread spelling in Hindi media.
+- Anusvara forms (सितंबर, नवंबर, दिसंबर) and the nuqta in फ़रवरी match §6.
+- **Rejected alternatives:** अक्तूबर, सितम्बर, नवम्बर, दिसम्बर, फरवरी.
+
+**Guard:** an implementation test asserts these exact strings. If future locale data changes them,
+the test fails and the glossary wins (override), not the library.
+
+Status: **Recommended**.
+
+## 6. Spelling and nuqta conventions
+
+Rules, not a dictionary:
+
+1. **Nuqta.** Use the nuqta in established loanwords where it marks the source sound: **क़ ख़ ग़ ज़ फ़**
+   (e.g. फ़ोटो, फ़रवरी, दस्तावेज़, ज़िला, नज़र, अख़बार, ख़बर, क़ानून, अंग्रेज़ी).
+   - Never in native words.
+   - ड़ and ढ़ are always written as standard letters (सड़क, पढ़ें).
+   - Proper names follow family-confirmed or official spellings, not this rule.
+2. **Anusvara and nasal consonants.** Use anusvara for nasal + consonant clusters: हिंदी, संपर्क,
+   संबंध, सितंबर (not हिन्दी, सम्पर्क).
+3. **Chandrabindu.** Use ँ where there is no vowel sign above the headline (गतिविधियाँ, घोषणाएँ,
+   जाँच, यहाँ). Use anusvara where a vowel sign sits above (हैं, में, नहीं).
+4. **English loans with "o" sounds** take ॉ: रिकॉर्ड, कॉलेज, डॉक्टर, ऑनलाइन (not रिकार्ड).
+5. **Prefer an established Hindi word** to a loanword in interface text when one is natural
+   (संपर्क not कॉन्टैक्ट; अभिलेख not रिकॉर्ड). Use the loan when it is the ordinary word (वीडियो,
+   मीडिया, फ़ोटो in credits, प्रेस किट, लिंक).
+6. **Hyphenated compounds:** use a hyphen only in established compounds (जीवन-परिचय, जल-आपूर्ति).
+
+High-frequency site words:
+
+| Concept | Use | Avoid |
+|---|---|---|
+| Photo | फ़ोटो (credits), तस्वीर (general) | फोटो |
+| Press | प्रेस (Press Kit only); मीडिया (coverage) | — |
+| Video | वीडियो | विडियो, विडिओ |
+| Contact | संपर्क | कॉन्टैक्ट |
+| Record | अभिलेख; loan form रिकॉर्ड only if unavoidable | रिकार्ड |
+| Link | लिंक | कड़ी (less understood) |
+| Document | दस्तावेज़ | दस्तावेज |
+| Newspaper | अख़बार / समाचार-पत्र | अखबार |
+| English (language) | अंग्रेज़ी | अंग्रेजी |
+| Hindi (language) | हिंदी (**Approved editorial**, [0002](../decisions/0002-bilingual-strategy.md)) | हिन्दी |
+| Information | जानकारी | सूचना (= notice) |
+| Date | तिथि | दिनांक (bureaucratic), तारीख़ (colloquial) |
+
+Status: **Recommended** (हिंदी: Approved editorial).
+
+## 7. Punctuation (bilingual)
+
+| Mark | Hindi | English | Rule |
+|---|---|---|---|
+| Sentence end | । (danda), no space before | . (full stop) | Never a full stop at the end of a Hindi sentence. A line never begins with a danda. ॥ is not used |
+| Question / exclamation | ? ! | ? ! | Same characters; no space before |
+| Quotation marks | “ ” outer, ‘ ’ inner | “ ” outer, ‘ ’ inner | Curly quotes in both; never straight quotes in published text |
+| Titles of works | In quotation marks | In *italics* | Hindi has no italics ([0024](../decisions/0024-typography-system.md)) |
+| Colon | `:` (ASCII colon) | `:` | **Never the visarga (ः, U+0903) as a colon.** No space before, one space after ("तिथि: 1998") |
+| Em dash | — (unspaced) | — (unspaced) | For a break in a sentence; one convention in both languages |
+| En dash | – | – | Ranges only: unspaced between single tokens (1998–2003); spaced when a side contains spaces |
+| Metadata separator | · (spaced middle dot) | · | "1992 · तस्वीर · ग्वारीघाट, जबलपुर" |
+| Date separators | — | — | No numeric dates in display; ISO dates (2026-10-07) only in data and machine-readable markup |
+| Parentheses | ( ) | ( ) | No inner spaces |
+| Slash | " / " (spaced) | " / " | Only in credits ("‹name› / ‹collection›"); not for "and/or" |
+| Ellipsis | … (single character) | … | Omissions in quotations as […]. No truncation ellipsis in Hindi listings ([0024](../decisions/0024-typography-system.md)) |
+| Abbreviations | Avoided; full forms | Minimal: "c.", "p." / "pp." in citations | Hindi citations use "पृ." for page |
+| Honorifics | None by default in running text | None by default | Neutral documentary posture ([0001](../decisions/0001-product-purpose-and-posture.md)). How the person is referred to is family-confirmed (§12) |
+
+Status: **Recommended**.
+
+## 8. Captions
+
+Order (approved, [design 03 §6](../design/03-visual-direction.md#6-photography)):
+**what → where → when → credit**, separated by spaced middle dots, below the image.
+
+| Part | Hindi | English |
+|---|---|---|
+| What / who | Short phrase in a human voice; public figures named; others described by role | Same |
+| Where | ‹place›, जबलपुर | ‹place›, Jabalpur |
+| When | Per §5 (e.g. लगभग 1992) | Per §5 (c. 1992) |
+| Credit, photographs | फ़ोटो: ‹name› / ‹collection› | Photo: ‹name› / ‹collection› |
+| Credit, other material | सौजन्य: ‹holder or collection› | Courtesy ‹holder or collection› |
+| Credit, video | वीडियो: ‹name or channel› | Video: ‹name or channel› |
+
+**Examples** (placeholders only):
+- "ग्वारीघाट की सीढ़ियों पर बैठक · ग्वारीघाट, जबलपुर · लगभग 1992 · फ़ोटो: ‹नाम› / परिवार संग्रह"
+- "A meeting on the steps at Gwarighat · Gwarighat, Jabalpur · c. 1992 · Photo: ‹Name› / Family collection"
+
+**Rules:**
+- One or two lines on mobile, no academic apparatus.
+- Unknown parts are **omitted**, never "unknown".
+- Captions do not carry the reference identifier unless genuinely needed ([0023](../decisions/0023-public-reference-identifiers.md)).
+- Alt text is separate from captions and written in each language.
+
+Status: **Recommended**.
+
+## 9. Source and verification wording
+
+Per [0026](../decisions/0026-verification-and-source-presentation.md). The Hindi wording for
+"verified" must state **source status, not endorsement**.
+
+| Key | English | Hindi | Reason | Status |
+|---|---|---|---|---|
+| `verify.source` | Source | स्रोत | Standard | Recommended |
+| `verify.notes` | Sources and notes | स्रोत और टिप्पणियाँ | Section heading on long pages | Recommended |
+| `verify.credit` | Credit | श्रेय | Standard | Recommended |
+| `verify.rights` | Rights | अधिकार | Short; full phrase in the rights line ("उपयोग के अधिकार: …") | Recommended |
+| `verify.verified` | Verified · Source: ‹source type› | **स्रोत से पुष्ट** · ‹source type› | "Confirmed from a source": ties the status to evidence. "सत्यापित" reads as official attestation; "प्रमाणित" as certification; a bare "पुष्ट" can read as approval. None of these imply endorsement here | Recommended |
+| `verify.supplied` | Provided by the family | परिवार द्वारा दी गई जानकारी | "Information given by the family": plain attribution. "Family" includes the person; if a different attribution is wanted, it is family-confirmed | Recommended |
+| `verify.media-reported` | As reported by ‹outlet›, ‹date› | ‹outlet› की रिपोर्ट के अनुसार, ‹date› | Attribution ("according to"), not endorsement; works for print, online and broadcast | Recommended |
+| `verify.unverified` | *(never shown publicly)* | *(अपुष्ट: internal use only)* | [0018](../decisions/0018-content-integrity-rules.md) | Approved editorial |
+| `verify.what-this-means` | What this means | इसका क्या अर्थ है | Link to the verification page | Recommended |
+| `verify.details` | Source details | स्रोत का विवरण | Level-2 disclosure label | Recommended |
+| `correction.noun` | Correction | सुधार | Standard | Recommended |
+| `correction.suggest` | Suggest a correction | सुधार सुझाएँ | Polite imperative | Recommended |
+| `correction.note` | Corrected on ‹date›: ‹what changed› | ‹date› को सुधारा गया: ‹क्या बदला› | Public correction note (spec G §8) | Recommended |
+| `correction.quote-ref` | Please quote reference ‹ref› | कृपया संदर्भ ‹ref› लिखें | Correction pathway ([0023](../decisions/0023-public-reference-identifiers.md)) | Recommended |
+
+## 10. Archive metadata labels
+
+Short enough for one-line mobile metadata (system sans, 15 px Hindi).
+
+| Key | English | Hindi | Status |
+|---|---|---|---|
+| `meta.date` | Date | तिथि | Recommended |
+| `meta.place` | Place | स्थान | Recommended |
+| `meta.type` | Type | प्रकार | Recommended |
+| `meta.collection` | Collection | संग्रह | Recommended |
+| `meta.occasion` | Occasion | अवसर | Recommended |
+| `meta.reference` | Reference | संदर्भ | Recommended |
+| `meta.source` | Source | स्रोत | Recommended |
+| `meta.credit` | Credit | श्रेय | Recommended |
+| `meta.rights` | Rights | अधिकार | Recommended |
+| `meta.people` | People shown | व्यक्ति | Recommended |
+| `meta.original-form` | Original | मूल रूप | Recommended |
+| `meta.original-language` | Original in ‹language› | मूल ‹भाषा› में | Recommended |
+| `meta.only-in` | In Hindi only *(on English pages)* | केवल अंग्रेज़ी में *(on Hindi pages)* | Recommended |
+| `item.about` | About this item | इस सामग्री के बारे में | Recommended |
+| `item.cite` | Use and cite | उपयोग और उद्धरण | Recommended |
+| `item.copy-citation` / `item.copy-link` | Copy citation / Copy link | उद्धरण कॉपी करें / लिंक कॉपी करें | Recommended |
+| `related.same-occasion` | From the same occasion | इसी अवसर से | Recommended |
+| `related.same-period` | From this period | इसी दौर से | Recommended |
+| `lens.type` / `lens.time` / `lens.period` / `lens.decade` / `lens.theme` / `lens.place` | Type / Time / Period / Decade / Theme / Place | प्रकार / समय / दौर / दशक / विषय / स्थान | Recommended |
+| `type.photo` / `type.document` / `type.coverage` / `type.video` | Photograph / Document / Media coverage / Video | तस्वीर / दस्तावेज़ / मीडिया रिपोर्ट / वीडियो | Recommended |
+| `notice.not-available` | This item is available only in Hindi. | यह सामग्री केवल अंग्रेज़ी में उपलब्ध है। | Recommended (each text names the *other* language; [0021](../decisions/0021-language-switching-and-single-language-content.md)) |
+
+## 11. Romanisation (OD-20: open)
+
+**Not resolved here.**
+
+- **Why one convention is needed:** consistent English spellings of names, places and Hindi terms
+  across pages, slugs, citations, structured data and SEO. Inconsistency splits search results and
+  undermines credibility.
+- **Where it will appear:**
+  - URL slugs (Latin, no diacritics; [0002](../decisions/0002-bilingual-strategy.md));
+  - English text naming places and institutions;
+  - transliterated Hindi terms in English text;
+  - citations;
+  - structured data (`alternateName`);
+  - file and reference naming where readable.
+- **What it will not be used for:**
+  - the person's own name, which is **family-confirmed** whatever the convention;
+  - official names that already have an established English form (use that form);
+  - Hindi pages (Devanagari is used);
+  - public reference identifiers, which are opaque ([0023](../decisions/0023-public-reference-identifiers.md)).
+- **Candidates to evaluate:**
+  1. established or official English spellings, where they exist;
+  2. Hunterian transliteration (the Government of India standard for geographic names);
+  3. ISO 15919 / IAST (precise, with diacritics; unsuitable for slugs);
+  4. a hybrid: official spellings where they exist, otherwise a documented scheme without
+     diacritics.
+- **Information required before choosing:**
+  - a sample of the actual place, ward and institution names in the record (archive inventory,
+    FI-03);
+  - the family's preferred spellings (FI-06);
+  - official English spellings used by the municipal body;
+  - the slug format the scaffold expects.
+
+  The decision then goes to the decision partner, with the Hindi/English reviewer (OD-16).
+
+## 12. Family-specific terminology (never inferred)
+
+These are **Family-confirmed only**. No convention, translation, transliteration or research may
+supply them.
+
+| Item | Note |
+|---|---|
+| Public name | FI-06 |
+| Hindi spelling of the name | FI-06 |
+| English (Latin) spelling of the name | FI-06; independent of OD-20 |
+| Preferred honorific or form of reference, if any | Default is none ([0001](../decisions/0001-product-purpose-and-posture.md)) |
+| Political and public role names, designations | As in official records and confirmed by the family; glossary §5 of v1 listed the concepts only |
+| Organisation names (including any party name and how it is shown) | FI-05; official names only |
+| Ward and locality spellings | Official usage, then confirmed |
+| Initiative names | From the family and sources |
+| Quotations | Exact source wording only; never paraphrased into quotation marks |
+| Dates | From sources or the family, with precision as recorded |
+| Personal details | FI-07 policy |
+
+## 13. Precedence
+
+1. **Family-confirmed** entries, for proper names and personal terms.
+2. Decision records, for conventions they fix (e.g. हिंदी, Western numerals, switch labels).
+3. **Approved editorial** entries in this glossary.
+4. Locale-library output (e.g. CLDR month names), only where it matches this glossary.
+5. Never: machine translation or inference.
+
+## 14. Remaining open items
+
+| Item | Status |
+|---|---|
+| Approval of all **Recommended** entries | Decision partner |
+| Confirmation of Hindi wording | Hindi/English reviewer, once appointed (OD-16) |
+| Romanisation convention | **OD-20 open** (§11) |
+| Family-specific terms | §12 (family input) |
