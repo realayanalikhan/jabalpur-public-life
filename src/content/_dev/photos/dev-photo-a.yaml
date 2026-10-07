@@ -1,0 +1,14 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: published
+verification: supplied
+reference: DEVK7Q
+image: ./dev-placeholder.png
+alt: { hi: "[DEV] धूसर परीक्षण चित्र", en: "[DEV] Grey test image" }
+caption: { hi: "[DEV] परीक्षण कैप्शन", en: "[DEV] Test caption" }
+date: { value: "1900", approximate: true }
+places: [dev-locality-a]
+rights: { status: public-domain, fullReproductionAllowed: true }
+consent: { privateIndividuals: none, minors: none }
+occasion: dev-occasion-a

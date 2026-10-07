@@ -1,0 +1,96 @@
+# Interface wording — the only source of UI text (spec 09 v2.1).
+# Status "approved-editorial": approved for implementation by the decision partner (2026-10-08).
+# The appointed Hindi/English reviewer (OD-16) confirms before launch; any change is made here,
+# deliberately, through these keys (never as literal strings in components).
+# Templates use {name} placeholders. Proper names are never stored here (family-confirmed content).
+
+# --- Navigation and interface (spec 09 §3) ---
+nav.home: { en: "Home", hi: "मुखपृष्ठ", status: approved-editorial }
+nav.about: { en: "About", hi: "परिचय", status: approved-editorial }
+nav.about.biography: { en: "Biography", hi: "जीवन-परिचय", status: approved-editorial }
+nav.public-life: { en: "Public Life", hi: "सार्वजनिक जीवन", status: approved-editorial }
+nav.public-life.overview: { en: "Overview", hi: "एक नज़र में", status: approved-editorial }
+nav.public-life.timeline: { en: "Timeline", hi: "समयरेखा", status: approved-editorial }
+nav.public-life.roles: { en: "Roles & Terms", hi: "पद और कार्यकाल", status: approved-editorial }
+nav.public-life.work: { en: "Work & Initiatives", hi: "कार्य और पहल", status: approved-editorial }
+nav.archive: { en: "Archive", hi: "अभिलेखागार", status: approved-editorial }
+nav.archive.photographs: { en: "Photographs", hi: "तस्वीरें", status: approved-editorial }
+nav.archive.documents: { en: "Documents", hi: "दस्तावेज़", status: approved-editorial }
+nav.archive.press: { en: "In the Press", hi: "मीडिया में", status: approved-editorial }
+nav.archive.video: { en: "Video", hi: "वीडियो", status: approved-editorial }
+nav.updates: { en: "Updates", hi: "गतिविधियाँ", status: approved-editorial }
+nav.updates.events: { en: "Events", hi: "कार्यक्रम", status: approved-editorial }
+nav.updates.announcements: { en: "Announcements", hi: "घोषणाएँ", status: approved-editorial }
+nav.connect: { en: "Connect", hi: "संपर्क", status: approved-editorial }
+nav.press-kit: { en: "Press Kit", hi: "प्रेस किट", status: approved-editorial }
+nav.how-we-verify: { en: "How We Verify", hi: "हम जानकारी कैसे जाँचते हैं", status: approved-editorial }
+nav.corrections: { en: "Corrections & Feedback", hi: "सुधार और सुझाव", status: approved-editorial }
+nav.privacy: { en: "Privacy", hi: "निजता", status: approved-editorial }
+nav.terms: { en: "Terms / Takedown", hi: "उपयोग की शर्तें और सामग्री हटाने का अनुरोध", status: approved-editorial }
+lang.switch.to-en: { en: "English", status: approved-editorial, notes: "Shown on Hindi pages (0021)." }
+lang.switch.to-hi: { hi: "हिंदी", status: approved-editorial, notes: "Shown on English pages (0002, 0021)." }
+lang.switch.a11y: { en: "Read this page in English", hi: "यह पेज हिंदी में पढ़ें", status: approved-editorial }
+ui.menu: { en: "Menu", hi: "मेनू", status: approved-editorial }
+ui.skip: { en: "Skip to content", hi: "मुख्य सामग्री पर जाएँ", status: approved-editorial }
+ui.breadcrumb: { en: "You are here", hi: "आप यहाँ हैं", status: approved-editorial }
+ui.last-updated: { en: "Last updated", hi: "अंतिम संशोधन", status: approved-editorial }
+ui.read-more: { en: "Read more", hi: "आगे पढ़ें", status: approved-editorial }
+ui.not-found: { en: "Page not found", hi: "यह पेज नहीं मिला", status: approved-editorial }
+home.recent-updates: { en: "Recent updates", hi: "हाल की गतिविधियाँ", status: approved-editorial }
+
+# --- Captions (spec 09 §8) ---
+caption.credit.photo: { en: "Photo: {name}", hi: "फ़ोटो: {name}", status: approved-editorial }
+caption.credit.courtesy: { en: "Courtesy {holder}", hi: "सौजन्य: {holder}", status: approved-editorial }
+caption.credit.video: { en: "Video: {name}", hi: "वीडियो: {name}", status: approved-editorial }
+
+# --- Source and verification (spec 09 §9; 0026) ---
+verify.source: { en: "Source", hi: "स्रोत", status: approved-editorial }
+verify.notes: { en: "Sources and notes", hi: "स्रोत और टिप्पणियाँ", status: approved-editorial }
+verify.credit: { en: "Credit", hi: "श्रेय", status: approved-editorial }
+verify.rights: { en: "Rights", hi: "अधिकार", status: approved-editorial }
+verify.verified: { en: "Verified · Source: {sourceType}", hi: "स्रोत से पुष्ट · {sourceType}", status: approved-editorial }
+verify.supplied: { en: "Provided by the family", hi: "परिवार द्वारा दी गई जानकारी", status: approved-editorial }
+verify.media-reported: { en: "As reported by {outlet}, {date}", hi: "{outlet} की रिपोर्ट के अनुसार, {date}", status: approved-editorial }
+verify.what-this-means: { en: "What this means", hi: "इसका क्या अर्थ है", status: approved-editorial }
+verify.details: { en: "Source details", hi: "स्रोत का विवरण", status: approved-editorial }
+correction.noun: { en: "Correction", hi: "सुधार", status: approved-editorial }
+correction.suggest: { en: "Suggest a correction", hi: "सुधार सुझाएँ", status: approved-editorial }
+correction.note: { en: "Corrected on {date}: {change}", hi: "{date} को सुधारा गया: {change}", status: approved-editorial }
+correction.quote-ref: { en: "Please quote reference {ref}", hi: "कृपया संदर्भ {ref} लिखें", status: approved-editorial }
+
+# --- Archive metadata (spec 09 §10) ---
+meta.date: { en: "Date", hi: "तिथि", status: approved-editorial }
+meta.place: { en: "Place", hi: "स्थान", status: approved-editorial }
+meta.type: { en: "Type", hi: "प्रकार", status: approved-editorial }
+meta.collection: { en: "Collection", hi: "संग्रह", status: approved-editorial }
+meta.occasion: { en: "Occasion", hi: "अवसर", status: approved-editorial }
+meta.reference: { en: "Reference", hi: "संदर्भ", status: approved-editorial }
+meta.source: { en: "Source", hi: "स्रोत", status: approved-editorial }
+meta.credit: { en: "Credit", hi: "श्रेय", status: approved-editorial }
+meta.rights: { en: "Rights", hi: "अधिकार", status: approved-editorial }
+meta.people: { en: "People shown", hi: "व्यक्ति", status: approved-editorial }
+meta.original-form: { en: "Original", hi: "मूल रूप", status: approved-editorial }
+meta.original-language: { en: "Original in {language}", hi: "मूल {language} में", status: approved-editorial }
+meta.only-in: { en: "In Hindi only", hi: "केवल अंग्रेज़ी में", status: approved-editorial, notes: "Each language's text names the other language (0021)." }
+item.about: { en: "About this item", hi: "इस सामग्री के बारे में", status: approved-editorial }
+item.cite: { en: "Use and cite", hi: "उपयोग और उद्धरण", status: approved-editorial }
+item.copy-citation: { en: "Copy citation", hi: "उद्धरण कॉपी करें", status: approved-editorial }
+item.copy-link: { en: "Copy link", hi: "लिंक कॉपी करें", status: approved-editorial }
+related.same-occasion: { en: "From the same occasion", hi: "इसी अवसर से", status: approved-editorial }
+related.same-period: { en: "From this period", hi: "इसी दौर से", status: approved-editorial }
+lens.type: { en: "Type", hi: "प्रकार", status: approved-editorial }
+lens.time: { en: "Time", hi: "समय", status: approved-editorial }
+lens.period: { en: "Period", hi: "दौर", status: approved-editorial }
+lens.decade: { en: "Decade", hi: "दशक", status: approved-editorial }
+lens.theme: { en: "Theme", hi: "विषय", status: approved-editorial }
+lens.place: { en: "Place", hi: "स्थान", status: approved-editorial }
+type.photo: { en: "Photograph", hi: "तस्वीर", status: approved-editorial }
+type.document: { en: "Document", hi: "दस्तावेज़", status: approved-editorial }
+type.coverage: { en: "Media coverage", hi: "मीडिया रिपोर्ट", status: approved-editorial }
+type.video: { en: "Video", hi: "वीडियो", status: approved-editorial }
+format.print: { en: "Print", hi: "अख़बार-पत्रिका", status: approved-editorial }
+format.online: { en: "Online", hi: "ऑनलाइन", status: approved-editorial }
+format.tv: { en: "Television", hi: "टीवी", status: approved-editorial }
+format.radio: { en: "Radio", hi: "रेडियो", status: approved-editorial }
+format.interview: { en: "Interview", hi: "साक्षात्कार", status: approved-editorial }
+notice.not-available: { en: "This item is available only in Hindi.", hi: "यह सामग्री केवल अंग्रेज़ी में उपलब्ध है।", status: approved-editorial, notes: "Each language's text names the other language (0021)." }

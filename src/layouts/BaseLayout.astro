@@ -1,0 +1,47 @@
+---
+/**
+ * Base document for every page (scaffold plan §8–§9). Unstyled foundation: the visual system comes
+ * in a later PR. Handles lang, canonical, hreflang (genuine equivalents only, x-default → /hi/),
+ * noindex (notice pages; every page outside production), and the preview-only banner.
+ */
+import type { Site } from '../lib/site.ts';
+import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
+import LanguageSwitch from '../components/site/LanguageSwitch.astro';
+
+interface Props {
+  site: Site;
+  route: RouteDef;
+  title: string;
+}
+const { site, route, title } = Astro.props;
+const { env } = site;
+const noindex = route.noindex || env.siteEnv !== 'production';
+const bodyAttrs = route.kind === 'notice' ? { 'data-notice-page': '' } : {};
+---
+
+<!doctype html>
+<html lang={route.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {!route.noindex && <link rel="canonical" href={env.siteUrl + route.path} />}
+    {hreflangLinks(route, env.siteUrl).map((l) => (
+      <link rel="alternate" hreflang={l.hreflang} href={l.href} />
+    ))}
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body {...bodyAttrs}>
+    {env.siteEnv === 'preview' && (
+      <div data-preview-only role="note">
+        पूर्वावलोकन — सार्वजनिक नहीं · Preview — not public
+      </div>
+    )}
+    <header>
+      <LanguageSwitch site={site} href={route.switchTo} target={otherLang(route.lang)} />
+    </header>
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>

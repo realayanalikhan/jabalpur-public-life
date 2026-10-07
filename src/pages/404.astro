@@ -1,0 +1,32 @@
+---
+/**
+ * Bilingual root 404 (scaffold plan §8). Hosts that support nearest-404 may later add per-language
+ * 404 pages; this one serves both languages and links to both homes.
+ */
+import { getSite } from '../lib/site.ts';
+
+const site = await getSite();
+const { t } = site;
+---
+
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{`${t('ui.not-found', 'hi')} · ${t('ui.not-found', 'en')}`}</title>
+    {site.env.siteEnv !== 'production' && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <main>
+      <p>{t('ui.not-found', 'hi')}</p>
+      <p>
+        <a href="/hi/">{t('nav.home', 'hi')}</a>
+      </p>
+      <p lang="en">{t('ui.not-found', 'en')}</p>
+      <p lang="en">
+        <a href="/en/">{t('nav.home', 'en')}</a>
+      </p>
+    </main>
+  </body>
+</html>

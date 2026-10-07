@@ -1,0 +1,9 @@
+# [DEV] Synthetic development fixture. Not real content and not about any real person.
+# Loaded only when SITE_ENV=local; never in preview or production (scaffold plan §15.1).
+devFixture: true
+status: published
+verification: supplied
+type: announcement
+date: { value: "1900-02", approximate: true }
+title: { hi: "[DEV] परीक्षण गतिविधि (केवल हिंदी)" }
+body: { hi: "[DEV] केवल हिंदी परीक्षण पाठ।" }

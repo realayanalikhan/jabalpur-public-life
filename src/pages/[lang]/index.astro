@@ -1,0 +1,32 @@
+---
+/**
+ * Home (foundation only). Shows the person's name, descriptor and short biography only when they
+ * exist and are published; otherwise nothing is invented and the sections stay hidden.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSite, routesOf } from '../../lib/site.ts';
+import { localisedText } from '../../i18n/text.ts';
+import type { RouteDef } from '../../lib/routes.ts';
+
+export async function getStaticPaths() {
+  const site = await getSite();
+  return routesOf(site, ['home']).map((route) => ({ params: { lang: route.lang }, props: { route } }));
+}
+
+interface Props {
+  route: RouteDef;
+}
+const { route } = Astro.props;
+const site = await getSite();
+const lang = route.lang;
+const data = site.person?.data;
+const name = localisedText(data?.['displayName'], lang);
+const descriptor = localisedText(data?.['descriptor'], lang);
+const bio = localisedText(data?.['shortBio'], lang);
+---
+
+<BaseLayout site={site} route={route} title={name ?? site.t('nav.home', lang)}>
+  {name && <h1>{name}</h1>}
+  {descriptor && <p>{descriptor}</p>}
+  {bio && <p>{bio}</p>}
+</BaseLayout>

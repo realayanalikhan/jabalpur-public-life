@@ -2,10 +2,11 @@
 
 A premium bilingual (English and Hindi) public-life profile and archive.
 
-**Status: specification, design decisions and scaffold plan complete; implementation not started.
-No site code yet.** See the [specification](docs/spec/README.md), the
-[decision records](docs/decisions/README.md), the [design brief](docs/design/07-implementation-brief.md)
-and the [technical scaffold plan](docs/implementation/01-technical-scaffold-plan.md).
+**Status: technical foundation in progress (scaffold plan §18). No visual design or real content yet.**
+See the [specification](docs/spec/README.md), the [decision records](docs/decisions/README.md), the
+[design brief](docs/design/07-implementation-brief.md), the
+[technical scaffold plan](docs/implementation/01-technical-scaffold-plan.md) and the
+[foundation notes](docs/implementation/02-foundation-notes.md).
 
 Do not add content about any person or organisation until it has been supplied and confirmed.
 No fictional or placeholder person-specific content may be committed.
@@ -18,7 +19,11 @@ docs/spec/        Project specification (requirements, IA, content, bilingual, d
 docs/decisions/   Decision records (one file per decision)
 docs/research/    Design and product research (inputs, not decisions)
 docs/design/      Design tests, visual direction, wireframes, implementation brief
-docs/implementation/  Technical scaffold plan (plan only)
+docs/implementation/  Technical scaffold plan and implementation notes
+src/              Astro site (content schemas, integrity checks, bilingual routing)
+site.config.ts    All tunable configuration in one place
+scripts/          Repository checks and helpers
+tests/            Unit tests and test fixtures
 ```
 
 ## Prerequisites
@@ -26,6 +31,16 @@ docs/implementation/  Technical scaffold plan (plan only)
 - Git 2.4x+
 - Node.js 24 LTS (see `.nvmrc`)
 - pnpm 10 (via `corepack enable`)
+
+## Commands
+
+```
+pnpm install --frozen-lockfile
+pnpm dev              # local development (synthetic [DEV] fixtures on)
+pnpm check            # format, lint, types, tests, repo scan, CI verification build
+pnpm build:preview    # restricted-preview build (review + published, no fixtures)
+pnpm build            # production deployment build (fails until launch prerequisites exist)
+```
 
 ## Working agreement
 
