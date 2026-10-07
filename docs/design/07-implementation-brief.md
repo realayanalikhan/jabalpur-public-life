@@ -164,7 +164,7 @@ Principle (not a component checklist):
 
 | ID | Question | Depends on |
 |---|---|---|
-| DP-04 | Glossary entries: Hindi navigation register, `nav.archive` term, verification and metadata labels, date forms, nuqta and punctuation | Hindi/English reviewer (OD-16) |
+| DP-04 | Glossary: Recommended entries in [glossary v2](../spec/09-language-glossary.md) await approval; Hindi wording then confirmed by the reviewer | Decision partner; reviewer (OD-16) |
 | OD-20 | Romanisation convention | Glossary work |
 | DP-05 | Final homepage and page wireframes (current ones are conceptual) | DP-04; HP-01/HP-02 |
 | HP-01 | Homepage site statement: approve as optional module? | Decision partner |

@@ -1,13 +1,15 @@
 # Project Specification v1
 
-- **Version:** 1.3
+- **Version:** 1.4
 - **Date:** 2026-10-07
 - **Overall status:** Product and technical architecture decisions approved and recorded in
   [`../decisions/`](../decisions/README.md). v1.2 reconciles the specification with the
   [visual and product research](../research/README.md). v1.3 records the design decisions from
   the [design tests](../design/README.md): typography (0024), palette direction with provisional
   values (0025), verification presentation (0026), public reference IDs (0023) and archive item
-  principles (0027). Open items are listed in
+  principles (0027). v1.4 completes the [glossary and content conventions](09-language-glossary.md)
+  (recommendations awaiting approval) and adds the [technical scaffold plan](../implementation/01-technical-scaffold-plan.md)
+  (plan only). Open items are listed in
   [H](08-open-decisions.md). **Implementation has not started.**
 
 This folder is the project specification. Approved decisions are recorded separately in
@@ -25,7 +27,7 @@ This folder is the project specification. Approved decisions are recorded separa
 | F | [Technical Architecture](06-technical-architecture.md) | **Approved**, with a few setup/operational items open | 0007–0019, 0022 |
 | G | [Security, Privacy & Content Integrity](07-security-privacy-integrity.md) | Working direction (principles accepted; legal review open) | 0006, 0015, 0018 |
 | H | [Open Decisions](08-open-decisions.md) | Living list | — |
-| 09 | [Language Glossary](09-language-glossary.md) | **Framework** (no entries approved except those marked); future source of truth for bilingual content | 0002, 0021 |
+| 09 | [Language Glossary and Content Conventions](09-language-glossary.md) | Version 2: conventions and **Recommended** terminology awaiting approval; romanisation open (OD-20); family-specific terms never inferred | 0002, 0021, 0023, 0024, 0026 |
 
 ## Status legend
 
@@ -67,6 +69,15 @@ This folder is the project specification. Approved decisions are recorded separa
 | 1.1 | 2026-10-07 | Approved decisions recorded (0001–0019). F marked approved. H restructured into open / family input / resolved. Resolved items updated in A, B, C, D, E and G. Image storage threshold made configurable; video given a provider abstraction; accessibility metadata added to build-failing checks. |
 | 1.2 | 2026-10-07 | **Reconciliation with the visual and product research** ([research 02](../research/02-research-to-spec-reconciliation.md)). Changes are listed below. |
 | 1.3 | 2026-10-07 | **Design decisions formalised** from the [design tests](../design/README.md). Changes are listed below. |
+| 1.4 | 2026-10-08 | **Glossary and content conventions completed; technical scaffold plan added.** Changes are listed below. |
+
+### v1.4 changes in detail
+
+| Change | Sections changed | Decision record |
+|---|---|---|
+| Glossary rewritten as **version 2**: status system (Proposed / Recommended / Approved editorial / Family-confirmed / Deprecated); recommended Hindi navigation labels; "Archive" → अभिलेखागार (collections संग्रह, items सामग्री); date, number and month-name conventions (CLDR `hi-IN`: अक्टूबर, फ़रवरी, सितंबर…); nuqta and spelling rules; bilingual punctuation; captions; verification wording (स्रोत से पुष्ट); metadata labels; romanisation documented but **open**; family-specific terms listed | 09 | 0002, 0021, 0023, 0024, 0026 (applied, unchanged) |
+| Technical scaffold plan added (**plan only**) | [implementation/01](../implementation/01-technical-scaffold-plan.md) | Applies 0003–0027; no new decision |
+| DP-04 status updated; IP-07 added | H | — |
 
 ### v1.3 changes in detail
 
