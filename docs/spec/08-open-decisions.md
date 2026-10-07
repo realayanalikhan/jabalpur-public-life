@@ -1,6 +1,6 @@
 # H. Open Decisions
 
-**Status:** Living list (updated for spec v1.2). When an item is decided, record it in
+**Status:** Living list (updated for spec v1.3). When an item is decided, record it in
 [`../decisions/`](../decisions/README.md) and move it to the Resolved section with a link.
 IDs are never reused.
 
@@ -24,7 +24,6 @@ This list deliberately does **not** ask for the person's actual information. Par
 | OD-20 | Romanisation convention for names and recurring terms | **Open.** The decision to use one convention is resolved ([0002](../decisions/0002-bilingual-strategy.md)); the convention itself is chosen through the glossary framework ([09 §8](09-language-glossary.md)). Not resolved here. | Glossary, slugs, English text, SEO | D §9, 09 |
 | OD-24 | Corrections response times | **Open.** Spec G §8 proposes "acknowledge within 7 days; resolve or explain within 30 days" as **guidance only**. No response time is published until decided. Depends on who handles corrections (FI-02, FI-08). | Corrections & Feedback page wording | G §8 |
 | OD-25 | Performance targets | **Open (confirmation).** The numeric targets in spec A §8 (LCP, INP, CLS, touch targets) are working direction, not formally decided. To be confirmed or tuned in the technical phase, ideally after the bilingual visual test. | CI performance budgets | A §8 |
-| OD-26 | Public reference identifiers for archive items | **Proposed** in [0023](../decisions/0023-public-reference-identifiers.md) and awaiting approval. Not to be implemented until accepted. | Item page "About this item" panel, citations | C §2 |
 
 ## 2. Design-phase decisions
 
@@ -32,13 +31,13 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 
 | ID | Decision | Current position | Depends on | Ref |
 |---|---|---|---|---|
-| DP-01 | Final typography pairing | **Leading candidate (not locked):** Noto Serif Devanagari + Source Serif 4 + system sans for interface text. Alternative: Tiro Devanagari Hindi + Literata. Decided after the **bilingual visual test** on a mid-range Android viewport; then recorded in a decision record. | DP-04 (real interface labels for the test) | E §2, E §11; research §13.3 |
-| DP-02 | Palette validation and design tokens | **Provisional:** marble off-white `#F5F3EE`, granite ink `#1F2627`, Narmada blue-green `#1F5357`, one restrained warm tone. **Not tokens yet.** Validated against authentic Jabalpur photography and contrast-checked first. Approved existing imagery can be used if commissioned photography is not available. | Imagery (commissioned photography depends on OD-17 and family approval) | E §4, E §11; research §13.2 |
-| DP-03 | Verification label wording and launch display level | Model approved (concise label + optional details + "Sources and notes"; C §3). Draft wording in research §16. **Final Hindi wording needs the translation reviewer** (OD-16). | OD-16 | C §3; research §16 |
-| DP-04 | Glossary entries (interface, archive, date, typography conventions) | Framework in [09](09-language-glossary.md). Entries move from *proposed* to *approved* there. Names of the person depend on FI-06. | OD-20, OD-16, FI-06 | 09 |
-| DP-05 | Homepage and key page wireframes | Concept in research §14–§16, using placeholders only. | DP-01, DP-02 (provisional), DP-04 | B; research §14–§16 |
-| DP-06 | River-line motif execution | Direction approved ([0005](../decisions/0005-design-direction.md)); execution (weight, where it bends, footer use) in the design system. | DP-02 | E §5; research §13.6 |
-| DP-07 | Whether Occasions get standalone public pages | **Open.** [0020](../decisions/0020-occasion-connective-archive-entity.md) adds no route. Occasions drive "From the same occasion" blocks and Timeline entries. A standalone occasion page would be an IA addition and needs its own decision. | DP-05 | C §4.1; B §3 |
+| DP-04 | Glossary entries (interface, archive, verification labels, date, typography conventions) | **Open.** Framework in [09](09-language-glossary.md); entries move from *proposed* to *approved* there. Includes final wording of verification labels ([0026](../decisions/0026-verification-and-source-presentation.md)) and the reference label ([0023](../decisions/0023-public-reference-identifiers.md)). Names of the person depend on FI-06. | OD-20, OD-16, FI-06 | 09 |
+| DP-05 | Homepage and key page wireframes | **Open.** Conceptual wireframes exist ([design 04](../design/04-homepage-wireframe.md), [06](../design/06-key-page-wireframes.md)); they are design direction, not permission to code. Finalised after DP-04 and the homepage decisions HP-01/HP-02. | DP-04, HP-01, HP-02 | B; design 04, 06 |
+| DP-06 | River-line motif execution | **Direction tested and settled** ([0005](../decisions/0005-design-direction.md); [design 03 §8](../design/03-visual-direction.md#8-the-river-line)): primarily the **Timeline spine**; at most one restrained rule above the footer; never decorative elsewhere, never animated, never a logo, never competing with photography or typography; the site must work perfectly without it. **Open:** execution details (stroke weight, where it bends) in the design system. | Design system | E §5 |
+| DP-07 | Whether Occasions get standalone public pages | **Open.** The model is approved ([0020](../decisions/0020-occasion-connective-archive-entity.md)): Occasions connect material, and archive items, the Timeline and updates can reference them. **Recommendation:** an Occasion should receive a standalone public page **only when it has enough related material for the page to be editorially useful**; otherwise it remains a relationship/metadata layer. No route is created until decided, informed by the archive inventory. | FI-03, DP-05 | C §4.1; B §3 |
+| DP-08 | Exact palette values | **Open.** Direction accepted ([0025](../decisions/0025-local-material-visual-palette.md)). Candidate values stay provisional until validated against authentic project imagery (family archive samples, any commissioned photography), dry-season Narmada photographs (accent hue), the ink and warm-band variants, and contrast checks. | FI-03, OD-17 | E §4; design 02 |
+| HP-01 | Homepage site statement | **Proposed** (not approved; not a launch requirement). Analysis: recommended as an optional module ([design 08](../design/08-homepage-additions-analysis.md#hp-01--site-statement)). | Decision partner | B §4.2 |
+| HP-02 | Homepage "places in the record" | **Proposed** (not approved; not a launch requirement). Analysis: conditional and threshold-governed; decide once the inventory is known ([design 08](../design/08-homepage-additions-analysis.md#hp-02--places-in-the-record)). | FI-03 | B §4.2 |
 
 ## 3. Implementation-phase decisions
 
@@ -157,3 +156,14 @@ These need design work (tests, wireframes, wording) but **no family input**, unl
 | Corrections response times | **Clarified:** guidance only; open as OD-24 | G §8 |
 | Performance targets | **Clarified:** working direction; open as OD-25 | A §8 |
 | Duplicate OD-23 / FI-07 | **Resolved:** OD-23 merged into FI-07 | Part 5 |
+
+### Design decisions (spec v1.3)
+
+| ID | Decision | Resolution | Record |
+|---|---|---|---|
+| DP-01 | Typography | **Resolved:** Noto Serif Devanagari + Source Serif 4 + system sans UI; based on the rendered 360/412 px test; physical Android QA required | [0024](../decisions/0024-typography-system.md) |
+| DP-02 | Palette direction | **Resolved (direction):** marble / granite / Narmada blue-green / restrained warm tone. Exact values: DP-08 (open) | [0025](../decisions/0025-local-material-visual-palette.md) |
+| DP-03 | Verification presentation | **Resolved:** short source markers, "Sources and notes", Level-1 labels with optional details; no badges or traffic-light colours. Label wording: DP-04 | [0026](../decisions/0026-verification-and-source-presentation.md) |
+| OD-26 | Public reference identifiers | **Resolved:** accepted in restrained form (details, citation, correction only; opaque, non-sequential) | [0023](../decisions/0023-public-reference-identifiers.md) |
+| — | Archive item page principles | **Resolved:** media → caption → title → date/type/place → source → narrative → details → occasion → rights/credit → use and cite → related → correction | [0027](../decisions/0027-archive-item-page-principles.md) |
+| — | Homepage principle | **Resolved:** identity → context → public record → archive → timeline/places → current activity → connect; content-driven; no empty modules, placeholder cards, fake activity or invented content | B §4.2; [design 07](../design/07-implementation-brief.md#homepage) |

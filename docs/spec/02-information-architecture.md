@@ -136,6 +136,12 @@ components ([0003](../decisions/0003-information-architecture.md)):
 
 ### 4.2 Homepage modules
 
+**Homepage principle** (approved, spec v1.3): **identity → context → public record → archive →
+timeline/places → current activity → connect**. This is an order, not a rigid component checklist.
+Content availability decides which sections appear: no empty modules, placeholder cards, fake
+activity or invented archive content. Two proposed additions, a site statement (HP-01) and
+"places in the record" (HP-02), are **not approved** ([design 08](../design/08-homepage-additions-analysis.md)).
+
 The homepage is a stack of modules. Each module hides itself if it has no content.
 
 | Order | Module | Condition |

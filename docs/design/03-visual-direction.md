@@ -1,9 +1,11 @@
 # 03. Visual direction
 
 - **Date:** 2026-10-07
-- **Status:** Visual brief for review. Typography follows the test recommendation (Direction A,
-  pending a decision record). The palette is **provisional** (DP-02). Nothing here is production CSS
-  or the design system.
+- **Status:** Visual brief (conceptual direction). Typography is now governed by
+  [0024](../decisions/0024-typography-system.md), the palette by
+  [0025](../decisions/0025-local-material-visual-palette.md) (values provisional, DP-08) and
+  verification presentation by [0026](../decisions/0026-verification-and-source-presentation.md).
+  Nothing here is production CSS or the design system.
 - **Builds on:** [research §12–§13](../research/01-visual-product-research.md#12-visual-opportunity),
   [01 typography test](01-bilingual-typography-test.md), [02 palette validation](02-palette-validation.md),
   [spec E](../spec/05-design-brief.md), [0005](../decisions/0005-design-direction.md).

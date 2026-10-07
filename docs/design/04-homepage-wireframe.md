@@ -1,8 +1,9 @@
 # 04. Homepage wireframe
 
 - **Date:** 2026-10-07
-- **Status:** Conceptual wireframe for review. **No production code. No invented content:** every
-  value is a placeholder (‹public name›, ‹descriptor›, ‹role, years›…).
+- **Status:** Conceptual wireframe (DP-05 open). **No production code. No invented content:** every
+  value is a placeholder (‹public name›, ‹descriptor›, ‹role, years›…). H2 and H6 are **proposals**
+  (HP-01, HP-02), analysed in [08](08-homepage-additions-analysis.md) and not approved.
 - **Constraints:**
   - [spec B §4.2](../spec/02-information-architecture.md#42-homepage-modules) (homepage modules);
   - [0003](../decisions/0003-information-architecture.md) (timeless homepage, hidden empty sections);

@@ -3,7 +3,8 @@
 - **Date:** 2026-10-07
 - **Status:** **Partially validated.** The palette direction holds and the interface contrast is
   validated. Several imagery criteria **cannot yet be validated** because authentic material is not
-  available. Hex values remain **provisional candidates, not design tokens** (DP-02 stays open).
+  available. **Direction accepted** as [0025](../decisions/0025-local-material-visual-palette.md); hex
+  values remain **provisional candidates, not design tokens** (exact values: DP-08).
 - **Artefact:** [`test-pages/palette-test.html`](test-pages/palette-test.html) ·
   **Screenshot (interface only, no third-party photos):**
   [`screenshots/palette-ui-no-photos.png`](screenshots/palette-ui-no-photos.png)

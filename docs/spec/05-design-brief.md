@@ -117,6 +117,14 @@ regional or tribal art styles (e.g. Gond art) unless commissioned from and credi
 The strongest Jabalpur signal is **real local photography and real place names**, used
 throughout the content.
 
+**River line, tested direction** (DP-06; [design 03 §8](../design/03-visual-direction.md#8-the-river-line)):
+- primarily the **Timeline spine**;
+- at most one restrained rule above the footer;
+- never decorative elsewhere, never animated, never a logo;
+- never competing with photography or typography.
+
+The site must work perfectly without it. Stroke weight and bends are set in the design system.
+
 ## 6. Spacing and layout
 
 - 4 px base unit with an 8 px rhythm; generous vertical spacing between sections.
