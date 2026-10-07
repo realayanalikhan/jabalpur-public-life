@@ -7,6 +7,7 @@ not decisions.
 | # | Document | Research date | Status |
 |---|---|---|---|
 | 01 | [Visual and product research](01-visual-product-research.md) | 7 October 2026 | Complete; input to the design phase |
+| 02 | [Research-to-specification reconciliation](02-research-to-spec-reconciliation.md) | 7 October 2026 | Analysis for review; maps 01 against the spec and decisions; changes nothing |
 
 ## Purpose
 
