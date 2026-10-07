@@ -1,0 +1,19 @@
+---
+/**
+ * The single language switch ([0021]): a plain link showing only the other language, in its own
+ * script, to the same path in that language. Wording from glossary keys.
+ */
+import type { Site } from '../../lib/site.ts';
+import type { Lang } from '../../lib/routes.ts';
+
+interface Props {
+  site: Site;
+  href: string;
+  target: Lang;
+}
+const { site, href, target } = Astro.props;
+---
+
+<a href={href} lang={target} hreflang={target} translate="no" aria-label={site.t('lang.switch.a11y', target)}>
+  {site.t(`lang.switch.to-${target}`, target)}
+</a>

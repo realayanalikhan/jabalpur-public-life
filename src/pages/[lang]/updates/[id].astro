@@ -1,0 +1,55 @@
+---
+/**
+ * Update item (foundation for bilingual item routes). Generated only when the Updates section is
+ * visible. A language without a real translation gets a noindex notice page that links to the
+ * available version and never shows the untranslated text ([0021]).
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getSite, routesOf } from '../../../lib/site.ts';
+import { localisedText } from '../../../i18n/text.ts';
+import { formatArchiveDate, type ArchiveDateValue } from '../../../i18n/format.ts';
+import type { RouteDef } from '../../../lib/routes.ts';
+
+export async function getStaticPaths() {
+  const site = await getSite();
+  return routesOf(site, ['update', 'notice']).map((route) => ({
+    params: { lang: route.lang, id: route.id },
+    props: { route },
+  }));
+}
+
+interface Props {
+  route: RouteDef;
+}
+const { route } = Astro.props;
+const site = await getSite();
+const lang = route.lang;
+const entry = (site.built['activities'] ?? []).find((e) => e.id === route.id);
+if (!entry) throw new Error(`Route ${route.path} has no entry.`);
+const title = localisedText(entry.data['title'], lang);
+const body = localisedText(entry.data['body'], lang);
+const date = entry.data['date'] as ArchiveDateValue;
+const notice = site.t('notice.not-available', lang);
+const available = route.availableIn;
+---
+
+{route.kind === 'notice' && available ? (
+  <BaseLayout site={site} route={route} title={notice}>
+    <p>{notice}</p>
+    <p>
+      <a href={route.switchTo} lang={available} hreflang={available}>
+        {site.t('lang.switch.a11y', available)}
+      </a>
+    </p>
+  </BaseLayout>
+) : (
+  <BaseLayout site={site} route={route} title={title ?? ''}>
+    <article>
+      <h1>{title}</h1>
+      <p>
+        <time datetime={date.value}>{formatArchiveDate(date, lang)}</time>
+      </p>
+      {body && <p>{body}</p>}
+    </article>
+  </BaseLayout>
+)}

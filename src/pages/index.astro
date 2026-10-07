@@ -1,0 +1,24 @@
+---
+/**
+ * `/` always resolves to `/hi/` ([0002], [0021]): static redirect, no language detection, no stored
+ * preference. A host-level redirect is generated later from host-neutral definitions (plan §14).
+ */
+import { getSite } from '../lib/site.ts';
+
+const site = await getSite();
+const target = '/hi/';
+---
+
+<!doctype html>
+<html lang="hi">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={site.env.siteUrl + target} />
+    <meta name="robots" content="noindex" />
+    <title>{site.t('nav.home', 'hi')}</title>
+  </head>
+  <body>
+    <a href={target}>{site.t('nav.home', 'hi')}</a>
+  </body>
+</html>
