@@ -9,7 +9,7 @@
 
 | # | Document | Purpose |
 |---|---|---|
-| 01 | [Technical scaffold plan](01-technical-scaffold-plan.md) | The plan Claude follows when implementation begins: setup, directory structure, content model, integrity checks, routes, bilingual routing, media, archive, CSS boundaries, CI/CD, hosting portability, tests, exclusions, family-input dependencies, final checkpoint |
+| 01 | [Technical scaffold plan](01-technical-scaffold-plan.md) | The plan Claude follows when implementation begins: setup, directory structure, content model, integrity checks (with traceability, §6.1), routes, bilingual routing, media, archive, CSS boundaries, CI/CD, hosting portability, tests, exclusions, family-input dependencies, final checkpoint, consistency review (§19) and readiness assessment (§20) |
 
 ## Authority
 

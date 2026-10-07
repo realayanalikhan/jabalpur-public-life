@@ -1,6 +1,6 @@
 # 01. Technical scaffold plan
 
-- **Date:** 2026-10-08
+- **Date:** 2026-10-08 (final consistency review: §19–§20)
 - **Status:** **Plan only. Not implemented.** No directories, files, routes, dependencies or tests
   described here exist yet.
 - **Authority:** [decision records](../decisions/README.md) › [spec](../spec/README.md) (incl.
@@ -33,10 +33,10 @@
 | Output | `output: 'static'`; `build.format: 'directory'`; trailing slashes always (`trailingSlash: 'always'`) | 0008 |
 | Runtime | Node 24 LTS (`.nvmrc`), `engines.node` set | [0019](../decisions/0019-runtime-and-package-manager.md) |
 | Package manager | pnpm via Corepack; `packageManager` field; committed lockfile; frozen installs in CI | 0019 |
-| Site URL | `SITE_URL` environment variable (the domain is unknown, FI-01). Production builds **fail** if it is unset; local and preview use a placeholder | — |
+| Site URL | `SITE_URL` environment variable. **The domain is family-dependent (FI-01) and is never invented.** **Local:** defaults to `http://localhost:4321`. **Preview:** the host's preview URL, or a reserved placeholder (`https://preview.invalid`). **CI verification builds:** `https://example.invalid`. **Production deployment:** must be the real configured domain; a missing or reserved/placeholder host (`.invalid`, `.test`, `.example`, `localhost`) fails the build (I23). Needed because canonicals, hreflang and sitemaps require absolute URLs (spec A FR-S2) | spec A FR-S2; FI-01 |
 | Build mode | `SITE_ENV` = `local` \| `preview` \| `production`. **Unset means production rules** | [0013](../decisions/0013-environments-and-deployment.md) |
 | i18n | Astro i18n: `locales: ['hi', 'en']`, `defaultLocale: 'hi'`, `routing.prefixDefaultLocale: true`; `/` redirects to `/hi/` | [0002](../decisions/0002-bilingual-strategy.md), [0021](../decisions/0021-language-switching-and-single-language-content.md) |
-| Configuration | One typed `site.config.ts`: visibility thresholds, homepage updates age, provenance display level, analytics switch, media storage mode, decade-merge minimum, lens minimums | [0003](../decisions/0003-information-architecture.md), [0010](../decisions/0010-repository-based-content.md), [0016](../decisions/0016-analytics-strategy.md) |
+| Configuration | One typed `site.config.ts`: visibility thresholds, homepage updates age, provenance display level, analytics switch, media storage mode, decade-merge minimum, lens minimums, `launch.ready` (§6.2) | [0003](../decisions/0003-information-architecture.md), [0010](../decisions/0010-repository-based-content.md), [0016](../decisions/0016-analytics-strategy.md) |
 
 **Planned dependencies (candidates; each justified at implementation):**
 - Core: `astro`, `typescript`, `@astrojs/check`; `sharp` (Astro's image service); Zod (bundled with
@@ -192,15 +192,15 @@ the rules the spec makes binding. **None of these may be weakened without a supe
 | # | Check | Runs | Production | Preview | Local |
 |---|---|---|---|---|---|
 | I1 | **Unverified content publishable**: `status: published` with `verification: unverified` | V | F | F (published); `review` allowed with marker | W |
-| I2 | **Development fixtures**: any `devFixture: true` entry or `_dev/` content in the build | V + P | F | F | allowed |
-| I3 | **Missing required core translation**: core pages (Home, About, Public Life, Connect, utility pages) not `reviewed` in both languages | V | F | W + banner | W |
+| I2 | **Development fixtures**: any `devFixture: true` entry, any `_dev/` content, or the `[DEV]` marker anywhere in the output | V + P | F | F | allowed |
+| I3 | **Missing required core translation**: a core page (Home, About, Public Life, Connect, utility pages) that exists but is not `reviewed` in both languages. A core page that **does not exist yet** is a launch-readiness item (§6.2) | V | F | W + banner | W |
 | I4 | **Stale required core translation**: `sourceHash` ≠ hash of the original | V | F | W + banner | W |
 | I5 | **Verified without a source** | S | F | F | F |
 | I6 | **Broken references**: a reference to a non-existent entity, or a published entity referencing a non-published one | S + V | F | F (non-existent); `review` targets allowed | W |
 | I7 | **GPS metadata in images**: any committed image under `src/assets/` or `public/` containing GPS EXIF, and any output image with GPS | R + P | F | F | F |
 | I8 | **Required accessibility metadata missing**: alt text for each language a photo is published in; video captions; `lang` on mixed-language fields | V | F | W | W |
-| I9 | **Invalid relationships**: more than one Occasion per item; a TimelineEvent describing an Occasion that is `onTimeline`; a Coverage item without an outlet; a Role without a period; a Collection listing an item that doesn't exist or isn't published | V | F | F | W |
-| I10 | **Unpublished content leaking**: any draft, review or archived entity's URL, title or reference present in production output | P | F | — | — |
+| I9 | **Invalid relationships** ([0020](../decisions/0020-occasion-connective-archive-entity.md)): an archive item or Activity referencing more than one Occasion; a TimelineEvent that references an Occasion (it must use the Occasion's `onTimeline` instead); a relationship to the wrong entity type. (Optional fields such as a Role's dates or a Coverage outlet are **not** required: missing data is normal, spec C §1) | V | F | F | W |
+| I10 | **Unpublished or preview material leaking**: any draft, review or archived entity's URL, title or reference in production output; any preview-only marker (review/unverified banners, the preview `noindex` policy, the hidden-sections report) in production output | P | F | — | — |
 | I11 | **Internal notes or internal sources leaking**: any `internalNotes` text or internal Source title found in output | P | F | F | W |
 | I12 | **Reference identifiers**: missing on a published archive item; duplicate; wrong format (sequential pattern, date-like, type prefix); reuse of a retired reference (checked against a committed registry) | V | F | F | W |
 | I13 | **Machine-draft translation published** | V | F | W | W |
@@ -213,7 +213,7 @@ the rules the spec makes binding. **None of these may be weakened without a supe
 | I20 | **Internal link integrity**: any internal link that does not resolve in the output | P | F | F | W |
 | I21 | **Personal-data patterns** in content text: ID-number-like or phone-number-like strings, except approved public contact methods | R + V | F | F | W |
 | I22 | **Restricted files in the repository**: forbidden paths or types (e.g. a `restricted/` folder, master-format TIFF/RAW, consent-form names) | R | F | F | F |
-| I23 | **Production configuration**: `SITE_URL` unset; `SITE_ENV` not production on the production branch; analytics enabled without the privacy notice | V | F | — | — |
+| I23 | **Production deployment configuration and launch prerequisites**: `SITE_URL` missing or a reserved/placeholder host; `SITE_ENV` not `production`; analytics enabled without the privacy notice; launch criteria of spec A §5.2 unmet (approved family-confirmed public name, approved portrait, reviewed short biography, at least one public contact method, policy pages) | V | F (deployment); see §6.2 for CI | — | — |
 
 **Warnings only (never failures):**
 - stale non-core translations;
@@ -224,6 +224,59 @@ the rules the spec makes binding. **None of these may be weakened without a supe
 The **hosting build runs the same checks** as CI, so production stays protected even without
 branch protection ([0014](../decisions/0014-ci-strategy-github-actions.md)).
 
+### 6.1 Traceability of the checks
+
+[0018](../decisions/0018-content-integrity-rules.md) lists **eight** conditions that must fail a
+production build, plus supporting rules. The scaffold implements those, and adds **binding
+implementation rules** derived from other accepted decisions or binding specification requirements.
+The additional checks are **not** part of 0018. They are enforced because their sources require the
+behaviour.
+
+| Check | Source | Classification |
+|---|---|---|
+| I1 Unverified content publishable | 0018 condition 1 | **0018 core** |
+| I2 Development fixtures | 0018 condition 2 | **0018 core** |
+| I3 Missing core translation | 0018 condition 3 | **0018 core** |
+| I4 Stale core translation | 0018 condition 4 | **0018 core** |
+| I5 Verified without source | 0018 condition 5 | **0018 core** |
+| I6 Broken references | 0018 condition 6 | **0018 core** |
+| I7 GPS metadata | 0018 condition 7 | **0018 core** |
+| I8 Accessibility metadata | 0018 condition 8 | **0018 core** |
+| I11 Internal notes or sources leaking | 0018 supporting rule ("never rendered or shipped"); 0004; spec A FR-C5 | 0018 supporting rule |
+| I13 Machine-draft translation published | 0018 supporting rule; 0002 point 8 | 0018 supporting rule |
+| I9 Invalid relationships | [0020](../decisions/0020-occasion-connective-archive-entity.md) points 4, 6 | Binding implementation rule |
+| I10 Unpublished or preview material leaking | [0013](../decisions/0013-environments-and-deployment.md) (production = published only); spec A FR-C2 | Binding implementation rule |
+| I12 Reference identifiers | [0023](../decisions/0023-public-reference-identifiers.md) points 4–6 (uniqueness "validated at build time") | Binding implementation rule |
+| I14 Glossary keys | Spec 09 §1–§2 (only Approved editorial or Family-confirmed wording is published); 0002 (no English interface text on Hindi pages) | Binding implementation rule |
+| I15 Redaction incomplete | Spec G §4 ("unredacted documents cannot be published"); 0006 point 7 | Binding implementation rule |
+| I16 Consent | Spec G §6 (minors and private individuals) | Binding implementation rule |
+| I17 Rights | [0006](../decisions/0006-archive-strategy.md) points 3–4 | Binding implementation rule |
+| I18 Notice pages | [0021](../decisions/0021-language-switching-and-single-language-content.md) points 6–7 | Binding implementation rule |
+| I19 Hidden sections generated | [0003](../decisions/0003-information-architecture.md) point 4 | Binding implementation rule |
+| I20 Internal links | [0014](../decisions/0014-ci-strategy-github-actions.md) (internal-link checking) | Binding implementation rule |
+| I21 Personal-data patterns | Spec G §4 (redaction of ID numbers, phone numbers) | Binding implementation rule (safeguard) |
+| I22 Restricted files | Spec G §1; [0011](../decisions/0011-image-and-media-strategy.md) point 3 (masters never in git) | Binding implementation rule |
+| I23 Production configuration and launch prerequisites | Spec A FR-S2 (absolute URLs), §5.2 (launch criteria); 0013; [0016](../decisions/0016-analytics-strategy.md) consequences (privacy notice) | Binding implementation rule |
+
+### 6.2 Deployment builds versus CI verification builds
+
+0018's "production build" means the build that **deploys the public production site**. That build
+always runs every check above as a failure.
+
+Before launch, the real content tree is incomplete by design: no family-confirmed name, no core
+pages, Recommended glossary wording. A production-rules build in CI would therefore fail on every
+pull request for reasons that are expected, not defects. To keep CI meaningful **without weakening
+any production rule**:
+
+| Build | Content filter | Checks |
+|---|---|---|
+| **Production deployment build** (host, `main`) | Published only | **All checks I1–I23 fail.** Production deployment is not enabled until launch; when enabled, it cannot succeed unless every launch prerequisite is met |
+| **CI verification build** (every pull request) | Published only (production rules), `SITE_URL=https://example.invalid` | All integrity and leakage checks fail as in production. The **launch-readiness items** are reported as a **launch-blocker list** instead of failing, until `site.config.ts → launch.ready` is set to `true`: core pages not yet created (I3 second sentence), unapproved glossary keys (I14), and I23's domain and launch criteria. From then on they fail in CI too |
+| **Check test suite** (every pull request) | Synthetic fixture sets | Each check is exercised with fixtures that must pass and fixtures that must fail, so every check is proven to work even before real content exists |
+
+`launch.ready` can only be changed in a reviewed pull request. It does not affect deployment builds,
+which are always strict.
+
 ## 7. Environments
 
 | Environment | Trigger | Content shown | Indexing | Access |
@@ -233,6 +286,19 @@ branch protection ([0014](../decisions/0014-ci-strategy-github-actions.md)).
 | **Production** | `main` (`SITE_ENV=production`, the default) | `published` only | Indexed; sitemaps | Public |
 
 ([0013](../decisions/0013-environments-and-deployment.md))
+
+**Preview and production separation:**
+- Preview **can** show `review` content (with banners).
+- Preview **cannot** show development fixtures (I2 fails).
+- Preview is **`noindex`** on every page, with `robots.txt` disallowing all, and sits behind access
+  control.
+- Production shows **`published` content only**.
+- Production **cannot inherit preview behaviour**:
+  - `SITE_ENV` defaults to production rules, so preview must be requested explicitly;
+  - the production deployment sets `SITE_ENV=production` explicitly, and I23 fails if it is anything
+    else;
+  - a post-build scan (I10) fails if any preview-only marker (banners, preview `noindex` policy,
+    hidden-sections report) appears in production output.
 
 ## 8. Routes and URLs
 
@@ -271,6 +337,9 @@ Rules:
 | 404 | `/hi/404.html`, `/en/404.html`, bilingual root `/404.html` | | Host serves the nearest 404 where supported; the root one is bilingual |
 | **Occasion pages** | *(none)* | *(none)* | **Only if DP-07 is accepted**; then `/{lang}/archive/occasions/{id}/` |
 | Reference redirect `/r/{ref}` | *(none)* | *(none)* | Not part of 0023 |
+
+**Homepage:** only the approved homepage modules are built ([spec B §4.2](../spec/02-information-architecture.md#42-homepage-modules));
+the proposed site statement (HP-01) and places section (HP-02) are **not built** unless approved.
 
 **Language switching:** on every page, the switch links to the same path in the other language. That
 path is either the equivalent page or the notice page (§9).
@@ -353,7 +422,7 @@ path is either the equivalent page or the notice page (§9).
 | 3 | **Lint + type/template checks** (linter, `astro check`, `tsc --noEmit`) | Fail |
 | 4 | **Content validation**: schema load (S checks) and unit tests | Fail |
 | 5 | **Integrity checks**: V checks in production mode (I1–I23 as applicable) | Fail |
-| 6 | **Production build** (`SITE_ENV=production`, test `SITE_URL`) | Fail |
+| 6 | **CI verification build** with production rules (`SITE_ENV=production`, `SITE_URL=https://example.invalid`; §6.2) and the check test suite | Fail on integrity and leakage checks; launch-readiness items listed as blockers until `launch.ready` |
 | 7 | **Internal link check** on the output (I20) | Fail |
 | 8 | **Accessibility checks**: axe on key templates, both languages, at 360 px and 1280 px | Fail on serious or critical issues |
 | 9 | **Image/GPS checks**: repository + output (I7, I22) | Fail |
@@ -397,7 +466,23 @@ Deployment:
 | Internal links | Whole-output link check |
 | Glossary | Production rejects unapproved keys; no English interface strings on Hindi pages |
 
-All test data is synthetic, marked `[DEV]`, and never resembles the person.
+### 15.1 Synthetic test data rules
+
+- **Unmistakably development-only.** Every fixture lives in `src/content/_dev/` (site fixtures) or
+  `tests/fixtures/` (test-only fixtures). Each entry has `devFixture: true`, and **every visible text
+  field begins with `[DEV]`**.
+- **Never in preview or production.** Fixture paths are excluded from preview and production
+  content loading. I2 fails a preview or production build if any fixture entry or any `[DEV]` text
+  reaches the output.
+- **Never resembling the person:**
+  - generic placeholders only (e.g. "[DEV] Test Person A", "[DEV] परीक्षण व्यक्ति", "[DEV] Sample
+    role", "[DEV] Test Locality");
+  - no real personal names, party names, organisation names, ward names or numbers, real
+    initiatives, quotations or career-like date sequences;
+  - no fixture states or implies a fact about any real person;
+  - images are synthetic grey placeholders.
+- **Separate from real content.** Real entries are created only from family-supplied or sourced
+  material, in the normal content folders, and never by editing a fixture into a real record.
 
 ## 16. Not built yet (explicit exclusions)
 
@@ -425,7 +510,7 @@ change:
 
 | Input | Where it plugs in | Built without it |
 |---|---|---|
-| Public name (FI-06) | `person.displayName` (family-confirmed), glossary | Placeholder only in local fixtures; production fails without it |
+| Public name (FI-06) | `person.displayName` (family-confirmed), glossary | Fixtures use `[DEV]` placeholders only. A production deployment fails without it (I23 launch prerequisites) |
 | Hindi spelling (FI-06) | `person.displayName.hi`, glossary family-confirmed entries | — |
 | Roles (and how they are named) | `roles/` entries, glossary | Roles section hidden |
 | Dates | `ArchiveDate` fields | Fields omitted |
@@ -435,7 +520,7 @@ change:
 | Social accounts (FI-09) | `social-links/` | Not shown |
 | Video channel (FI-09) | `videos.provider` | Video section hidden |
 | Personal-details policy (FI-07) | `person.publishLifeDates` and related flags | Personal details not shown |
-| Domain (FI-01) | `SITE_URL` | Production build fails until set |
+| Domain (FI-01) | `SITE_URL` | Local and preview work without it; CI uses `https://example.invalid`; the production deployment fails until the real domain is configured (I23) |
 | Maintenance (FI-02) | Operations guide; possible future CMS decision | Repository workflow |
 | Translation reviewer (OD-16) | `translations.*.reviewer`; glossary approval | Nothing can be marked reviewed, so core pages cannot ship (I3) |
 
@@ -503,3 +588,50 @@ See §16.
 5. Tokens and global CSS (§12) with provisional colours; fonts.
 6. Components and layouts, then pages.
 7. Preview environment on the host (OD-22, IP-04).
+
+## 19. Final consistency review (2026-10-08)
+
+The plan was checked against decision records 0001–0027, spec v1.4 (incl. glossary v2.1), the design
+implementation brief, the content and Occasion models, the bilingual routing rules, the archive model
+and the verification rules.
+
+**No contradiction with any accepted decision record was found.** The review found and corrected
+these **inconsistencies within this plan**:
+
+| # | Finding | Resolution |
+|---|---|---|
+| 1 | I9 required a Role period and a Coverage outlet. This contradicted spec C §1 ("every person-specific field is optional"; missing data is normal) | Removed; I9 now enforces only the [0020](../decisions/0020-occasion-connective-archive-entity.md) relationship rules |
+| 2 | The additional checks were presented alongside 0018 without attribution | §6.1 traces every check: 0018 core (I1–I8), 0018 supporting rules (I11, I13), and binding implementation rules with their sources (the rest) |
+| 3 | "Production fails without the domain" did not distinguish environments, and the domain is family-dependent | §2: local and preview work without a domain; CI uses a reserved placeholder; only the production **deployment** requires the real domain (I23) |
+| 4 | A CI "production build" would fail every pull request before launch because content is intentionally absent | §6.2: deployment builds stay fully strict; CI verification builds report launch-readiness items as blockers until `launch.ready`; a check test suite proves every check on fixtures. No production rule is weakened |
+| 5 | Launch prerequisites (spec A §5.2) were implied in §17 but not traceable to a check | Folded into I23 with source spec A §5.2 |
+| 6 | Preview/production separation relied on configuration alone | §7: explicit opt-in to preview, explicit production setting checked by I23, preview markers scanned by I10 |
+| 7 | Fixture rules were stated briefly | §15.1: path, flag, `[DEV]` prefix, output scan, no resemblance to the person |
+| 8 | Glossary v2.1 changed two Hindi labels (How We Verify, Terms / Takedown) | No plan change needed: interface strings are glossary keys (§9) |
+
+## 20. Final readiness assessment
+
+| Area | Status |
+|---|---|
+| Product direction | **Ready** (0001, 0003, 0005) |
+| Architecture | **Ready** (0008–0019) |
+| Content model | **Ready** (0004, 0020, 0023, 0027; §4) |
+| Bilingual system | **Ready.** Routing and switching are fully specified (0002, 0021). Romanisation (OD-20) is open but non-blocking for the scaffold, which uses synthetic slugs; it must be settled before real content receives URLs |
+| Glossary | **Ready for the scaffold; reviewer needed before launch.** Conventions approved; terminology Recommended; reviewer (OD-16) needed for Hindi confirmation |
+| Design system | **Ready for implementation** (0024, 0025 with provisional colour values, 0026; design brief) |
+| Integrity model | **Ready** (§6, §6.1, §6.2) |
+| CI plan | **Ready** (§13, §6.2) |
+| Hosting | **Open but non-blocking** (OD-22; portable static output) |
+| Family input | **Non-blocking for the scaffold** (§17) |
+| Launch | **Not ready.** Needs family input (name, content, contacts, domain), translation reviewer, approved glossary wording, legal review (OD-18), DP-08 palette validation and physical-device QA |
+
+**Can we safely begin the Astro scaffold without making irreversible product decisions?**
+
+**Yes.**
+- The scaffold builds infrastructure only: configuration, schemas, integrity checks, routing, CI,
+  tokens and components with synthetic `[DEV]` data.
+- Everything still undecided enters later as **content or configuration**: names, roles, dates,
+  party presentation, contacts, channels, domain, colour values, glossary wording, homepage
+  additions, Occasion pages and romanisation.
+- No real person-specific content is created, and production deployment stays disabled until launch.
+- No decision record needs to change to begin.

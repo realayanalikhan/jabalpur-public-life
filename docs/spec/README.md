@@ -27,7 +27,7 @@ This folder is the project specification. Approved decisions are recorded separa
 | F | [Technical Architecture](06-technical-architecture.md) | **Approved**, with a few setup/operational items open | 0007–0019, 0022 |
 | G | [Security, Privacy & Content Integrity](07-security-privacy-integrity.md) | Working direction (principles accepted; legal review open) | 0006, 0015, 0018 |
 | H | [Open Decisions](08-open-decisions.md) | Living list | — |
-| 09 | [Language Glossary and Content Conventions](09-language-glossary.md) | Version 2: conventions and **Recommended** terminology awaiting approval; romanisation open (OD-20); family-specific terms never inferred | 0002, 0021, 0023, 0024, 0026 |
+| 09 | [Language Glossary and Content Conventions](09-language-glossary.md) | Version 2.1: conventions **Approved editorial**; terminology **Recommended** (approval + reviewer); romanisation **open** (OD-20); family-specific terms never inferred | 0002, 0021, 0023, 0024, 0026 |
 
 ## Status legend
 
@@ -78,6 +78,8 @@ This folder is the project specification. Approved decisions are recorded separa
 | Glossary rewritten as **version 2**: status system (Proposed / Recommended / Approved editorial / Family-confirmed / Deprecated); recommended Hindi navigation labels; "Archive" → अभिलेखागार (collections संग्रह, items सामग्री); date, number and month-name conventions (CLDR `hi-IN`: अक्टूबर, फ़रवरी, सितंबर…); nuqta and spelling rules; bilingual punctuation; captions; verification wording (स्रोत से पुष्ट); metadata labels; romanisation documented but **open**; family-specific terms listed | 09 | 0002, 0021, 0023, 0024, 0026 (applied, unchanged) |
 | Technical scaffold plan added (**plan only**) | [implementation/01](../implementation/01-technical-scaffold-plan.md) | Applies 0003–0027; no new decision |
 | DP-04 status updated; IP-07 added | H | — |
+| **Final terminology review** (glossary v2.1): How We Verify → हम जानकारी कैसे जाँचते हैं; Terms / Takedown → उपयोग की शर्तें और सामग्री हटाने का अनुरोध; गतिविधियाँ, मीडिया में and अभिलेखागार kept; coverage format labels added; statuses split into Approved editorial / Recommended / Family-confirmed / Open | 09 §3, §3.1, §5–§8, §10, §14 | — |
+| **Scaffold plan consistency review**: check traceability (§6.1), deployment vs CI builds (§6.2), domain handling per environment, preview/production separation, fixture rules, readiness assessment (§19–§20) | [implementation/01](../implementation/01-technical-scaffold-plan.md) | — |
 
 ### v1.3 changes in detail
 
