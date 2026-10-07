@@ -1,0 +1,209 @@
+<!doctype html>
+<!--
+  DESIGN TEST ARTEFACT — NOT THE WEBSITE.
+  Purpose: compare typography Direction A (Noto Serif Devanagari + Source Serif 4 + system sans UI)
+  with Direction B (Tiro Devanagari Hindi + Literata + system sans UI).
+  All text is neutral TEST CONTENT. It contains no information about the person the site is about.
+  Open with #a or #b at the end of the URL to choose the direction. Fonts load from Google Fonts for
+  this test only; production fonts will be self-hosted (see docs/design/01-bilingual-typography-test.md).
+-->
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Typography test (design artefact)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,400;0,7..72,600;1,7..72,400&family=Noto+Serif+Devanagari:wght@400;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap">
+<style>
+  /* Test-only styles. Not production CSS. */
+  :root {
+    --paper: #F5F3EE; --ink: #1F2627; --ink-2: #4A5355; --rule: #D6D8D4; --accent: #1F5357;
+    --ui: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans Devanagari", "Nirmala UI", "Kohinoor Devanagari", sans-serif;
+  }
+  body.a { --serif: "Source Serif 4", "Noto Serif Devanagari", serif; --hi-body-lh: 1.75; --hi-head-lh: 1.3; --head-wt: 600; --hi-head-wt: 600; }
+  body.b { --serif: "Literata", "Tiro Devanagari Hindi", serif; --hi-body-lh: 1.85; --hi-head-lh: 1.35; --head-wt: 600; --hi-head-wt: 400; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--serif); font-synthesis: none; font-optical-sizing: auto; }
+  .wrap { padding: 0 16px; max-width: 40rem; margin: 0 auto; }
+  .banner { font: 13px/1.4 var(--ui); background: #ECE8E0; border-bottom: 1px solid var(--rule); padding: 8px 16px; }
+  .banner b { font-weight: 600; }
+  header.site { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+  .wordmark { font-family: var(--serif); font-size: 20px; line-height: 1.3; flex: 1; }
+  .wordmark small { display: block; font-size: 13px; color: var(--ink-2); }
+  .switch, .menu { font: 15px/1.6 var(--ui); color: var(--accent); text-decoration: underline; text-underline-offset: 0.3em; min-height: 44px; display: inline-flex; align-items: center; }
+  .menu { text-decoration: none; border: 1px solid #7E878A; padding: 0 12px; color: var(--ink); background: transparent; }
+  nav.test { font: 15px/1.6 var(--ui); padding: 8px 16px; border-bottom: 1px solid var(--rule); display: flex; flex-wrap: wrap; gap: 4px 16px; }
+  nav.test a { color: var(--ink); text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; }
+  .tag { font: 12px/1.4 var(--ui); color: var(--ink-2); margin: 24px 0 4px; letter-spacing: 0; }
+  h1, h2, h3 { margin: 0 0 12px; font-weight: var(--head-wt); }
+  h1 { font-size: 36px; line-height: 1.12; }
+  h2 { font-size: 28px; line-height: 1.18; }
+  h3 { font-size: 22px; line-height: 1.25; }
+  :lang(hi) h1, h1:lang(hi), :lang(hi) h2, h2:lang(hi), :lang(hi) h3, h3:lang(hi) { line-height: var(--hi-head-lh); font-weight: var(--hi-head-wt); }
+  p { margin: 0 0 16px; font-size: 18px; line-height: 1.6; }
+  p:lang(hi) { font-size: 19px; line-height: var(--hi-body-lh); }
+  .lead { font-size: 20px; }
+  .lead:lang(hi) { font-size: 21px; }
+  .meta { font: 14px/1.5 var(--ui); color: var(--ink-2); margin: 0 0 12px; }
+  .meta:lang(hi) { font-size: 15px; line-height: 1.6; }
+  .caption { font-size: 15px; line-height: 1.5; color: var(--ink-2); margin: 8px 0 16px; }
+  .caption:lang(hi) { font-size: 16px; line-height: 1.7; }
+  .prov { font: 14px/1.5 var(--ui); color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 8px; }
+  .prov:lang(hi) { font-size: 15px; line-height: 1.6; }
+  .prov a, a.link { color: var(--accent); text-underline-offset: 0.15em; }
+  :lang(hi) .prov a, a.link:lang(hi), :lang(hi) a.link { text-underline-offset: 0.3em; }
+  .img { background: #CFCFCA; aspect-ratio: 3 / 2; display: grid; place-items: center; font: 13px var(--ui); color: #4A5355; }
+  .card { border-top: 1px solid var(--rule); padding: 12px 0; display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
+  .card .img { aspect-ratio: 1 / 1; }
+  .card .k { font: 13px/1.4 var(--ui); color: var(--ink-2); }
+  .card .t { font-size: 18px; line-height: 1.35; margin: 2px 0; }
+  .card .t:lang(hi) { font-size: 18px; line-height: 1.5; }
+  .tl { border-left: 1.5px solid #3E7F7A; padding: 4px 0 4px 16px; margin: 8px 0 16px; }
+  .tl .d { font: 600 15px/1.4 var(--ui); font-variant-numeric: tabular-nums; }
+  .btn { font: 15px/1.4 var(--ui); display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; border: 1px solid #7E878A; color: var(--ink); text-decoration: none; margin: 4px 8px 4px 0; }
+  .btn:lang(hi) { padding-block: 12px; }
+  .glyphs { font-size: 22px; line-height: 1.9; }
+  .num { font-size: 18px; font-variant-numeric: tabular-nums; }
+  section { padding: 8px 0 24px; border-bottom: 1px solid var(--rule); }
+  em { font-style: italic; }
+  .q { font-style: normal; }
+</style>
+<script>
+  // Test-only: choose direction from the URL hash (#a or #b).
+  (function () {
+    var h = (location.hash || '#a').slice(1);
+    var d = h.charAt(0) === 'b' ? 'b' : 'a';
+    var w = (h.match(/w(\d+)/) || [])[1];
+    document.documentElement.dataset.dir = d;
+    document.addEventListener('DOMContentLoaded', function () {
+      document.body.className = d;
+      // Test-only: simulate a phone viewport width (e.g. #a-w360) when the window cannot be that narrow.
+      if (w) { document.body.style.width = w + 'px'; document.body.style.borderRight = '1px dashed #999'; }
+      document.getElementById('dirname').textContent = d === 'a'
+        ? 'Direction A — Noto Serif Devanagari + Source Serif 4 + system sans UI'
+        : 'Direction B — Tiro Devanagari Hindi + Literata + system sans UI';
+    });
+  })();
+</script>
+</head>
+<body class="a">
+<div class="banner" lang="en"><b>DESIGN TEST ARTEFACT — not the website.</b> All text is neutral test content (परीक्षण सामग्री) and makes no claim about any person. <span id="dirname"></span></div>
+
+<header class="site">
+  <div class="wordmark">‹सार्वजनिक नाम›<small lang="en">‹Public name›</small></div>
+  <a class="switch" href="#" lang="en" hreflang="en" translate="no">English</a>
+  <button class="menu" type="button">मेनू</button>
+</header>
+<nav class="test" aria-label="Test navigation (Hindi)">
+  <a href="#">परिचय</a><a href="#">सार्वजनिक जीवन</a><a href="#">अभिलेखागार</a><a href="#">गतिविधियाँ</a><a href="#">संपर्क</a>
+</nav>
+
+<main class="wrap">
+
+<section id="hi-article" lang="hi">
+  <p class="tag" lang="en">1 · Hindi heading, lead, body with Latin names, numerals and punctuation</p>
+  <h1 id="h1-hi">जबलपुर के वार्डों में जल-आपूर्ति, स्वच्छता और सड़क सुधार से जुड़ी सार्वजनिक बैठकों का अभिलेख</h1>
+  <p class="meta" id="meta-hi">तिथि: 7 अक्टूबर 2026 · स्थान: ‹वार्ड›, जबलपुर · प्रकार: दस्तावेज़</p>
+  <p class="lead">[परीक्षण पाठ] यह अनुच्छेद केवल टाइपोग्राफी की जाँच के लिए लिखा गया है और किसी व्यक्ति के बारे में कोई दावा नहीं करता।</p>
+  <p id="p-hi">नगर के सार्वजनिक जीवन में वार्ड स्तर की समितियाँ, नागरिकों की शिकायतें और स्थानीय प्रशासन के साथ नियमित संवाद महत्त्वपूर्ण भूमिका निभाते हैं। इस परीक्षण अनुच्छेद में “Municipal Corporation”, “Ward Committee” और “Annual Report” जैसे अंग्रेज़ी नाम हिंदी वाक्यों के बीच आते हैं, ताकि मिश्रित पंक्तियों की ऊँचाई और रंग की तुलना की जा सके। संख्याएँ पश्चिमी अंकों में हैं: 1998–2003, 2,50,000 रुपये और 12.5 प्रतिशत। क्या संयुक्ताक्षर—क्षेत्र, स्वास्थ्य, प्रतिनिधि, श्रद्धांजलि, द्वितीय, कृषि—साफ़ पढ़े जाते हैं? ऊपर और नीचे की मात्राएँ (ि ी ु ू ृ े ै ो ौ ं ँ) कहीं कटती तो नहीं हैं।</p>
+  <p>दूसरा अनुच्छेद पंक्ति-घनत्व की जाँच करता है। लंबे अनुच्छेदों में शब्दों के बीच की दूरी, शिरोरेखा की निरंतरता और पंक्तियों के बीच का स्थान आँखों के लिए आरामदेह होना चाहिए; विशेषकर तब, जब पाठक 360 पिक्सेल चौड़ी मोबाइल स्क्रीन पर पढ़ रहा हो।</p>
+  <div class="prov" id="prov-hi">पुष्ट · स्रोत: नगर निगम अभिलेख · <a href="#">इसका क्या अर्थ है</a></div>
+</section>
+
+<section lang="hi">
+  <p class="tag" lang="en">2 · Hindi short headings, timeline entry, caption, credit, buttons</p>
+  <h2>सार्वजनिक जीवन</h2>
+  <h3>पद और कार्यकाल</h3>
+  <div class="tl">
+    <div class="d">लगभग 1998 – 2003</div>
+    <p style="margin:4px 0 0">[परीक्षण] ‹पद का नाम›, ‹वार्ड›, जबलपुर नगर निगम</p>
+    <div class="prov" style="border:0;padding:4px 0 0">परिवार द्वारा उपलब्ध</div>
+  </div>
+  <div class="img">‹तस्वीर›</div>
+  <p class="caption" id="cap-hi">[परीक्षण] ग्वारीघाट की सीढ़ियाँ, सुबह की रोशनी में · जबलपुर · लगभग 1985 · फ़ोटो: ‹नाम› / परिवार संग्रह</p>
+  <a class="btn" href="#">पूरा अभिलेख देखें</a><a class="btn" href="#">सुधार सुझाएँ</a>
+</section>
+
+<section lang="hi">
+  <p class="tag" lang="en">3 · Hindi archive cards (card height)</p>
+  <div class="card" id="card-hi"><div class="img">‹तस्वीर›</div><div><div class="k">तस्वीर · 1990 का दशक</div><div class="t">[परीक्षण] नर्मदा तट पर सामुदायिक सफ़ाई अभियान के दौरान स्वयंसेवक</div><div class="k">स्रोत: परिवार संग्रह</div></div></div>
+  <div class="card"><div class="img">‹दस्तावेज़›</div><div><div class="k">दस्तावेज़ · 12 मार्च 2001</div><div class="t">[परीक्षण] वार्ड समिति की बैठक का कार्यवृत्त</div><div class="k">मूल हिंदी में</div></div></div>
+  <div class="card"><div class="img">‹प्रेस›</div><div><div class="k">प्रेस में · 2004</div><div class="t">[परीक्षण] ‹समाचार-पत्र› में प्रकाशित रिपोर्ट</div><div class="k">‹समाचार-पत्र› में प्रकाशित, 2004</div></div></div>
+</section>
+
+<section lang="hi">
+  <p class="tag" lang="en">4 · Hindi heading + English metadata</p>
+  <h2>नर्मदा तट पर सामुदायिक बैठक</h2>
+  <p class="meta" lang="en">Photograph · c. 1992 · Gwarighat, Jabalpur · Credit: ‹Name› / Family collection</p>
+</section>
+
+<section lang="hi">
+  <p class="tag" lang="en">5 · Glyph stress line (conjuncts, reph, nuqta, matras, punctuation, digits)</p>
+  <p class="glyphs">क्ष त्र ज्ञ श्र द्ध द्व ह्म ह्य ट्ट ड्ढ स्त्र र्क प्र क्र ृ ॄ ँ ं ः । ॥ — क़ ख़ ग़ ज़ ड़ ढ़ फ़ य़ — 0123456789 (०१२३ not used)</p>
+</section>
+
+<section id="en-article" lang="en">
+  <p class="tag">6 · English heading, body with Hindi names, italics, numerals</p>
+  <h1 id="h1-en">A record of public meetings on water supply, sanitation and road repair in Jabalpur's wards</h1>
+  <p class="meta">Date: 7 October 2026 · Place: ‹Ward›, Jabalpur · Type: Document</p>
+  <p class="lead">[Test text] This paragraph exists only to test typography and makes no claim about any person.</p>
+  <p id="p-en">Ward-level committees, residents' complaints and regular contact with local administration shape the public life of a city. In this test paragraph, Hindi names such as <span lang="hi">जबलपुर</span>, <span lang="hi">नर्मदा</span> and <span lang="hi">ग्वारीघाट</span> appear inside English sentences, so that mixed lines can be compared for height and colour. A title of a work appears in italics: <em>Annual Report of the Ward Committee</em>. Numbers: 1998–2003, ₹2,50,000 and 12.5 per cent.</p>
+  <div class="prov" id="prov-en">Verified · Source: Municipal record · <a href="#">What this means</a></div>
+</section>
+
+<section lang="en">
+  <p class="tag">7 · English heading + Hindi metadata; caption; timeline; card</p>
+  <h2>Community meeting on the Narmada bank</h2>
+  <p class="meta" lang="hi">तस्वीर · लगभग 1992 · ग्वारीघाट, जबलपुर · फ़ोटो: ‹नाम› / परिवार संग्रह</p>
+  <div class="tl"><div class="d">c. 1998 – 2003</div><p style="margin:4px 0 0">[Test] ‹Role title›, ‹Ward›, Jabalpur Municipal Corporation</p><div class="prov" style="border:0;padding:4px 0 0">Provided by the family</div></div>
+  <div class="img">‹photograph›</div>
+  <p class="caption" id="cap-en">[Test] Steps at Gwarighat in early light · Jabalpur · c. 1985 · Photo: ‹Name› / Family collection</p>
+  <div class="card" id="card-en"><div class="img">‹photo›</div><div><div class="k">Photograph · 1990s</div><div class="t">[Test] Volunteers during a community clean-up on the Narmada bank</div><div class="k">Source: Family collection</div></div></div>
+  <a class="btn" href="#">View the full record</a><a class="btn" href="#">Suggest a correction</a>
+  <p class="num">Figures: 0123456789 · 2,50,000 · 1,00,00,000 · 07/10/2026</p>
+</section>
+
+</main>
+<pre id="metrics" hidden></pre>
+<script>
+  // Test-only measurement (runs when the hash contains "m", e.g. #a-m). Writes JSON into #metrics.
+  (function () {
+    if ((location.hash || '').indexOf('m') < 0) return;
+    function lines(el) {
+      var cs = getComputedStyle(el), lh = parseFloat(cs.lineHeight);
+      return Math.round(el.getBoundingClientRect().height / lh * 10) / 10;
+    }
+    function rows(container) {
+      var tops = {}; Array.prototype.forEach.call(container.children, function (c) { tops[Math.round(c.getBoundingClientRect().top)] = 1; });
+      return Object.keys(tops).length;
+    }
+    function metric(fam, txt) {
+      var c = document.createElement('canvas').getContext('2d'); c.font = '100px "' + fam + '"';
+      var m = c.measureText(txt); return Math.round(m.actualBoundingBoxAscent * 10) / 10;
+    }
+    document.fonts.ready.then(function () { setTimeout(function () {
+      var d = document.body.className, out = { direction: d, simulatedWidthPx: Math.round(document.body.getBoundingClientRect().width) };
+      var nav = document.querySelector('nav.test'), sum = 0;
+      Array.prototype.forEach.call(nav.children, function (a) { sum += a.getBoundingClientRect().width; });
+      out.navHindi = { labelsWidthPx: Math.round(sum), gapsPx: (nav.children.length - 1) * 16, availablePx: Math.round(nav.clientWidth - 32), rows: rows(nav) };
+      ['h1-hi', 'h1-en', 'p-hi', 'p-en', 'cap-hi', 'cap-en', 'meta-hi', 'prov-hi', 'prov-en'].forEach(function (id) {
+        var el = document.getElementById(id); out[id] = { lines: lines(el), heightPx: Math.round(el.getBoundingClientRect().height) };
+        if (id.indexOf('p-') === 0) out[id].charsPerLine = Math.round(el.textContent.trim().length / lines(el));
+      });
+      ['card-hi', 'card-en'].forEach(function (id) { out[id] = { heightPx: Math.round(document.getElementById(id).getBoundingClientRect().height) }; });
+      var lat = d === 'a' ? 'Source Serif 4' : 'Literata', dev = d === 'a' ? 'Noto Serif Devanagari' : 'Tiro Devanagari Hindi';
+      out.metrics100px = { latinXHeight: metric(lat, 'x'), latinCapHeight: metric(lat, 'H'), devanagariHeadline: metric(dev, 'क'), devanagariTopMatra: metric(dev, 'कि') };
+      out.metrics100px.headlineToXHeight = Math.round(out.metrics100px.devanagariHeadline / out.metrics100px.latinXHeight * 100) / 100;
+      out.fontsLoaded = []; document.fonts.forEach(function (f) { if (f.status === 'loaded') out.fontsLoaded.push(f.family + ' ' + f.weight + ' ' + f.style); });
+      out.fontFiles = performance.getEntriesByType('resource').filter(function (r) { return /fonts\.gstatic/.test(r.name); })
+        .map(function (r) { return { file: r.name.split('/').slice(-3).join('/'), kB: Math.round((r.encodedBodySize || r.transferSize) / 102.4) / 10 }; });
+      out.fontKBTotal = Math.round(out.fontFiles.reduce(function (s, f) { return s + f.kB; }, 0) * 10) / 10;
+      var pre = document.getElementById('metrics'); pre.hidden = false; pre.textContent = JSON.stringify(out);
+    }, 500); });
+  })();
+</script>
+</body>
+</html>
