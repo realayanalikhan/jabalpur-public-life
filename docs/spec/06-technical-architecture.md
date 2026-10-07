@@ -112,8 +112,9 @@ docs/               specification, decisions, operations guide
 ## 6. Search and archive browsing — Approved ([0017](../decisions/0017-search-deferred.md))
 
 - **No search at MVP.**
-- Archive browsing via static pages and taxonomy filters (type, decade, theme), with shareable
-  URLs and no JavaScript required.
+- Archive browsing via static pages, one lens at a time: type, time (period or decade), theme and
+  place ([0022](../decisions/0022-archive-browsing-model.md)). Shareable URLs; no JavaScript
+  required; no faceted filter interface.
 - Taxonomy and content model designed so that static search (e.g. Pagefind) can be added later
   without restructuring. Adding search requires a future decision; Hindi search quality must be
   tested first.

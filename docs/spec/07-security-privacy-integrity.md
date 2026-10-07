@@ -44,7 +44,7 @@ because git history is permanent. If restricted data is committed by mistake, fo
 - Publish only what the family explicitly approves for publication.
 - Use dedicated public contact channels; never publish personal mobile numbers or home addresses.
 - Prefer minimal personal detail (e.g. publishing a birth year or no birth date rather than a full
-  date of birth). Policy is an open decision (OD-23).
+  date of birth). Policy requires family input (FI-07).
 - Information about other family members is published only with their consent.
 
 ## 4. Archive documents
@@ -102,7 +102,11 @@ receive → catalogue (restricted storage) → rights check → personal-data ch
 ## 8. Corrections
 
 - A public Corrections & Feedback page with at least one link-based channel ([0015](../decisions/0015-mvp-contact-strategy.md); which channels depends on FI-08).
-- Proposed service level: acknowledge within 7 days; resolve or explain within 30 days.
+- **Response times: proposed guidance only, not a decided requirement.** Proposal: acknowledge
+  within 7 days; resolve or explain within 30 days. Whether to commit publicly to response times,
+  and which ones, is open (OD-24 in [H](08-open-decisions.md)). It depends on who handles
+  corrections (FI-02, FI-08). The Corrections & Feedback page must not state a response time until
+  this is decided.
 - Outcomes: correct, clarify, add a source, remove, or retain with an explanatory note.
 - Material corrections to facts (not typos) receive a dated correction note on the page.
 - An internal log records the request, the decision and the reason.

@@ -8,13 +8,22 @@ URL paths below are illustrative; the URL scheme is defined in [D](04-bilingual-
 ### Primary navigation
 
 ```
-[Wordmark → Home]   About · Public Life · Archive · Updates · Connect   [हिंदी | EN]
+On /hi/ pages:   [Wordmark → Home]   About · Public Life · Archive · Updates · Connect   English
+On /en/ pages:   [Wordmark → Home]   About · Public Life · Archive · Updates · Connect   हिंदी
 ```
+
+(Section labels are shown in English for readability of this sketch; on `/hi/` pages they are the
+Hindi glossary labels.)
 
 - The wordmark (the person's public name, once supplied) links to Home.
 - Hidden sections are removed from navigation entirely (see §4).
-- The language switch is always visible in the header, including on mobile. It is **not**
-  hidden inside the menu.
+- **Language switch** ([0021](../decisions/0021-language-switching-and-single-language-content.md)):
+  - a single plain link showing **only the other language**, written in full in its own script
+    ("English" on Hindi pages, "हिंदी" on English pages);
+  - no flags, no codes, no two-label toggle;
+  - placed at the end of the header and always visible, including on mobile, where it stays
+    **outside** the menu;
+  - leads to the same page in the other language.
 
 ### Mobile navigation
 
@@ -75,7 +84,7 @@ They are filters within Archive and Public Life.
 | **Home** | A timeless introduction; route visitors to the record and archive | Person, Role, Collection/Photo (curated), Activity | Always (launch requires identity + short bio) |
 | **About** | The person's story in prose; Jabalpur connection as a thread | Person (bios), Place, Photo | Always (launch requirement) |
 | **Public Life — Overview** | A factual summary of public life with links into detail | Role, Organisation, Initiative, TimelineEvent | When any child page is visible |
-| **Timeline** | Chronological view of all dated content | Generated from Role, Initiative, Activity, Coverage, TimelineEvent | When threshold met |
+| **Timeline** | Chronological view of all dated content | Generated from Role, Initiative, Activity, Coverage, Occasion (`onTimeline`), TimelineEvent ([0020](../decisions/0020-occasion-connective-archive-entity.md)) | When threshold met |
 | **Roles & Terms** | Positions held, with periods, places and sources | Role, Organisation, Place, Source | When ≥ 1 publishable role |
 | **Work & Initiatives** | Public-service and community work | Initiative, Place, Theme, Photo, Source | When ≥ 1 publishable initiative |
 | **Initiative detail** | One initiative: what, where, when, outcomes (sourced only), media | Initiative and relations | Per item |
@@ -84,7 +93,7 @@ They are filters within Archive and Public Life.
 | **Documents** | Browse documents | Document | When threshold met |
 | **In the Press** | Media coverage by date/outlet/language | Coverage | When threshold met |
 | **Video** | Videos and interviews | Video | When threshold met |
-| **Archive item detail** | The item, its caption, credit, rights, provenance and related items | Item + Source, Place, Theme | Per item |
+| **Archive item detail** | The item, its caption, credit, rights, provenance and related items ("From the same occasion" first) | Item + Source, Place, Theme, Occasion | Per item |
 | **Collection** | A curated set or narrative story | Collection + items | Per collection |
 | **Updates** | Dated current activities, newest first | Activity | When ≥ 1 published activity |
 | **Events** | Upcoming events first, then past | Activity (type = event) | When ≥ 1 event |
@@ -163,7 +172,38 @@ Relationships in the content model drive navigation between sections:
 
 - a Role links to its Place, its Organisation and to Initiatives carried out during it;
 - an Initiative links to Places, Themes, Photos and Coverage;
-- an archive item links to related items by shared Place, Theme, Collection or date range;
+- an archive item links first to other items from the same Occasion ([0020](../decisions/0020-occasion-connective-archive-entity.md)), then to related items by shared Place, Theme, Collection or date range;
+- an Update may link to the Occasion it reports on, and so to that occasion's archive material;
 - Timeline entries link to their source item.
 
 Search is added only when the archive justifies it (see F §6).
+
+## 7. Archive browsing model
+
+Defined in [0022](../decisions/0022-archive-browsing-model.md):
+
+- **Editorial first:** the Archive hub leads with curated material (a featured collection, named
+  collections, hand-picked items). Browse lenses are secondary entry points, each with a one-line
+  definition.
+- **Four lenses:**
+  - **type** (Photographs, Documents, In the Press, Video);
+  - **time** (periods derived from Roles where available, otherwise decades; sparse decades merge);
+  - **theme** (controlled vocabulary);
+  - **place** (Place entities).
+- **One lens at a time.** Static, shareable filter pages within Archive. Not standalone sections.
+- **No database-style interface:** no facet panels, sort/filter toolbars, visible item counts or
+  "1 of N" pagination on small sets. No search at MVP.
+- Lenses and lens values follow the same configuration-driven visibility rules as sections (§4).
+
+## 8. Single-language items
+
+For an archive item or update that exists in only one language, the same path in the other
+language serves a **"not available in this language" notice page**:
+- it uses localised interface text and links to the available version;
+- it is `noindex`;
+- it is excluded from `hreflang`, sitemaps and the other language's search-ready index.
+
+Listings in the other language may show such items with a language label, linking directly to the
+available version. Section visibility counts each item once, so the section structure is the same
+in both languages. Full rules: [D §6](04-bilingual-architecture.md#6-parity-rules) and
+[0021](../decisions/0021-language-switching-and-single-language-content.md).

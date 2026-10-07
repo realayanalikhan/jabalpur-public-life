@@ -1,6 +1,6 @@
 # 0017 — Search deferred; archive browsing by taxonomy
 
-- **Status:** Accepted
+- **Status:** Accepted; clarified by [0022](0022-archive-browsing-model.md)
 - **Date:** 2026-10-07
 - **Deciders:** Product/technical decision partner (relayed by the project owner)
 - **Related:** [Spec F §6](../spec/06-technical-architecture.md); OD-13, T-06

@@ -1,6 +1,6 @@
 # C. Content Architecture
 
-**Status:** Accepted ([0004](../decisions/0004-content-and-verification-model.md)); entity model is working direction. This is a conceptual model, not a field-by-field schema, and not
+**Status:** Accepted ([0004](../decisions/0004-content-and-verification-model.md), amended by [0020](../decisions/0020-occasion-connective-archive-entity.md)); entity model is working direction. This is a conceptual model, not a field-by-field schema, and not
 permission to implement every field immediately. All person-specific values remain empty.
 
 ## 1. Design goals
@@ -48,10 +48,21 @@ Displays never show more precision than is recorded.
 | `unverified` | Not yet confirmed | **Cannot be published.** Build fails. | Never shown |
 
 **Granularity.** Verification applies per item. Long-form text (e.g. the long biography) is
-treated as `supplied` overall. Specific verifiable facts inside it (dates, positions, figures)
-should carry inline source references. Any statement inside long-form text that is not
-supportable is removed before publishing; this is an editorial review step, since it cannot be
-automated.
+treated as `supplied` overall. Any statement inside long-form text that is not supportable is
+removed before publishing; this is an editorial review step, since it cannot be automated.
+
+**Sources and notes (presentation of provenance).** No academic-style footnote clutter
+([0004](../decisions/0004-content-and-verification-model.md)). Traceability is unchanged.
+
+- **Specific factual claims** inside long-form text (dates, positions, figures) carry a **concise
+  source/reference marker** where useful. The marker links to its entry in the page's notes section.
+  Running text has no discursive footnotes.
+- **Longer pages and content** (biography, initiative bodies, collection introductions) end with a
+  **"Sources and notes"** section listing those sources.
+- **Items and role rows** show the concise provenance label, with **optional fuller source details**
+  on demand, as above.
+- The rules are unchanged: `verified` requires a source, `unverified` is never published, and
+  internal sources are never rendered ([0018](../decisions/0018-content-integrity-rules.md)).
 
 **Raising a status.** An item moves from `supplied` to `verified` when a source is added. History
 is kept in git.
@@ -61,22 +72,47 @@ is kept in git.
 | Entity | Purpose | Key attributes (conceptual) | Relationships |
 |---|---|---|---|
 | **Person** (single) | The subject of the site | Legal name; preferred public name; names in Devanagari and Latin; known spelling variants; portrait; short bio and long bio (both languages); optional life dates (publication policy open) | → Photo (portrait); → SocialLink; → ContactMethod |
-| **Role** | A position held | Title; how obtained (elected / appointed / nominated / other); period; ward or area; verification | → Organisation; → Place; → Source; ← Initiative; ← TimelineEvent |
+| **Role** | A position held | Title; how obtained (elected / appointed / nominated / other); period; ward or area; verification | → Organisation; → Place; → Source; ← Initiative; ← TimelineEvent; ← Occasion |
 | **Organisation** | A body the person was part of or worked with | Name (both languages); type (municipal body, political party, committee, NGO, institution, other) | ← Role; ← Initiative; ← Coverage (outlet) |
 | **Place** | A geographic reference | Name (both languages); type (ward, locality, landmark, city, district); parent place; optional coordinates | Self-referencing hierarchy; ← most entities |
-| **Initiative** | Public-service or community work | Title; summary; body; period; status; outcomes (**publishable only with sources**) | → Role; → Place; → Theme; → Photo / Video / Document; → Coverage; → Source |
-| **Activity** | A current or recent activity | Type (event, visit, announcement, appearance, community activity); date or range; place; body; media | → Place; → Theme; → Photo / Video |
-| **TimelineEvent** | A milestone not represented by another entity | Date; title; summary; category | → Place; → Source; → any item |
-| **Coverage** | A media item about or involving the person | Outlet; date; headline in original language and script; language; format (print, online, TV, radio, interview); URL; web-archive URL; excerpt; rights | → Organisation (outlet); → Document / Photo (scan); → Theme; ← used as Source |
+| **Initiative** | Public-service or community work | Title; summary; body; period; status; outcomes (**publishable only with sources**) | → Role; → Place; → Theme; → Photo / Video / Document; → Coverage; → Source; ← Occasion |
+| **Activity** | A current or recent activity | Type (event, visit, announcement, appearance, community activity); date or range; place; body; media | → Place; → Theme; → Photo / Video; → Occasion (optional) |
+| **Occasion** | A real-world event or episode that connects multiple records ([0020](../decisions/0020-occasion-connective-archive-entity.md)) | Title; date with precision or short range; place(s); optional summary; verification; `onTimeline` flag | → Place; → Theme; → Source; → Role (optional); → Initiative (optional); ← Photo / Video / Document / Coverage; ← Activity |
+| **TimelineEvent** | A milestone with **no** Occasion (no connected material) and not represented by another entity | Date; title; summary; category | → Place; → Source; → any item |
+| **Coverage** | A media item about or involving the person | Outlet; date; headline in original language and script; language; format (print, online, TV, radio, interview); URL; web-archive URL; excerpt; rights | → Organisation (outlet); → Document / Photo (scan); → Theme; → Occasion (optional); ← used as Source |
 | **Source** | Evidence supporting claims | Type (official record, gazette/notification, news report, interview, family testimony, personal document, other); title; publisher; date; URL; archive URL; file reference; visibility (`public` / `internal`) | ← any claim-bearing entity |
-| **Photo** | A photograph | Image; caption and alt text (both languages); date; place; people depicted (public figures only, by name); photographer/credit; rights; consent flags; press-approved flag | → Place; → Theme; → Collection; → Source |
-| **Video** | A video or recorded interview | Provider and ID, or file; duration; captions; transcript; credit; rights | → Place; → Theme; → Collection; → Coverage |
-| **Document** | A scanned or digital document | File; type (certificate, letter, notice, report, clipping, other); extracted text; redaction status; rights | → Place; → Theme; → Collection; → Source |
+| **Photo** | A photograph | Image; caption and alt text (both languages); date; place; people depicted (public figures only, by name); photographer/credit; rights; consent flags; press-approved flag | → Place; → Theme; → Collection; → Source; → Occasion (optional) |
+| **Video** | A video or recorded interview | Provider and ID, or file; duration; captions; transcript; credit; rights | → Place; → Theme; → Collection; → Coverage; → Occasion (optional) |
+| **Document** | A scanned or digital document | File; type (certificate, letter, notice, report, clipping, other); extracted text; redaction status; rights | → Place; → Theme; → Collection; → Source; → Occasion (optional) |
 | **Collection** | A curated set or narrative story | Title; introduction; ordered items; cover image | → Photo / Video / Document / Coverage |
 | **Theme** | Controlled topic vocabulary | Label (both languages); description | ← most entities |
 | **SocialLink** | Official social profile | Platform; URL; handle; public flag; order | ← Person |
 | **ContactMethod** | Approved contact channel | Type (email, phone, WhatsApp, postal, form); value; purpose (general, press, corrections); public flag; order | ← Person |
-| **GlossaryTerm** | Standard rendering of recurring terms | English form; Hindi form; transliteration; usage notes | Used by translators and reviewers |
+| **GlossaryTerm** | Standard rendering of recurring terms | English form; Hindi form; transliteration; usage notes | Used by translators and reviewers ([09](09-language-glossary.md)) |
+
+Each archive item (Photo, Video, Document, Coverage) and each Activity references **at most one**
+Occasion. Every such reference is optional.
+
+### 4.1 Occasion, TimelineEvent, Activity, Initiative and archive items
+
+These concepts are distinct and must not be used interchangeably
+([0020](../decisions/0020-occasion-connective-archive-entity.md)):
+
+| Concept | What it is | Example of use (abstract) | Not to be used for |
+|---|---|---|---|
+| **Occasion** | The **happening**: a dated, placed real-world event or episode that connects material | ‹an inauguration› with photos, a press report and a video | Curated stories (use Collection); ongoing programmes (use Initiative); update posts (use Activity) |
+| **TimelineEvent** | A **milestone with no connected material** | ‹a milestone known only from a source› | Anything that has an Occasion. Flag the Occasion `onTimeline` instead |
+| **Activity** (Update) | The **publication**: a dated post in Updates | An update announcing or reporting ‹an occasion› | Recording the facts of an occasion. Reference the Occasion instead, if one exists |
+| **Initiative** | A **sustained programme** of public-service or community work over a period | ‹a programme› that included several occasions | Single events |
+| **Archive item** (Photo, Video, Document, Coverage) | The **evidence or record**: one piece of material, with its own caption, credit, rights and verification | A photograph of ‹the occasion› | Restating the occasion's facts. Link to the Occasion |
+| **Collection** | An **authored, curated story** or set | ‹a curated story› across several occasions | Factual grouping of one occasion's material |
+
+**Rules of thumb:**
+- Facts about *what happened, when and where* live on the Occasion.
+- An archive item adds only what is specific to that item.
+- Create an Occasion only when at least two items document the same happening, or an update's
+  material is expected to enter the archive.
+- A milestone gets either an `onTimeline` Occasion or a TimelineEvent, never both.
 
 ## 5. Relationships
 
@@ -101,6 +137,15 @@ erDiagram
     THEME }o--o{ INITIATIVE : tags
     THEME }o--o{ PHOTO : tags
     PLACE }o--o| PLACE : "within"
+    OCCASION }o--o{ PLACE : "at"
+    OCCASION }o--o| ROLE : "during"
+    OCCASION }o--o| INITIATIVE : "part of"
+    PHOTO }o--o| OCCASION : documents
+    VIDEO }o--o| OCCASION : documents
+    DOCUMENT }o--o| OCCASION : documents
+    COVERAGE }o--o| OCCASION : reports
+    ACTIVITY }o--o| OCCASION : "reports on"
+    SOURCE }o--o{ OCCASION : supports
 ```
 
 (Simplified. Photo, Video, Document and Coverage also relate to Place, Theme and Source.)
@@ -111,10 +156,10 @@ These are generated from the entities, never edited by hand:
 
 | View | Built from |
 |---|---|
-| **Timeline** | Every publishable dated item: Role start/end, Initiative period, Activity, Coverage, TimelineEvent. TimelineEvent is used only for milestones not represented elsewhere. |
+| **Timeline** | Every publishable dated item: Role start/end, Initiative period, Activity, Coverage, Occasions flagged `onTimeline`, and TimelineEvents. TimelineEvent is used only for milestones with no Occasion and not represented elsewhere. Material linked to an `onTimeline` Occasion appears through that Occasion entry, not as separate duplicate entries. |
 | **Public Life overview** | Roles, Organisations, Initiatives |
-| **Archive browse** | Photo, Document, Coverage, Video, grouped by type, decade and theme |
-| **Related items** | Shared Place, Theme, Collection, Role or overlapping date range |
+| **Archive browse** | Photo, Document, Coverage, Video, browsed one lens at a time by type, time (period derived from Roles, or decade), theme and place ([0022](../decisions/0022-archive-browsing-model.md)) |
+| **Related items** | **First:** "From the same occasion" (other published items referencing the same Occasion). **Then:** shared Place, Theme, Collection, Role or overlapping date range |
 | **Press Kit** | Person bios + press-approved Photos + press ContactMethod |
 | **Structured data (SEO)** | Person, published Roles (non-`unverified`), Photos, upcoming Events |
 
@@ -155,6 +200,6 @@ See [G](07-security-privacy-integrity.md) for handling rules.
 | Stage | Entities |
 |---|---|
 | **MVP** | Person, Role, Organisation, Place, Source, Photo, Coverage, Activity, Theme, SocialLink, ContactMethod, GlossaryTerm |
-| **When content warrants** | Initiative, Document, Video, Collection, TimelineEvent |
+| **When content warrants** | Initiative, Document, Video, Collection, TimelineEvent, **Occasion** (once at least two published items document the same happening) |
 
 Fields within each entity are likewise added when real content needs them.

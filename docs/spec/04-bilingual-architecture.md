@@ -1,6 +1,6 @@
 # D. Bilingual Architecture
 
-**Status:** Accepted ([0002](../decisions/0002-bilingual-strategy.md), [0018](../decisions/0018-content-integrity-rules.md)). Not yet implemented.
+**Status:** Accepted ([0002](../decisions/0002-bilingual-strategy.md), clarified by [0021](../decisions/0021-language-switching-and-single-language-content.md); [0018](../decisions/0018-content-integrity-rules.md)). Not yet implemented.
 
 ## 1. Principles
 
@@ -21,13 +21,18 @@
 ## 3. URL structure
 
 - **Both languages are prefixed:** `/en/...` and `/hi/...`. Neither is privileged in the URL.
-- **Root `/`:** resolves or redirects to the default language, **Hindi** (`/hi/`). English is
-  fully supported at `/en/`. `x-default` points to the Hindi version
-  ([0002](../decisions/0002-bilingual-strategy.md)). Options considered for `/`:
+- **Root `/`:** always resolves (static redirect) to the default language, **Hindi** (`/hi/`).
+  English is fully supported at `/en/`. No language detection and no remembered preference
+  ([0021](../decisions/0021-language-switching-and-single-language-content.md)).
+- **`x-default`:** on every page, points to the **`/hi/` equivalent route of that page** (a URL
+  that returns the page directly), never to the redirecting `/`
+  ([0002](../decisions/0002-bilingual-strategy.md), clarified by
+  [0021](../decisions/0021-language-switching-and-single-language-content.md)).
+- Options considered for `/`:
 
   | Option | Assessment |
   |---|---|
-  | Redirect `/` to a chosen default language | **Recommended.** Simple, cacheable, SEO-clean; `x-default` points to it. |
+  | Redirect `/` to a chosen default language | **Chosen.** Simple, cacheable, SEO-clean. |
   | Language chooser page at `/` | Adds a click for every visitor; weak for SEO. |
   | Server-side detection (`Accept-Language`) | Not cacheable on a static host; unreliable; can confuse search engines. |
 
@@ -39,11 +44,19 @@
 
 ## 4. Page equivalence and switching
 
-- Every page has a counterpart at the same path in the other locale.
-- The language switch links to the **equivalent page**, not the homepage.
-- The switch is labelled in each language's own script ("हिंदी", "English"), not with flags.
-- The visitor's last explicit choice may be remembered on their own device as a convenience. It
-  never causes automatic redirects away from a URL they opened.
+Defined in [0021](../decisions/0021-language-switching-and-single-language-content.md):
+
+- **Equivalent routes exist only for real translations.** Core pages always exist in both
+  languages. For single-language items, the counterpart path serves a notice page (§6).
+- **One switch convention on desktop and mobile:**
+  - a single plain link showing **only the other language**, written in full in its own script:
+    "English" on `/hi/` pages, "हिंदी" on `/en/` pages;
+  - no flags, no codes (EN/HI), no dropdown, no two-label toggle;
+  - always visible at the end of the header, outside the mobile menu.
+- The switch always leads to the **same path in the other language**: the equivalent page, or the
+  notice page. It never leads to the homepage.
+- **No remembered preference at MVP.** The language is not stored in cookies, local storage or any
+  other storage. The URL alone determines the page language.
 
 ## 5. Translation workflow
 
@@ -71,15 +84,29 @@ author (original language) → draft translation (human or machine) → human re
 | **Coverage** | Headline shown in its original language and script, with a reviewed translation as secondary text. |
 | **Updates** | May be published in one language with a clear language label ([0002](../decisions/0002-bilingual-strategy.md)). |
 
-If an item is unavailable in the current language, the page says so in the current language and
-links to the available version. It never silently shows the other language.
+**Single-language items** ([0021](../decisions/0021-language-switching-and-single-language-content.md)):
+
+- **Definition:** an item whose editorial text (title, summary, body or caption) exists in only one
+  language. An archive item with bilingual metadata and an original artefact in one language is
+  **not** single-language: it has full pages in both languages with an "Original in ‹language›"
+  label.
+- **The counterpart path** serves a **"not available in this language" notice page**: localised
+  interface text, a clear notice in the page language, and a link to the available version. It is
+  `noindex`, is excluded from `hreflang`, sitemaps and the search-ready index, and never contains
+  the untranslated body. The site never pretends a translation exists.
+- **Listings** in the other language may show the item with a clear language label, linking directly
+  to the available version.
+- **Section visibility** counts each published item once, whatever its language, so both language
+  editions have the same sections.
 
 ## 7. Metadata and SEO
 
 - Unique `<title>`, meta description and social image per page per language.
-- Reciprocal hreflang links between every pair of equivalent pages, plus `x-default`.
+- Reciprocal hreflang links **only between genuinely equivalent published pages**, plus `x-default`
+  pointing to the `/hi/` equivalent route (§3). Notice pages are never part of an hreflang pair.
 - Self-referencing canonical URL per language. Never canonicalise one language to the other.
-- Per-language sitemaps listing alternates.
+- Per-language sitemaps listing alternates, containing only pages published in that language.
+  Notice pages are excluded and carry `noindex`.
 - Names appear naturally in both scripts and in common romanised spellings. This helps searches in
   Devanagari, in English and in romanised Hindi, without keyword stuffing.
 - Social images must render Devanagari correctly (conjuncts and vowel marks). This needs testing
@@ -89,8 +116,9 @@ links to the available version. It never silently shows the other language.
 
 Design direction is in [E](05-design-brief.md). Bilingual technical requirements:
 
-- Typefaces chosen as **pairs** designed for Devanagari and Latin together, with compatible
-  weights and vertical metrics.
+- Typefaces chosen as **pairs** with compatible weights and vertical metrics. They need not come
+  from one family or foundry: a Devanagari face and a separate Latin face are acceptable when their
+  proportions are measured to sit together (see [E §2](05-design-brief.md#2-typography-direction)).
 - Larger line height for Devanagari to accommodate vowel marks above and below.
 - Hindi body text optically sized slightly larger than English for equal readability.
 - No forced uppercase, letter-spacing or synthetic italics on Devanagari (the script has no
@@ -107,11 +135,13 @@ Design direction is in [E](05-design-brief.md). Bilingual technical requirements
 | Numbers | Indian digit grouping (lakh/crore) in both languages. |
 | Digits on Hindi pages | **Western numerals (0–9)** ([0002](../decisions/0002-bilingual-strategy.md)). |
 | Spelling of "Hindi" in Hindi | **"हिंदी"**, used consistently ([0002](../decisions/0002-bilingual-strategy.md)). |
-| Transliteration | One romanisation convention for recurring names and terms, defined in the glossary. The convention itself is open (OD-20, see H). |
+| Transliteration | One romanisation convention for recurring names and terms, defined in the [glossary](09-language-glossary.md#9-romanisation-od-20-open). The convention itself is open (OD-20, see H). |
+| Glossary | Interface labels, recurring terms, date forms, punctuation and names follow the [language glossary](09-language-glossary.md); only approved or family-confirmed entries are published. |
 
 ## 10. Accessibility
 
 - `lang` set correctly at page level and on inline phrases.
-- Language switch is a labelled link with the target language name in its own script, plus an
-  accessible description.
+- The language switch is a plain link with the target language name in its own script, marked up
+  with `lang`, `hreflang` and `translate="no"`, plus an accessible name describing the action
+  (wording per the glossary).
 - Alt text and captions are written in, not machine-copied into, each language.
