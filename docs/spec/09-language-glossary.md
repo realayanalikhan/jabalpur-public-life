@@ -1,11 +1,13 @@
 # 09. Language Glossary and Content Conventions
 
-- **Version:** 2.1 (spec v1.4, final terminology review 2026-10-08)
+- **Version:** 2.2 (terminology approved for implementation, 2026-10-08)
 - **Status:** Conventions and terminology that can be fixed **without family-specific information**.
-  - **Approved editorial:** only conventions approved by decision records or explicitly confirmed in
-    the final review.
-  - **Recommended:** terminology still awaiting approval and confirmation by the Hindi/English
-    reviewer (OD-16).
+  - **Approved editorial:** the conventions approved by decision records or the final review, **and
+    all terminology**, approved by the decision partner for the scaffold and implementation
+    (2026-10-08). The appointed Hindi/English reviewer (OD-16) has **final confirmation authority
+    before launch**. Implementation does not wait for the reviewer. Any change the reviewer asks for
+    is made deliberately through the glossary keys (`src/content/glossary/glossary.yaml`), never
+    silently.
   - **Family-confirmed:** proper names and person-specific terms (§12); none exist yet, and none are
     inferred.
   - **Open:** romanisation (OD-20).
@@ -57,38 +59,38 @@ Principles:
 
 | Key | English | Hindi | Reason | Status |
 |---|---|---|---|---|
-| `nav.home` | Home | मुखपृष्ठ | Standard, dignified Hindi for a site's home page; used in breadcrumbs. "होम" is a loan and less editorial | Recommended |
-| `nav.about` | About | परिचय | Natural "introduction/about"; short | Recommended |
-| `nav.about.biography` | Biography | जीवन-परिचय | The established Hindi term for a biographical account. "जीवनी" suggests a book-length biography | Recommended |
-| `nav.public-life` | Public Life | सार्वजनिक जीवन | Direct and natural; matches the site's thesis | Recommended |
-| `nav.public-life.overview` | Overview | एक नज़र में | Natural editorial "at a glance". "अवलोकन" reads as government-report language | Recommended |
-| `nav.public-life.timeline` | Timeline | समयरेखा | Widely understood (also used on Hindi Wikipedia). "कालक्रम" is more literary but less familiar | Recommended |
-| `nav.public-life.roles` | Roles & Terms | पद और कार्यकाल | Natural pairing; "कार्यकाल" is the ordinary word for a term of office | Recommended |
-| `nav.public-life.work` | Work & Initiatives | कार्य और पहल | Natural; "पहल" (initiative) is common and does not imply success or scale | Recommended |
-| `nav.archive` | Archive | **अभिलेखागार** | See §4 | Recommended |
-| `nav.archive.photographs` | Photographs | तस्वीरें | The everyday word; warm rather than technical. "छायाचित्र" is formal; "फ़ोटो" is a loan | Recommended |
-| `nav.archive.documents` | Documents | दस्तावेज़ | The standard word (with nuqta, §6) | Recommended |
-| `nav.archive.press` | In the Press | मीडिया में | **Confirmed in the final review** (§3.1). Coverage includes print, online, TV, radio and interviews; "प्रेस में" suggests print only, and "समाचारों में" excludes interviews and features. Concise and accurate | Recommended |
-| `nav.archive.video` | Video | वीडियो | Standard loan | Recommended |
-| `nav.updates` | Updates | गतिविधियाँ | Kept after the final review (§3.1). Matches the content model (every update is an Activity: event, visit, announcement, appearance, community activity). It is timeless (no recency promise), avoids news connotations and overlap with मीडिया में, and avoids the loan अपडेट. The homepage module adds recency: `home.recent-updates` | Recommended |
-| `nav.updates.events` | Events | कार्यक्रम | The ordinary word for events and programmes | Recommended |
-| `nav.updates.announcements` | Announcements | घोषणाएँ | Standard; chandrabindu per §6 | Recommended |
-| `nav.connect` | Connect | संपर्क | Standard for contact; "कॉन्टैक्ट" is avoided | Recommended |
-| `nav.press-kit` | Press Kit | प्रेस किट | The term journalists use; a Hindi coinage would be less clear | Recommended |
-| `nav.how-we-verify` | How We Verify | हम जानकारी कैसे जाँचते हैं | **Changed in the final review** (§3.1). It describes a process ("how we check information"), mirrors the English, and claims no certification. Also the page title | Recommended |
-| `nav.corrections` | Corrections & Feedback | सुधार और सुझाव | Natural pairing ("corrections and suggestions") | Recommended |
-| `nav.privacy` | Privacy | निजता | Standard (page title "निजता नीति") | Recommended |
-| `nav.terms` | Terms / Takedown | उपयोग की शर्तें और सामग्री हटाने का अनुरोध | **Changed in the final review** (§3.1). "Terms of use and request to remove content": names the object (सामग्री) so the removal route is clear to people seeking it. Footer link may wrap | Recommended |
+| `nav.home` | Home | मुखपृष्ठ | Standard, dignified Hindi for a site's home page; used in breadcrumbs. "होम" is a loan and less editorial | Approved editorial |
+| `nav.about` | About | परिचय | Natural "introduction/about"; short | Approved editorial |
+| `nav.about.biography` | Biography | जीवन-परिचय | The established Hindi term for a biographical account. "जीवनी" suggests a book-length biography | Approved editorial |
+| `nav.public-life` | Public Life | सार्वजनिक जीवन | Direct and natural; matches the site's thesis | Approved editorial |
+| `nav.public-life.overview` | Overview | एक नज़र में | Natural editorial "at a glance". "अवलोकन" reads as government-report language | Approved editorial |
+| `nav.public-life.timeline` | Timeline | समयरेखा | Widely understood (also used on Hindi Wikipedia). "कालक्रम" is more literary but less familiar | Approved editorial |
+| `nav.public-life.roles` | Roles & Terms | पद और कार्यकाल | Natural pairing; "कार्यकाल" is the ordinary word for a term of office | Approved editorial |
+| `nav.public-life.work` | Work & Initiatives | कार्य और पहल | Natural; "पहल" (initiative) is common and does not imply success or scale | Approved editorial |
+| `nav.archive` | Archive | **अभिलेखागार** | See §4 | Approved editorial |
+| `nav.archive.photographs` | Photographs | तस्वीरें | The everyday word; warm rather than technical. "छायाचित्र" is formal; "फ़ोटो" is a loan | Approved editorial |
+| `nav.archive.documents` | Documents | दस्तावेज़ | The standard word (with nuqta, §6) | Approved editorial |
+| `nav.archive.press` | In the Press | मीडिया में | **Confirmed in the final review** (§3.1). Coverage includes print, online, TV, radio and interviews; "प्रेस में" suggests print only, and "समाचारों में" excludes interviews and features. Concise and accurate | Approved editorial |
+| `nav.archive.video` | Video | वीडियो | Standard loan | Approved editorial |
+| `nav.updates` | Updates | गतिविधियाँ | Kept after the final review (§3.1). Matches the content model (every update is an Activity: event, visit, announcement, appearance, community activity). It is timeless (no recency promise), avoids news connotations and overlap with मीडिया में, and avoids the loan अपडेट. The homepage module adds recency: `home.recent-updates` | Approved editorial |
+| `nav.updates.events` | Events | कार्यक्रम | The ordinary word for events and programmes | Approved editorial |
+| `nav.updates.announcements` | Announcements | घोषणाएँ | Standard; chandrabindu per §6 | Approved editorial |
+| `nav.connect` | Connect | संपर्क | Standard for contact; "कॉन्टैक्ट" is avoided | Approved editorial |
+| `nav.press-kit` | Press Kit | प्रेस किट | The term journalists use; a Hindi coinage would be less clear | Approved editorial |
+| `nav.how-we-verify` | How We Verify | हम जानकारी कैसे जाँचते हैं | **Changed in the final review** (§3.1). It describes a process ("how we check information"), mirrors the English, and claims no certification. Also the page title | Approved editorial |
+| `nav.corrections` | Corrections & Feedback | सुधार और सुझाव | Natural pairing ("corrections and suggestions") | Approved editorial |
+| `nav.privacy` | Privacy | निजता | Standard (page title "निजता नीति") | Approved editorial |
+| `nav.terms` | Terms / Takedown | उपयोग की शर्तें और सामग्री हटाने का अनुरोध | **Changed in the final review** (§3.1). "Terms of use and request to remove content": names the object (सामग्री) so the removal route is clear to people seeking it. Footer link may wrap | Approved editorial |
 | `lang.switch.to-en` | English | — | Label on Hindi pages | **Approved editorial** ([0021](../decisions/0021-language-switching-and-single-language-content.md)) |
 | `lang.switch.to-hi` | — | हिंदी | Label on English pages | **Approved editorial** ([0002](../decisions/0002-bilingual-strategy.md)) |
-| `lang.switch.a11y` | Read this page in English | यह पेज हिंदी में पढ़ें | Accessible name of the switch (each text in its own language) | Recommended |
-| `ui.menu` | Menu | मेनू | The understood loan | Recommended |
-| `ui.skip` | Skip to content | मुख्य सामग्री पर जाएँ | Natural imperative | Recommended |
-| `ui.breadcrumb` | You are here | आप यहाँ हैं | Accessible label for the breadcrumb | Recommended |
-| `ui.last-updated` | Last updated | अंतिम संशोधन | Dignified, short | Recommended |
-| `ui.read-more` | Read more | आगे पढ़ें | Natural | Recommended |
-| `ui.not-found` | Page not found | यह पेज नहीं मिला | Plain | Recommended |
-| `home.recent-updates` | Recent updates | हाल की गतिविधियाँ | Homepage module label: recency belongs to the module, not the section | Recommended |
+| `lang.switch.a11y` | Read this page in English | यह पेज हिंदी में पढ़ें | Accessible name of the switch (each text in its own language) | Approved editorial |
+| `ui.menu` | Menu | मेनू | The understood loan | Approved editorial |
+| `ui.skip` | Skip to content | मुख्य सामग्री पर जाएँ | Natural imperative | Approved editorial |
+| `ui.breadcrumb` | You are here | आप यहाँ हैं | Accessible label for the breadcrumb | Approved editorial |
+| `ui.last-updated` | Last updated | अंतिम संशोधन | Dignified, short | Approved editorial |
+| `ui.read-more` | Read more | आगे पढ़ें | Natural | Approved editorial |
+| `ui.not-found` | Page not found | यह पेज नहीं मिला | Plain | Approved editorial |
+| `home.recent-updates` | Recent updates | हाल की गतिविधियाँ | Homepage module label: recency belongs to the module, not the section | Approved editorial |
 
 ### 3.1 Final terminology review (product language, 2026-10-08)
 
@@ -143,7 +145,7 @@ The item-level status label stays **स्रोत से पुष्ट** (§
 | An individual archive item | सामग्री (e.g. "इस सामग्री के बारे में" = "About this item") |
 | "The record" in prose | अभिलेख (e.g. "सार्वजनिक जीवन का अभिलेख") |
 
-Status: **Recommended**.
+Status: **Approved editorial** (implementation, 2026-10-08).
 
 ## 5. Dates and numbers
 
@@ -172,8 +174,8 @@ numeric dates such as `07/10/2026`, which are ambiguous.
 Status:
 - **Approved editorial:** Western numerals ([0002](../decisions/0002-bilingual-strategy.md)); Indian digit
   grouping (spec D §9); en dash for ranges (confirmed in the final review).
-- **Recommended:** the date wordings ("लगभग", "c.", "से पहले", "के बाद", decades, "unknown date
-  omitted") and the large-number style.
+- **Approved editorial (implementation, 2026-10-08):** the date wordings ("लगभग", "c.", "से पहले",
+  "के बाद", decades, "unknown date omitted") and the large-number style.
 
 ### 5.1 Month names: resolved convention
 
@@ -233,7 +235,7 @@ High-frequency site words:
 Status:
 - **Approved editorial:** हिंदी ([0002](../decisions/0002-bilingual-strategy.md)); the nuqta rule
   (rule 1) and the anusvara rule (rule 2), both confirmed in the final review.
-- **Recommended:** rules 3–6 and the high-frequency word list.
+- **Approved editorial (implementation, 2026-10-08):** rules 3–6 and the high-frequency word list.
 
 ## 7. Punctuation (bilingual)
 
@@ -258,7 +260,7 @@ Status:
 - **Approved editorial** (confirmed in the final review): danda in Hindi; curly quotation marks;
   plain ASCII colon (never the visarga); en dash for ranges; spaced middle dot as the metadata
   separator.
-- **Recommended:** em dash, parentheses, slash, ellipsis, abbreviations and honorific default.
+- **Approved editorial (implementation, 2026-10-08):** em dash, parentheses, slash, ellipsis, abbreviations and honorific default.
 
 ## 8. Captions
 
@@ -286,7 +288,7 @@ Order (approved, [design 03 §6](../design/03-visual-direction.md#6-photography)
 
 Status:
 - **Approved editorial:** the order what → where → when → credit (approved caption order).
-- **Recommended:** the credit labels (फ़ोटो / सौजन्य / वीडियो) and the wording rules.
+- **Approved editorial (implementation, 2026-10-08):** the credit labels (फ़ोटो / सौजन्य / वीडियो) and the wording rules.
 
 ## 9. Source and verification wording
 
@@ -295,20 +297,20 @@ Per [0026](../decisions/0026-verification-and-source-presentation.md). The Hindi
 
 | Key | English | Hindi | Reason | Status |
 |---|---|---|---|---|
-| `verify.source` | Source | स्रोत | Standard | Recommended |
-| `verify.notes` | Sources and notes | स्रोत और टिप्पणियाँ | Section heading on long pages | Recommended |
-| `verify.credit` | Credit | श्रेय | Standard | Recommended |
-| `verify.rights` | Rights | अधिकार | Short; full phrase in the rights line ("उपयोग के अधिकार: …") | Recommended |
-| `verify.verified` | Verified · Source: ‹source type› | **स्रोत से पुष्ट** · ‹source type› | "Confirmed from a source": ties the status to evidence. "सत्यापित" reads as official attestation; "प्रमाणित" as certification; a bare "पुष्ट" can read as approval. None of these imply endorsement here | Recommended |
-| `verify.supplied` | Provided by the family | परिवार द्वारा दी गई जानकारी | "Information given by the family": plain attribution. "Family" includes the person; if a different attribution is wanted, it is family-confirmed | Recommended |
-| `verify.media-reported` | As reported by ‹outlet›, ‹date› | ‹outlet› की रिपोर्ट के अनुसार, ‹date› | Attribution ("according to"), not endorsement; works for print, online and broadcast | Recommended |
+| `verify.source` | Source | स्रोत | Standard | Approved editorial |
+| `verify.notes` | Sources and notes | स्रोत और टिप्पणियाँ | Section heading on long pages | Approved editorial |
+| `verify.credit` | Credit | श्रेय | Standard | Approved editorial |
+| `verify.rights` | Rights | अधिकार | Short; full phrase in the rights line ("उपयोग के अधिकार: …") | Approved editorial |
+| `verify.verified` | Verified · Source: ‹source type› | **स्रोत से पुष्ट** · ‹source type› | "Confirmed from a source": ties the status to evidence. "सत्यापित" reads as official attestation; "प्रमाणित" as certification; a bare "पुष्ट" can read as approval. None of these imply endorsement here | Approved editorial |
+| `verify.supplied` | Provided by the family | परिवार द्वारा दी गई जानकारी | "Information given by the family": plain attribution. "Family" includes the person; if a different attribution is wanted, it is family-confirmed | Approved editorial |
+| `verify.media-reported` | As reported by ‹outlet›, ‹date› | ‹outlet› की रिपोर्ट के अनुसार, ‹date› | Attribution ("according to"), not endorsement; works for print, online and broadcast | Approved editorial |
 | `verify.unverified` | *(never shown publicly)* | *(अपुष्ट: internal use only)* | [0018](../decisions/0018-content-integrity-rules.md) | Approved editorial |
-| `verify.what-this-means` | What this means | इसका क्या अर्थ है | Link to the verification page | Recommended |
-| `verify.details` | Source details | स्रोत का विवरण | Level-2 disclosure label | Recommended |
-| `correction.noun` | Correction | सुधार | Standard | Recommended |
-| `correction.suggest` | Suggest a correction | सुधार सुझाएँ | Polite imperative | Recommended |
-| `correction.note` | Corrected on ‹date›: ‹what changed› | ‹date› को सुधारा गया: ‹क्या बदला› | Public correction note (spec G §8) | Recommended |
-| `correction.quote-ref` | Please quote reference ‹ref› | कृपया संदर्भ ‹ref› लिखें | Correction pathway ([0023](../decisions/0023-public-reference-identifiers.md)) | Recommended |
+| `verify.what-this-means` | What this means | इसका क्या अर्थ है | Link to the verification page | Approved editorial |
+| `verify.details` | Source details | स्रोत का विवरण | Level-2 disclosure label | Approved editorial |
+| `correction.noun` | Correction | सुधार | Standard | Approved editorial |
+| `correction.suggest` | Suggest a correction | सुधार सुझाएँ | Polite imperative | Approved editorial |
+| `correction.note` | Corrected on ‹date›: ‹what changed› | ‹date› को सुधारा गया: ‹क्या बदला› | Public correction note (spec G §8) | Approved editorial |
+| `correction.quote-ref` | Please quote reference ‹ref› | कृपया संदर्भ ‹ref› लिखें | Correction pathway ([0023](../decisions/0023-public-reference-identifiers.md)) | Approved editorial |
 
 ## 10. Archive metadata labels
 
@@ -316,28 +318,28 @@ Short enough for one-line mobile metadata (system sans, 15 px Hindi).
 
 | Key | English | Hindi | Status |
 |---|---|---|---|
-| `meta.date` | Date | तिथि | Recommended |
-| `meta.place` | Place | स्थान | Recommended |
-| `meta.type` | Type | प्रकार | Recommended |
-| `meta.collection` | Collection | संग्रह | Recommended |
-| `meta.occasion` | Occasion | अवसर | Recommended |
-| `meta.reference` | Reference | संदर्भ | Recommended |
-| `meta.source` | Source | स्रोत | Recommended |
-| `meta.credit` | Credit | श्रेय | Recommended |
-| `meta.rights` | Rights | अधिकार | Recommended |
-| `meta.people` | People shown | व्यक्ति | Recommended |
-| `meta.original-form` | Original | मूल रूप | Recommended |
-| `meta.original-language` | Original in ‹language› | मूल ‹भाषा› में | Recommended |
-| `meta.only-in` | In Hindi only *(on English pages)* | केवल अंग्रेज़ी में *(on Hindi pages)* | Recommended |
-| `item.about` | About this item | इस सामग्री के बारे में | Recommended |
-| `item.cite` | Use and cite | उपयोग और उद्धरण | Recommended |
-| `item.copy-citation` / `item.copy-link` | Copy citation / Copy link | उद्धरण कॉपी करें / लिंक कॉपी करें | Recommended |
-| `related.same-occasion` | From the same occasion | इसी अवसर से | Recommended |
-| `related.same-period` | From this period | इसी दौर से | Recommended |
-| `lens.type` / `lens.time` / `lens.period` / `lens.decade` / `lens.theme` / `lens.place` | Type / Time / Period / Decade / Theme / Place | प्रकार / समय / दौर / दशक / विषय / स्थान | Recommended |
-| `type.photo` / `type.document` / `type.coverage` / `type.video` | Photograph / Document / Media coverage / Video | तस्वीर / दस्तावेज़ / मीडिया रिपोर्ट / वीडियो | Recommended |
-| `format.print` / `format.online` / `format.tv` / `format.radio` / `format.interview` | Print / Online / Television / Radio / Interview | अख़बार-पत्रिका / ऑनलाइन / टीवी / रेडियो / साक्षात्कार | Recommended (coverage format; an interview is labelled साक्षात्कार, not रिपोर्ट) |
-| `notice.not-available` | This item is available only in Hindi. | यह सामग्री केवल अंग्रेज़ी में उपलब्ध है। | Recommended (each text names the *other* language; [0021](../decisions/0021-language-switching-and-single-language-content.md)) |
+| `meta.date` | Date | तिथि | Approved editorial |
+| `meta.place` | Place | स्थान | Approved editorial |
+| `meta.type` | Type | प्रकार | Approved editorial |
+| `meta.collection` | Collection | संग्रह | Approved editorial |
+| `meta.occasion` | Occasion | अवसर | Approved editorial |
+| `meta.reference` | Reference | संदर्भ | Approved editorial |
+| `meta.source` | Source | स्रोत | Approved editorial |
+| `meta.credit` | Credit | श्रेय | Approved editorial |
+| `meta.rights` | Rights | अधिकार | Approved editorial |
+| `meta.people` | People shown | व्यक्ति | Approved editorial |
+| `meta.original-form` | Original | मूल रूप | Approved editorial |
+| `meta.original-language` | Original in ‹language› | मूल ‹भाषा› में | Approved editorial |
+| `meta.only-in` | In Hindi only *(on English pages)* | केवल अंग्रेज़ी में *(on Hindi pages)* | Approved editorial |
+| `item.about` | About this item | इस सामग्री के बारे में | Approved editorial |
+| `item.cite` | Use and cite | उपयोग और उद्धरण | Approved editorial |
+| `item.copy-citation` / `item.copy-link` | Copy citation / Copy link | उद्धरण कॉपी करें / लिंक कॉपी करें | Approved editorial |
+| `related.same-occasion` | From the same occasion | इसी अवसर से | Approved editorial |
+| `related.same-period` | From this period | इसी दौर से | Approved editorial |
+| `lens.type` / `lens.time` / `lens.period` / `lens.decade` / `lens.theme` / `lens.place` | Type / Time / Period / Decade / Theme / Place | प्रकार / समय / दौर / दशक / विषय / स्थान | Approved editorial |
+| `type.photo` / `type.document` / `type.coverage` / `type.video` | Photograph / Document / Media coverage / Video | तस्वीर / दस्तावेज़ / मीडिया रिपोर्ट / वीडियो | Approved editorial |
+| `format.print` / `format.online` / `format.tv` / `format.radio` / `format.interview` | Print / Online / Television / Radio / Interview | अख़बार-पत्रिका / ऑनलाइन / टीवी / रेडियो / साक्षात्कार | Approved editorial (coverage format; an interview is labelled साक्षात्कार, not रिपोर्ट) |
+| `notice.not-available` | This item is available only in Hindi. | यह सामग्री केवल अंग्रेज़ी में उपलब्ध है। | Approved editorial (each text names the *other* language; [0021](../decisions/0021-language-switching-and-single-language-content.md)) |
 
 ## 11. Romanisation (OD-20: open)
 
@@ -404,12 +406,13 @@ supply them.
 
 | Status | Items |
 |---|---|
-| **Approved editorial** | हिंदी; Western numerals; Indian digit grouping; language-switch labels (English / हिंदी); CLDR `hi-IN` month names (जनवरी … फ़रवरी … सितंबर, अक्टूबर, नवंबर, दिसंबर); nuqta rule; anusvara rule; danda; curly quotation marks; plain colon (never visarga); en dash for ranges; middle dot for metadata; caption order what → where → when → credit; "unverified is never shown" (0018) |
-| **Recommended** (decision-partner approval, then reviewer confirmation, OD-16) | All navigation and interface labels (§3), including अभिलेखागार, गतिविधियाँ, मीडिया में, हम जानकारी कैसे जाँचते हैं, उपयोग की शर्तें और सामग्री हटाने का अनुरोध; date wordings (§5); spelling rules 3–6 and word list (§6); remaining punctuation (§7); caption credit labels (§8); source and verification wording (§9), including स्रोत से पुष्ट; metadata, lens, type and format labels (§10) |
+| **Approved editorial** (conventions; decisions and final review) | हिंदी; Western numerals; Indian digit grouping; language-switch labels (English / हिंदी); CLDR `hi-IN` month names (जनवरी … फ़रवरी … सितंबर, अक्टूबर, नवंबर, दिसंबर); nuqta rule; anusvara rule; danda; curly quotation marks; plain colon (never visarga); en dash for ranges; middle dot for metadata; caption order what → where → when → credit; "unverified is never shown" (0018) |
+| **Approved editorial** (terminology; approved for implementation 2026-10-08; reviewer confirms before launch, OD-16) | All navigation and interface labels (§3), including अभिलेखागार, गतिविधियाँ, मीडिया में, हम जानकारी कैसे जाँचते हैं, उपयोग की शर्तें और सामग्री हटाने का अनुरोध; date wordings (§5); spelling rules 3–6 and word list (§6); remaining punctuation (§7); caption credit labels (§8); source and verification wording (§9), including स्रोत से पुष्ट; metadata, lens, type and format labels (§10), including साक्षात्कार |
 | **Family-confirmed** (none yet; never inferred) | Public name; Hindi and English spellings; honorific or form of reference; role and designation names; organisation names (incl. any party); ward and locality spellings; initiative names; quotations; dates; personal details (§12) |
 | **Open** | Romanisation convention (**OD-20**, §11). Nothing else is open in this glossary |
 
-**Effect on the scaffold:** none of the Recommended or Open items blocks the scaffold. Interface
-strings are glossary keys, so wording can change without code changes. Production cannot ship until
-the strings it uses are Approved editorial (scaffold check I14) and real content has
-Family-confirmed names.
+**In code:** the approved wording is in `src/content/glossary/glossary.yaml` (status
+`approved-editorial`), the only source of interface text. Production fails on any missing or
+non-approved key (scaffold check I14). Reviewer-requested changes before launch are made there,
+deliberately, and noted in the pull request. The glossary is not reopened unless implementation
+exposes a genuine contradiction.
