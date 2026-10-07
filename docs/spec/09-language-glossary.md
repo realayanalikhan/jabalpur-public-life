@@ -135,7 +135,7 @@ Principles to decide (proposed):
 | `meta.photo-credit` | Photo: ‹name› | फ़ोटो: ‹name› | proposed | Research §13.5; nuqta policy (§8) |
 | `meta.rights` | Rights / usage | — | — | To be proposed |
 | `meta.original-language` | Original in ‹language› | मूल ‹language› में | proposed | Spec D §6 |
-| `meta.reference` | Reference | — | — | Only if [0023](../decisions/0023-public-reference-identifiers.md) is accepted |
+| `meta.reference` | Reference | — | — | [0023](../decisions/0023-public-reference-identifiers.md) accepted; Hindi label to be proposed. Shown only in item details, citation and correction pathway |
 | `verify.verified` | Verified · Source: ‹source type› | पुष्ट · स्रोत: ‹source type› | proposed | Research §16; final wording DP-03 |
 | `verify.supplied` | Provided by the family | परिवार द्वारा उपलब्ध | proposed | Research §16; final wording DP-03 |
 | `verify.media-reported` | Reported in ‹outlet›, ‹date› | ‹outlet› में प्रकाशित, ‹date› | proposed | Research §16; final wording DP-03 |

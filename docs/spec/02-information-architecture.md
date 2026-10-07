@@ -93,7 +93,7 @@ They are filters within Archive and Public Life.
 | **Documents** | Browse documents | Document | When threshold met |
 | **In the Press** | Media coverage by date/outlet/language | Coverage | When threshold met |
 | **Video** | Videos and interviews | Video | When threshold met |
-| **Archive item detail** | The item, its caption, credit, rights, provenance and related items ("From the same occasion" first) | Item + Source, Place, Theme, Occasion | Per item |
+| **Archive item detail** | The item page in the order set by [0027](../decisions/0027-archive-item-page-principles.md): media, caption, title, date/type/place, source label, optional narrative, details, occasion, rights/credit (with the public reference, [0023](../decisions/0023-public-reference-identifiers.md)), use and cite, related items ("From the same occasion" first), correction pathway | Item + Source, Place, Theme, Occasion | Per item |
 | **Collection** | A curated set or narrative story | Collection + items | Per collection |
 | **Updates** | Dated current activities, newest first | Activity | When ≥ 1 published activity |
 | **Events** | Upcoming events first, then past | Activity (type = event) | When ≥ 1 event |
@@ -135,6 +135,12 @@ components ([0003](../decisions/0003-information-architecture.md)):
 | Collections | Each collection needs ≥ 3 items |
 
 ### 4.2 Homepage modules
+
+**Homepage principle** (approved, spec v1.3): **identity → context → public record → archive →
+timeline/places → current activity → connect**. This is an order, not a rigid component checklist.
+Content availability decides which sections appear: no empty modules, placeholder cards, fake
+activity or invented archive content. Two proposed additions, a site statement (HP-01) and
+"places in the record" (HP-02), are **not approved** ([design 08](../design/08-homepage-additions-analysis.md)).
 
 The homepage is a stack of modules. Each module hides itself if it has no content.
 

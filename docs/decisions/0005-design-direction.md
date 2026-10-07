@@ -1,6 +1,6 @@
 # 0005 — Design direction
 
-- **Status:** Accepted
+- **Status:** Accepted; colour direction clarified by [0025](0025-local-material-visual-palette.md); typography set by [0024](0024-typography-system.md)
 - **Date:** 2026-10-07
 - **Deciders:** Product/technical decision partner (relayed by the project owner)
 - **Related:** [Spec E](../spec/05-design-brief.md); OD-11, OD-12

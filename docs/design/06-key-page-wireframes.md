@@ -1,8 +1,9 @@
 # 06. Key page wireframes
 
 - **Date:** 2026-10-07
-- **Status:** Conceptual wireframes for review. They establish **one coherent system**, not detailed
-  designs. Placeholders only; no production code.
+- **Status:** Conceptual wireframes (DP-05 open). They establish **one coherent system**, not detailed
+  designs, and are not permission to start coding. Placeholders only. Archive item pages follow
+  [0027](../decisions/0027-archive-item-page-principles.md).
 - **System rules used on every page** ([03](03-visual-direction.md)):
   - header with the language switch;
   - breadcrumb below section level;

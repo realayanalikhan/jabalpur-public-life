@@ -1,11 +1,13 @@
 # Project Specification v1
 
-- **Version:** 1.2
+- **Version:** 1.3
 - **Date:** 2026-10-07
 - **Overall status:** Product and technical architecture decisions approved and recorded in
   [`../decisions/`](../decisions/README.md). v1.2 reconciles the specification with the
-  [visual and product research](../research/README.md). Typography and palette remain
-  **provisional** until the design-phase visual tests. Open items are listed in
+  [visual and product research](../research/README.md). v1.3 records the design decisions from
+  the [design tests](../design/README.md): typography (0024), palette direction with provisional
+  values (0025), verification presentation (0026), public reference IDs (0023) and archive item
+  principles (0027). Open items are listed in
   [H](08-open-decisions.md). **Implementation has not started.**
 
 This folder is the project specification. Approved decisions are recorded separately in
@@ -19,7 +21,7 @@ This folder is the project specification. Approved decisions are recorded separa
 | B | [Information Architecture](02-information-architecture.md) | Accepted | 0003, 0021, 0022 |
 | C | [Content Architecture](03-content-architecture.md) | Accepted (entity model as working direction) | 0004, 0006, 0020, 0022 |
 | D | [Bilingual Architecture](04-bilingual-architecture.md) | Accepted | 0002, 0018, 0021 |
-| E | [Design Brief](05-design-brief.md) | Accepted direction; typography and palette **provisional** pending visual tests; design system produced in design phase | 0005, 0009 |
+| E | [Design Brief](05-design-brief.md) | Accepted direction; typography approved; palette direction approved, values **provisional** (DP-08); design system produced in design phase | 0005, 0009, 0024, 0025, 0026 |
 | F | [Technical Architecture](06-technical-architecture.md) | **Approved**, with a few setup/operational items open | 0007–0019, 0022 |
 | G | [Security, Privacy & Content Integrity](07-security-privacy-integrity.md) | Working direction (principles accepted; legal review open) | 0006, 0015, 0018 |
 | H | [Open Decisions](08-open-decisions.md) | Living list | — |
@@ -64,6 +66,20 @@ This folder is the project specification. Approved decisions are recorded separa
 | 1.0 | 2026-10-07 | First specification from accepted product decisions and the initial architecture analysis. |
 | 1.1 | 2026-10-07 | Approved decisions recorded (0001–0019). F marked approved. H restructured into open / family input / resolved. Resolved items updated in A, B, C, D, E and G. Image storage threshold made configurable; video given a provider abstraction; accessibility metadata added to build-failing checks. |
 | 1.2 | 2026-10-07 | **Reconciliation with the visual and product research** ([research 02](../research/02-research-to-spec-reconciliation.md)). Changes are listed below. |
+| 1.3 | 2026-10-07 | **Design decisions formalised** from the [design tests](../design/README.md). Changes are listed below. |
+
+### v1.3 changes in detail
+
+| Change | Sections changed | Decision record |
+|---|---|---|
+| Typography approved: Noto Serif Devanagari + Source Serif 4 + system sans UI; rendered 360/412 px test basis; physical Android QA required | E §2, E §11; D §8 | [0024](../decisions/0024-typography-system.md) |
+| Palette direction approved (marble / granite / Narmada blue-green / restrained warm tone); exact values provisional (DP-08) | E §4, E §11 | [0025](../decisions/0025-local-material-visual-palette.md) |
+| Verification and source presentation: short markers, "Sources and notes", Level-1 label + optional details; no badges or traffic-light colours | C §3, E §10 | [0026](../decisions/0026-verification-and-source-presentation.md) |
+| Public reference identifiers **accepted** (restrained; opaque, non-sequential; details, citation and correction only) | A FR-A7 (new); B §3; C §2; 09 §6 | [0023](../decisions/0023-public-reference-identifiers.md) |
+| Archive item page principles (12-step order) | A FR-A1; B §3 | [0027](../decisions/0027-archive-item-page-principles.md) |
+| Homepage principle recorded; site statement (HP-01) and places section (HP-02) left **proposed** | B §4.2 | — ([design 08](../design/08-homepage-additions-analysis.md)) |
+| River line: tested direction recorded (DP-06) | E §5 | [0005](../decisions/0005-design-direction.md) (unchanged) |
+| Occasion standalone pages left open with recommendation (DP-07); DP-08 opened; H updated | H | — |
 
 ### v1.2 changes in detail
 

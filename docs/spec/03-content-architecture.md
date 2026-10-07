@@ -24,6 +24,7 @@ permission to implement every field immediately. All person-specific values rema
 | `translation` | Per language: state (`missing`, `machine-draft`, `in-review`, `reviewed`), reviewer, review date, and a fingerprint of the original text at review time. |
 | `themes` | References to Theme entries. |
 | `internalNotes` | Never rendered or shipped. |
+| `reference` | **Archive items only** (Photo, Video, Document, Coverage): permanent, short, opaque, non-sequential public identifier; never encodes dates, claims or changeable categories; never reused. Shown only in the item details, citation and correction pathway ([0023](../decisions/0023-public-reference-identifiers.md)). |
 | `devFixture` | `true` only for synthetic development data; blocks production builds. |
 | `createdAt` / `updatedAt` | Maintenance metadata. |
 
@@ -52,7 +53,8 @@ treated as `supplied` overall. Any statement inside long-form text that is not s
 removed before publishing; this is an editorial review step, since it cannot be automated.
 
 **Sources and notes (presentation of provenance).** No academic-style footnote clutter
-([0004](../decisions/0004-content-and-verification-model.md)). Traceability is unchanged.
+([0004](../decisions/0004-content-and-verification-model.md); presentation fixed by
+[0026](../decisions/0026-verification-and-source-presentation.md)). Traceability is unchanged.
 
 - **Specific factual claims** inside long-form text (dates, positions, figures) carry a **concise
   source/reference marker** where useful. The marker links to its entry in the page's notes section.

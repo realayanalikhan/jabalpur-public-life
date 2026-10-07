@@ -1,8 +1,9 @@
 # 01. Bilingual typography test
 
 - **Date:** 2026-10-07
-- **Status:** Test complete. **Recommendation: Direction A.** Not yet a decision record (DP-01 is
-  closed by a decision record in the next phase).
+- **Status:** Test complete. **Direction A accepted** as [0024](../decisions/0024-typography-system.md)
+  (DP-01 closed). The test was rendered at simulated widths, not on a physical device; implementation
+  QA must include a real mid-range Android phone.
 - **Compares:**
   - **Direction A:** Noto Serif Devanagari + Source Serif 4 + system sans UI
   - **Direction B:** Tiro Devanagari Hindi + Literata + system sans UI

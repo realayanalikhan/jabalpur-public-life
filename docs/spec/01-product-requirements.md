@@ -141,12 +141,13 @@ IDs are stable so later work can reference them.
 
 ### Archive (FR-A)
 
-- **FR-A1** Archive items (photo, document, coverage, video) have their own pages with caption, date, place, credit, rights and provenance.
+- **FR-A1** Archive items (photo, document, coverage, video) have their own pages with caption, date, place, credit, rights and provenance, ordered by the archive item page principles ([0027](../decisions/0027-archive-item-page-principles.md)): media, caption, title, date/type/place, source, optional narrative, details, occasion, rights/credit, use and cite, related material, correction pathway.
 - **FR-A2** Archive browsing one lens at a time by type, time (period or decade), theme and place, on static pages with shareable URLs; editorial curation comes first; no faceted filter interface ([0022](../decisions/0022-archive-browsing-model.md)).
 - **FR-A3** Collections group items into curated sets or stories.
 - **FR-A4** Coverage items record outlet, date, original-language headline, link, archive link and rights status.
 - **FR-A5** Items with unknown or restrictive rights are displayed as citations, not reproductions.
 - **FR-A6** Archive items and Updates may reference the real-world Occasion they document or report; an item page shows the other published material from the same Occasion ([0020](../decisions/0020-occasion-connective-archive-entity.md)).
+- **FR-A7** Each archive item has a permanent public reference identifier, shown only in its details area, its citation and the correction pathway; never on cards, listings, homepage modules or headlines ([0023](../decisions/0023-public-reference-identifiers.md)).
 
 ### Updates (FR-U)
 

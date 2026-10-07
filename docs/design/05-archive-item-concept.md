@@ -1,9 +1,10 @@
 # 05. Archive-item concept
 
 - **Date:** 2026-10-07
-- **Status:** Concept for review. It informs proposed decision
-  [0023](../decisions/0023-public-reference-identifiers.md), which **remains Proposed**; this
-  document does not modify it.
+- **Status:** Concept. Its findings led to **0023 being accepted** in restrained form
+  ([0023](../decisions/0023-public-reference-identifiers.md)) and to the page order in
+  [0027](../decisions/0027-archive-item-page-principles.md). Under 0023 the reference is **opaque and
+  non-sequential**, so the "P-0042" format shown here is superseded.
 - **Artefact:** [`test-pages/archive-item-concept.html`](test-pages/archive-item-concept.html)
   (variants `#noref`, `#ref`, `#everywhere`; add `-w360` for mobile width) ·
   **Screenshot:** [`screenshots/archive-item-ref-variants-360.png`](screenshots/archive-item-ref-variants-360.png)
