@@ -1,0 +1,51 @@
+{
+  "name": "jabalpur-public-life",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "Bilingual (Hindi/English) public-life profile and archive. Static Astro site.",
+  "packageManager": "pnpm@10.34.5",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "scripts": {
+    "dev": "node scripts/with-env.ts local astro dev",
+    "build": "astro build",
+    "build:local": "node scripts/with-env.ts local astro build",
+    "build:preview": "node scripts/with-env.ts preview astro build",
+    "build:verify": "node scripts/with-env.ts verify astro build",
+    "preview": "astro preview",
+    "sync": "node scripts/with-env.ts local astro sync",
+    "typecheck": "node scripts/with-env.ts local astro check",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "check:repo": "node scripts/check-repo.ts",
+    "ref:new": "node scripts/new-reference.ts",
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm check:repo && pnpm build:verify"
+  },
+  "dependencies": {
+    "astro": "7.3.7"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@eslint/js": "10.0.1",
+    "@types/node": "24.19.1",
+    "eslint": "10.12.0",
+    "eslint-plugin-astro": "3.2.1",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "exifr": "7.1.3",
+    "globals": "17.13.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-astro": "1.1.0",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.71.1",
+    "vitest": "5.0.3"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
