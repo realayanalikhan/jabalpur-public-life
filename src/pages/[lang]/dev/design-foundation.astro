@@ -1,0 +1,185 @@
+---
+/**
+ * [DEV] Design-foundation specimen (local builds only). Renders the type scale, text roles, link and
+ * focus states, colour roles and the river line with neutral synthetic text, so the foundation can
+ * be inspected at 360, 412 and 1280 px. Not a site page: it is generated only when fixtures are
+ * allowed (SITE_ENV=local), never in preview or production, and is never in a sitemap.
+ * Development tooling text is written here directly instead of in the glossary (like the preview
+ * banner); every block starts with [DEV].
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import RiverLine from '../../../components/timeline/RiverLine.astro';
+import { getSite } from '../../../lib/site.ts';
+import { fixturesAllowed } from '../../../lib/env.ts';
+import type { Lang, RouteDef } from '../../../lib/routes.ts';
+
+export async function getStaticPaths() {
+  const site = await getSite();
+  if (!fixturesAllowed(site.env)) return [];
+  return (['hi', 'en'] as const).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const other: Lang = lang === 'hi' ? 'en' : 'hi';
+const site = await getSite();
+const route: RouteDef = {
+  path: `/${lang}/dev/design-foundation/`,
+  lang,
+  kind: 'dev',
+  alternates: {},
+  noindex: true,
+  inSitemap: false,
+  switchTo: `/${other}/dev/design-foundation/`,
+};
+
+const roles = [
+  ['--color-background', 'paper'],
+  ['--color-surface', 'stone'],
+  ['--color-text', 'ink'],
+  ['--color-text-secondary', 'ink-2'],
+  ['--color-text-muted', 'muted'],
+  ['--color-rule', 'rule'],
+  ['--color-border-control', 'rule-strong'],
+  ['--color-accent', 'narmada'],
+  ['--color-river-line', 'narmada-line'],
+  ['--color-citation-surface', 'band'],
+  ['--color-citation-text', 'band-ink'],
+] as const;
+---
+
+<BaseLayout site={site} route={route} title="[DEV] Design foundation specimen">
+  <div class="specimen">
+    <p class="type-label text-secondary">
+      [DEV] Design foundation specimen · local builds only · synthetic text · provisional colours (DP-08)
+    </p>
+
+    {lang === 'hi' ? (
+      <>
+        <p class="type-display">[DEV] अक्षर-योजना नमूना</p>
+        <h1>[DEV] यह एक लंबा परीक्षण शीर्षक है जो छोटी स्क्रीन पर कई पंक्तियों में टूटता है</h1>
+        <div class="measure flow">
+          <p class="type-lead">
+            [DEV] यह प्रस्तावना अनुच्छेद है। इसका आकार सामान्य पाठ से थोड़ा बड़ा है और यह पृष्ठ के विषय का परिचय देता
+            है।
+          </p>
+          <p>
+            [DEV] यह अनुच्छेद केवल अक्षर-योजना की जाँच के लिए लिखा गया परीक्षण पाठ है। इसमें संयुक्ताक्षर — क्ष, त्र,
+            ज्ञ, श्र, द्ध, ह्म और स्त्र — तथा अभिलेख, संग्रह, स्थान और समय जैसे शब्द शामिल हैं। हर पंक्ति पढ़ने में सहज
+            और स्पष्ट होनी चाहिए।
+          </p>
+          <p>
+            [DEV] अंक पश्चिमी रूप में दिखते हैं: 1900, 2,450 और 12। <strong>यह भाग गाढ़ा है</strong>,{' '}
+            <em>यह भाग ज़ोर देकर लिखा गया है</em> और <a href="#main">यह एक कड़ी है</a>। किसी कृति का शीर्षक उद्धरण
+            चिह्नों में आता है: “परीक्षण पुस्तिका”। अंग्रेज़ी वाक्यांश अपनी भाषा के साथ आता है:{' '}
+            <span lang="en">sample phrase</span>।
+          </p>
+          <h2>[DEV] अनुभाग शीर्षक का नमूना</h2>
+          <p>[DEV] अनुभाग के नीचे का पाठ। पूर्ण विराम (।) और दोहरा दंड (॥) सही दूरी पर दिखने चाहिए।</p>
+          <h3>[DEV] उप-अनुभाग शीर्षक</h3>
+          <p class="type-caption">[DEV] चित्र-परिचय का नमूना: क्या · कहाँ · कब · श्रेय</p>
+          <p class="type-label">[DEV] इंटरफ़ेस लेबल · मेटाडेटा पंक्ति · 1900</p>
+        </div>
+      </>
+    ) : (
+      <>
+        <p class="type-display">[DEV] Type specimen</p>
+        <h1>[DEV] A long test heading that wraps onto several lines on a small screen</h1>
+        <div class="measure flow">
+          <p class="type-lead">
+            [DEV] This is a lead paragraph. It is slightly larger than body text and introduces the page.
+          </p>
+          <p>
+            [DEV] This paragraph is synthetic test text for checking the type system. It contains ordinary words,
+            punctuation and figures such as 1900, 2,450 and 12, so that the texture resembles running prose.
+          </p>
+          <p>
+            [DEV] <strong>This part is semibold</strong>, <em>this part is emphasised</em>, and{' '}
+            <a href="#main">this is a link</a>. A title of a work is set in italics: <cite>Sample Handbook</cite>. A
+            Hindi phrase keeps its own language: <span lang="hi">अभिलेख और संग्रह</span>.
+          </p>
+          <h2>[DEV] Section heading sample</h2>
+          <p>[DEV] Text below a section heading, with quotation marks “like these” and an en dash – here.</p>
+          <h3>[DEV] Subsection heading</h3>
+          <p class="type-caption">[DEV] Caption sample: what · where · when · credit</p>
+          <p class="type-label">[DEV] Interface label · metadata line · 1900</p>
+        </div>
+      </>
+    )}
+
+    <hr />
+
+    <h2 class="type-label">[DEV] Colour roles (provisional values, DP-08)</h2>
+    <ul class="swatches type-label" lang="en">
+      {roles.map(([token, name]) => (
+        <li>
+          <span class="swatch" style={`background-color: var(${token})`} />
+          <code>{token}</code> · {name}
+        </li>
+      ))}
+    </ul>
+    <div class="panel flow">
+      <p>[DEV] Stone surface: panels, image mats, facts blocks.</p>
+      <p class="text-secondary">[DEV] Secondary ink on stone.</p>
+    </div>
+    <p class="citation type-caption">[DEV] Warm band: small citation and press surfaces only.</p>
+
+    <hr />
+
+    <h2 class="type-label">[DEV] River line (straight only; bends and final weight open, DP-06)</h2>
+    <div class="river-sample">
+      <RiverLine orientation="vertical" />
+      <div class="flow">
+        <p>[DEV] A</p>
+        <p>[DEV] B</p>
+        <p>[DEV] C</p>
+      </div>
+    </div>
+    <RiverLine orientation="horizontal" />
+  </div>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .specimen {
+      display: grid;
+      gap: var(--space-6);
+      padding-block: var(--space-6) var(--space-section);
+    }
+    .flow > * + * {
+      margin-block-start: var(--space-4);
+    }
+    .flow > :is(h2, h3) {
+      margin-block-start: calc(var(--space-7) * var(--space-heading-factor));
+    }
+    .swatches {
+      display: grid;
+      gap: var(--space-2);
+      padding: 0;
+      list-style: none;
+    }
+    .swatches li {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      font-size: var(--size-label);
+    }
+    .swatch {
+      inline-size: var(--space-8);
+      block-size: var(--space-6);
+      border: var(--border-hairline) solid var(--color-border-control);
+    }
+    .panel {
+      padding: var(--space-5);
+      background-color: var(--color-surface);
+    }
+    .citation {
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--color-citation-surface);
+      color: var(--color-citation-text);
+    }
+    .river-sample {
+      display: flex;
+      gap: var(--space-5);
+    }
+  }
+</style>

@@ -1,7 +1,8 @@
 ---
 /**
  * The single language switch ([0021]): a plain link showing only the other language, in its own
- * script, to the same path in that language. Wording from glossary keys.
+ * script, to the same path in that language. Wording from glossary keys. Interface text in the
+ * platform sans, with a 44 px minimum target (design 07, Mobile).
  */
 import type { Site } from '../../lib/site.ts';
 import type { Lang } from '../../lib/routes.ts';
@@ -14,6 +15,25 @@ interface Props {
 const { site, href, target } = Astro.props;
 ---
 
-<a href={href} lang={target} hreflang={target} translate="no" aria-label={site.t('lang.switch.a11y', target)}>
+<a
+  class="language-switch type-label"
+  href={href}
+  lang={target}
+  hreflang={target}
+  translate="no"
+  aria-label={site.t('lang.switch.a11y', target)}
+>
   {site.t(`lang.switch.to-${target}`, target)}
 </a>
+
+<style>
+  @layer components {
+    .language-switch {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      min-inline-size: var(--target-min);
+      padding-inline: var(--space-2);
+    }
+  }
+</style>
