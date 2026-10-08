@@ -154,9 +154,19 @@ legacy "Deploy from a branch" source, which ran Jekyll over the raw repository a
 - **Base path:** a GitHub project site lives under `/<repository>/`. The path of `SITE_URL` becomes
   Astro's `base` (`src/lib/env.ts` `basePath` / `withBase`, `astro.config.ts`). Root-relative links
   (language switch, notice-page link, 404 links, root redirect) are prefixed; canonical, hreflang,
-  sitemaps and robots already use `SITE_URL`. I19, I20 and R6/R7 are base-aware; I20 also fails any
-  root-relative link that leaves the base path. Without a path in `SITE_URL` the base is `/` and the
+  sitemaps and robots already use `SITE_URL`; the body-font preload is prefixed, and Vite prefixes
+  the `@font-face` URLs and the stylesheet. I19, I20 and R6/R7 are base-aware; I20 also fails any
+  root-relative link or asset reference (`src`, `srcset`, `poster`, CSS `url()`) that leaves the base
+  path. Without a path in `SITE_URL` the base is `/` and the
   output is unchanged (verified byte-for-byte against `main`).
+- **The original failure** (`pages-build-deployment` run 37707697958 on `170dfd0`): GitHub's legacy
+  branch build ran Jekyll (`jekyll-build-pages`, Jekyll 3.10.0) with the repository root as its
+  source. Jekyll read the `---` frontmatter of the `.astro` files as YAML and stopped with "Invalid
+  YAML front matter in src/pages/404.astro". It came from the Pages configuration, not from any code
+  change; switching the Pages source to GitHub Actions stops that build.
+- **Known limits:** `robots.txt` is only honoured at a domain root, so on a project site the
+  `noindex` meta on every page is what keeps the preview out of search results. The project has no
+  favicon yet, so browsers' automatic `/favicon.ico` request returns 404.
 - **Relation to decisions:** 0012 names Cloudflare as the host (product open, OD-22), and 0013
   defines the preview as restricted to invited reviewers. A public, `noindex` preview on github.io
   differs from both and should be recorded by the decision partner (an amendment or a new record).
