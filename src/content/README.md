@@ -23,4 +23,6 @@ Repository-based content (decisions 0010, 0004, 0020, 0023). Schemas: `src/conte
 - Synthetic `[DEV]` data for testing infrastructure; it describes no real person.
 - Loaded **only** in local builds (`SITE_ENV=local`).
 - Any fixture that reaches a preview or production build fails it (check I2).
+- `[DEV]` or `devFixture: true` anywhere in real content outside `_dev/` fails every build and
+  `pnpm check:repo` (source-content check SC1), even if no page renders the entry.
 - Never edit a fixture into real content.

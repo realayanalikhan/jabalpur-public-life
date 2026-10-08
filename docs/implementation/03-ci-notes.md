@@ -20,11 +20,11 @@ match the plan's §13 table.
 | | 2 | `pnpm format:check` | Prettier formatting | Fail |
 | | 3 | `pnpm lint` | ESLint, TypeScript and Astro rules, jsx-a11y accessibility rules | Fail |
 | | 3, 4 | `pnpm typecheck` | `astro check` (strictest TypeScript, templates and content schemas, including the fixtures) and `tsc --noEmit` | Fail |
-| | 4, 5 | `pnpm test` | Unit tests: environments, formatting, routing, every integrity check I1–I23 against synthetic data, route rules R1–R8 | Fail |
-| | 9 | `pnpm check:repo` | Repository scan: I7 GPS metadata, I21 personal-data patterns, I22 restricted paths and file types | Fail |
-| **build** | 5 | `pnpm build:preview` | Preview rules: review and published content, no fixtures, integrity checks with preview outcomes | Fail |
+| | 4, 5 | `pnpm test` | Unit tests: environments, formatting, routing, every integrity check I1–I23 against synthetic data, route rules R1–R8, source-content check SC1 | Fail |
+| | 4, 9 | `pnpm check:repo` | Repository scan: I7 GPS metadata, I21 personal-data patterns, I22 restricted paths and file types, **SC1 fixture-marker contamination in real content** (before any build) | Fail |
+| **build** | 5 | `pnpm build:preview` | Preview rules: review and published content, no fixtures, integrity checks with preview outcomes. SC1 runs first, at configuration time | Fail |
 | | §15 | `check-routes` (preview) | Bilingual route rules R1–R8 on the preview output | Fail |
-| | 5, 6, 7, 11 | `pnpm build:verify` | CI verification build (§6.2): production rules, `SITE_URL=https://example.invalid`; all integrity and leakage checks (I1–I23, I20 internal links, I2 fixtures, I10 unpublished, I18, I19, I14); launch-readiness items listed as blockers | Fail; launch blockers listed until `launch.ready` |
+| | 5, 6, 7, 11 | `pnpm build:verify` | CI verification build (§6.2): SC1 at configuration time; production rules, `SITE_URL=https://example.invalid`; all integrity and leakage checks (I1–I23, I20 internal links, I2 fixtures, I10 unpublished, I18, I19, I14); launch-readiness items listed as blockers | Fail; launch blockers listed until `launch.ready` |
 | | §15 | `pnpm verify:routes` | Bilingual route rules R1–R8 on production-rules output | Fail |
 | | 11 | `pnpm verify:output` | Final production output guard (below) | Fail |
 | | §6.2 | Deployment guard | A production **deployment** build without the real domain and launch prerequisites must fail (I3, I23) | Fail if the deployment build succeeds before launch |
@@ -53,10 +53,12 @@ launch-readiness items that §6.2 already defines.
 | `.github/workflows/ci.yml` | The workflow |
 | `.github/lighthouse/mobile.json`, `desktop.json` | Lighthouse CI profiles |
 | `src/validation/routes-check.ts` | Bilingual route rules R1–R8 |
+| `src/validation/source-content.ts` | Source-content check SC1 (fixture-marker contamination in real content) |
 | `scripts/check-routes.ts` | Runs R1–R8 on `dist/` with the build's environment |
 | `scripts/check-output.ts` | Final production output guard |
 | `scripts/lighthouse-summary.ts` | Lighthouse table for the job summary; performance warnings |
 | `tests/unit/routes-check.test.ts` | Tests for every route rule |
+| `tests/unit/source-content.test.ts` | Tests for SC1 |
 
 ## Implementation-time choices
 
@@ -85,22 +87,51 @@ launch-readiness items that §6.2 already defines.
 | R7 | Exactly one language switch (`translate="no"`) linking to the same path in the other language |
 | R8 | No language detection or stored preference: no `navigator.language`, cookies, `localStorage` or `sessionStorage` |
 
+## Source-content check SC1: fixture-marker contamination in real content
+
+Added after review of the first CI run's intentional-failure cases. A real content entry carrying
+`[DEV]` text **without** `devFixture: true` passed the build while no page rendered it: I2 checks the
+fixture flag on loaded entries, `_dev/` content and `[DEV]` in the **output**, as plan §6.1 defines.
+SC1 closes that gap at the source. **I2 is unchanged** in meaning, implementation and traceability.
+
+| | |
+|---|---|
+| **Rule** | A file under `src/content/` outside the fixture area must not contain the development-fixture marker `[DEV]` (anywhere: values, comments, Markdown bodies) or `devFixture: true` (YAML block or flow, Markdown front matter, JSON; any capitalisation of `true`) |
+| **Exempt** | `src/content/_dev/` (the top-level fixture area only; a nested `_dev/` inside a real collection is not exempt) and `src/content/README.md` (editor documentation, loaded by no collection) |
+| **Inspects** | The source files on the file system (`.yaml`, `.yml`, `.md`, `.mdx`, `.json`, `.csv`, `.txt`, `.svg`), not the content layer and not the output. An entry fails even if no page renders it |
+| **Outcome** | Fail in every environment (local, preview, production; verification and deployment) |
+| **Runs** | 1. `pnpm check:repo` (CI quality job; `pnpm check`), before any build. 2. Every `astro build` and `astro dev`, through the integrity integration's `astro:config:setup` hook: before the content layer loads any entry and before any page renders. Hosting builds are therefore covered too |
+| **Code and tests** | `src/validation/source-content.ts`; `tests/unit/source-content.test.ts` |
+| **Traceability** | **Implementation-level integrity rule.** It supports I2 (0018 condition 2) and the synthetic-data rules of plan §15.1 ("every visible text field begins with `[DEV]`"; "never by editing a fixture into a real record"). It is **not** claimed as part of decision 0018, which defines no source-text check |
+
+Relation to I2:
+
+| Situation | I2 | SC1 |
+|---|---|---|
+| Fixture in `_dev/`, local build | Allowed | Allowed |
+| Fixture in `_dev/`, preview or production | Not loaded (loader); I2 is the second line of defence | Allowed (fixture area) |
+| `devFixture: true` entry in a real collection | Fails when loaded (all entries are checked) | Fails at source |
+| `[DEV]` text in a real entry, rendered | Fails in the output | Fails at source |
+| `[DEV]` text in a real entry, not rendered, no flag | Not covered (by definition) | **Fails at source** |
+
 ## Unavoidable implementation decisions (for review)
 
-1. **Lighthouse instead of a separate Playwright and axe runner, for now.**
+1. **Lighthouse covers the browser checks** (approved in review of PR #9).
    - Plan §13 step 8 says "axe on key templates … fail on serious or critical issues"; plan §2 lists
      both Playwright with axe and Lighthouse CI as candidates.
    - Lighthouse runs axe-core, so one dependency covers steps 8 and 10 without a browser download.
    - The assertion is **stricter** than the plan: any failed accessibility audit fails CI, not only
      serious or critical ones.
-   - When component and page templates exist, a dedicated axe run per template (with the
-     serious/critical threshold) may be needed, for example for states Lighthouse cannot reach. That
-     would be a new development dependency and is left for review then.
+   - Future consideration only, not a current requirement or a decision: once page templates exist,
+     a template-level axe browser test could be useful.
 2. **`pnpm typecheck` now also runs `tsc --noEmit`** after `astro check`, as §13 step 3 lists both.
 3. **`pnpm check` was extended** with `verify:routes` and `verify:output`, so the local check matches
    the CI build job.
 4. **The preview build runs in CI with route validation,** although §13 does not list it. It proves on
    every pull request that the preview rules load no fixtures.
+5. **Source-content check SC1** (above), an implementation-level rule separate from I2.
+6. **No automatic fixing.** GitHub pull-request Auto-fix is not enabled: CI stays deterministic and
+   reviewable, and failures are corrected manually.
 
 ## Local verification
 
