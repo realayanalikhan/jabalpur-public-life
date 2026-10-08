@@ -96,6 +96,17 @@ h2 40 px. Long headings wrap (`text-wrap: balance`, `overflow-wrap: break-word`)
 - **Preload:** only the page script's body file: Devanagari 400 on `/hi/`, Latin 400 on `/en/`.
   `font-display: swap` on every face.
 
+**Payload (accepted, 2026-10-08).**
+- **About 123 KB** for a Hindi page was the earlier **estimate from the typography test** (design 01;
+  0024 point 4): Noto Serif Devanagari 400 + 600 and Source Serif 4 Latin 400.
+- **About 145 KB** (145.2 KB, 4 files) is the **current measured payload** of this implementation on a
+  Hindi page. The difference is the Source Serif 4 Latin 600 file (21.5 KB), which Hindi headings
+  load for their spaces and digits.
+- The 123 KB figure is **not a hard requirement**. The current payload stays **within the documented
+  research budget of 110–160 KB** (0024 rationale; research §13.3) and is accepted as is.
+- **No font family, weight, loading strategy or typography decision changes because of this.**
+- English pages measure about 111 KB (4 files, including Devanagari 400 for inline Hindi names).
+
 **Licences.** Both families use the **SIL Open Font License 1.1**; the licence texts are next to the
 fonts and are published with them.
 
@@ -170,11 +181,22 @@ values are documented in the token file, and the test allows no others:
 | 48rem (768 px) | 8-column grid | spec E (4/8/12); the threshold is an implementation-time choice |
 | 64rem (1024 px) | 12-column grid; desktop composition | design 03 §5 |
 
+These are layout breakpoints only. **No navigation system is implemented.** Navigation behaviour,
+including the 400–1024 px range, is deliberately deferred to the navigation and component phase
+(see §9).
+
 ## 4. Colour: current provisional values (0025, DP-08 open)
 
-These are the 0025 candidates, unchanged. They are **not final**: DP-08 replaces them after
-validation against authentic material, by editing the palette section of `tokens.css` only.
-The 0025 variants still to test (ink `#242321`, band `#F3EDE6`) are noted in the token file, not used.
+**Status: current provisional implementation values.**
+- They are the candidate values of decision 0025 (Accepted with provisional values), derived from its
+  accepted **local-material palette direction**: marble paper, stone, granite ink, grey-marble inks,
+  one Narmada blue-green accent, one restrained warm tone.
+- **DP-08 remains open.** These values are **not treated as final** until DP-08 is formally resolved,
+  after validation against authentic material (0025 §4).
+- **All values stay centralised** in the palette section of `src/styles/tokens.css`. DP-08 can
+  replace them there without touching any other file.
+- The 0025 variants still to test (ink `#242321`, band `#F3EDE6`) are noted in the token file, not
+  used. No colour was changed by this PR beyond implementing the candidates.
 
 | Role token | Palette | Value | Contrast |
 |---|---|---|---|
@@ -216,9 +238,14 @@ The usage rules are unchanged:
 - **Hindi at mobile widths:** 19 px / 1.75 body text, 42–53 characters per line at 360 px (spaces
   included), and no horizontal overflow at 360, 412 or 1280 px.
 
-## 6. River line
+## 6. River line: initial primitive (DP-06 open)
 
-`RiverLine.astro` renders a straight, static 1.5 px `--color-river-line` stroke:
+`RiverLine.astro` is the **initial technical primitive** for the river line, not its final design.
+"Straight and static" describes this first implementation only; it is **not a product or design
+decision**. DP-06 (river-line execution: weight, bends, final treatment) **remains open** for later
+review, and the primitive may change when it is resolved.
+
+It currently renders a straight, static 1.5 px `--color-river-line` stroke:
 - vertical, for the future Timeline spine;
 - or horizontal, for at most one rule above the footer.
 
@@ -254,16 +281,15 @@ app's browser with true viewport emulation; the 1280 px captures from headless C
 
 ## 9. Findings for review
 
-1. **Hindi page payload is about 145 KB, not about 123 KB.** 0024's figure counted Noto Serif
-   Devanagari 400 + 600 and Source Serif 4 400. Hindi headings also contain spaces and digits, which
-   come from Source Serif 4, so its 600 Latin file (21.5 KB) also loads. This is still within the
-   research budget of 110–160 KB. No change was made.
+1. **Hindi page payload: about 145 KB measured, against an earlier estimate of about 123 KB.**
+   Reviewed and **accepted** (2026-10-08) as within the 110–160 KB research budget; the estimate was
+   not a hard requirement. See §2.3. No font or typography change.
 2. **Small font-swap shift on Hindi mobile pages** (CLS 0.017–0.044 on the specimen), from the 600
    and Latin faces that are not preloaded, as 0024 specifies. It is under the 0.1 working direction
    (OD-25 open). No change was made.
-3. **Navigation between 400 and 1024 px** is not specified by design 03 §5: menu below about
-   400 px, inline navigation from about 1024 px. This is for the navigation PR; nothing was decided
-   here.
+3. **Navigation between 400 and 1024 px** is not specified by design 03 §5 (menu below about
+   400 px, inline navigation from about 1024 px). It is **intentionally deferred** to the navigation
+   and component phase. No navigation breakpoint or interaction pattern is defined here.
 4. **Physical-device QA** (0024 point 7) is still required before launch, including the Kohinoor and
    Android fallback behaviour.
 
@@ -282,8 +308,9 @@ app's browser with true viewport emulation; the 1280 px captures from headless C
 
 | Item | Status after this PR |
 |---|---|
-| DP-08 final palette | Open. The candidates are provisional tokens in one place |
-| DP-06 river-line execution (weight, bends) | Open. Straight 1.5 px primitive only |
+| DP-08 final palette | Open. Current values are provisional implementation values (0025 candidates), centralised in `tokens.css`, not final |
+| DP-06 river-line execution (weight, bends) | Open. `RiverLine` is the initial primitive (straight, static, 1.5 px), not a decision |
+| Navigation (400–1024 px behaviour) | Deferred to the navigation and component phase. Not implemented |
 | DP-07 Occasion pages | Open. Nothing built |
 | OD-20 Romanisation | Open. Nothing decided; Latin Extended coverage only |
 | HP-01 site statement, HP-02 places section | Open. Nothing built |
