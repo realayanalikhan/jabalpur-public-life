@@ -10,6 +10,8 @@ const env = readBuildEnv();
 
 export default defineConfig({
   site: env.siteUrl,
+  // Sub-path hosting (e.g. a GitHub project site): the path of SITE_URL; "/" at the domain root.
+  base: env.basePath || '/',
   output: 'static',
   trailingSlash: 'always',
   build: { format: 'directory' },

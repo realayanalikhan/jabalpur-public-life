@@ -6,6 +6,8 @@
  *   production; only launch-readiness items may be reported as blockers instead of failures.
  * - SITE_URL: never invented. Local and preview get reserved placeholders; a production deployment
  *   must supply the real domain (checked by I23).
+ * - Base path: taken from the path of SITE_URL (e.g. https://user.github.io/repo → "/repo") for hosts
+ *   that serve the site from a sub-path. Empty for a site at the domain root (the default).
  */
 export type SiteEnv = 'local' | 'preview' | 'production';
 
@@ -18,6 +20,8 @@ export interface BuildEnv {
   /** A production build that deploys the public site. */
   deployment: boolean;
   siteUrl: string;
+  /** Path the site is served under, without a trailing slash; "" at the domain root. */
+  basePath: string;
   /** True when SITE_URL was not supplied and a placeholder is in use. */
   siteUrlMissing: boolean;
   siteUrlReserved: boolean;
@@ -66,9 +70,24 @@ export function readBuildEnv(source: Record<string, string | undefined> = proces
     verifyOnly,
     deployment,
     siteUrl,
+    basePath: basePathOf(siteUrl),
     siteUrlMissing: !supplied,
     siteUrlReserved: isReservedHost(siteUrl),
   };
+}
+
+/** The path component of a site URL, without a trailing slash ("" for the domain root). */
+export function basePathOf(siteUrl: string): string {
+  try {
+    return new URL(siteUrl).pathname.replace(/\/+$/, '');
+  } catch {
+    return '';
+  }
+}
+
+/** A root-relative site path (e.g. "/hi/") as a link for the configured base path. */
+export function withBase(env: Pick<BuildEnv, 'basePath'>, path: string): string {
+  return env.basePath + path;
 }
 
 /** Statuses that may be built in each environment ([0013]). */

@@ -6,6 +6,7 @@
  */
 import type { Site } from '../lib/site.ts';
 import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
+import { withBase } from '../lib/env.ts';
 import LanguageSwitch from '../components/site/LanguageSwitch.astro';
 
 interface Props {
@@ -38,7 +39,7 @@ const bodyAttrs = route.kind === 'notice' ? { 'data-notice-page': '' } : {};
       </div>
     )}
     <header>
-      <LanguageSwitch site={site} href={route.switchTo} target={otherLang(route.lang)} />
+      <LanguageSwitch site={site} href={withBase(env, route.switchTo)} target={otherLang(route.lang)} />
     </header>
     <main>
       <slot />

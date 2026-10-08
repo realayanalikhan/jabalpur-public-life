@@ -102,6 +102,14 @@ export async function runPostBuildChecks(
     for (const m of html.matchAll(/\shref="([^"]+)"/g)) {
       let href = m[1] ?? '';
       if (href.startsWith(env.siteUrl)) href = href.slice(env.siteUrl.length) || '/';
+      else if (env.basePath && href.startsWith('/') && !href.startsWith('//')) {
+        // Under a base path, a root-relative link outside it leaves the site.
+        if (!href.startsWith(env.basePath + '/')) {
+          add('I20', { production: 'F', preview: 'F', local: 'W' }, `Link outside the base path "${href}".`, path);
+          continue;
+        }
+        href = href.slice(env.basePath.length);
+      }
       if (!href.startsWith('/') || href.startsWith('//')) continue;
       const clean = decodeURI(href.split(/[?#]/)[0] ?? '');
       const target = clean.endsWith('/') ? join(distDir, clean, 'index.html') : join(distDir, clean);
@@ -132,7 +140,7 @@ export async function runPostBuildChecks(
           `Page generated inside hidden section ${hidden}.`,
           path,
         );
-      if (html.includes(`href="${hidden}`) || html.includes(`href="${env.siteUrl}${hidden}`)) {
+      if (html.includes(`href="${env.basePath}${hidden}`) || html.includes(`href="${env.siteUrl}${hidden}`)) {
         add('I19', { production: 'F', preview: 'W', local: '-' }, `Link to hidden section ${hidden}.`, path);
       }
     }
