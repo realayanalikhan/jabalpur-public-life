@@ -4,11 +4,14 @@
  *        prove the check works).
  *  I21 — no ID- or phone-number-like patterns in content text (approved contact methods exempt).
  *  I22 — no restricted files: masters, raw formats, consent forms, identity documents (spec G §1).
+ *  SC1 — no development-fixture marker (`[DEV]`, `devFixture: true`) in real content source files
+ *        (src/validation/source-content.ts; implementation-level rule, separate from I2).
  * Exit code 1 on any failure.
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import exifr from 'exifr';
+import { checkFixtureContamination, readContentSources } from '../src/validation/source-content.ts';
 
 const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { encoding: 'utf8' })
   .split('\n')
@@ -47,6 +50,9 @@ for (const f of files.filter((f) => f.startsWith('src/content/') && /\.(ya?ml|md
   if (AADHAAR.test(text) || MOBILE.test(text) || PAN.test(text))
     failures.push(`[I21] ID- or phone-number-like pattern in ${f}`);
 }
+
+// SC1 — fixture-marker contamination in real content (file system, independent of rendering).
+for (const i of checkFixtureContamination(readContentSources('.'))) failures.push(`[SC1] ${i.message} ${i.where}`);
 
 if (failures.length) {
   console.error(`Repository integrity checks failed:\n  ${failures.join('\n  ')}`);
