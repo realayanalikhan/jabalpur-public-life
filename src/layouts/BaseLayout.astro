@@ -8,6 +8,7 @@
 import '../styles/global.css';
 import type { Site } from '../lib/site.ts';
 import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
+import { withBase } from '../lib/env.ts';
 import LanguageSwitch from '../components/site/LanguageSwitch.astro';
 
 interface Props {
@@ -32,7 +33,7 @@ const bodyFont =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={withBase(env, bodyFont)} as="font" type="font/woff2" crossorigin />
     {!route.noindex && <link rel="canonical" href={env.siteUrl + route.path} />}
     {hreflangLinks(route, env.siteUrl).map((l) => (
       <link rel="alternate" hreflang={l.hreflang} href={l.href} />
@@ -49,7 +50,7 @@ const bodyFont =
       </div>
     )}
     <header class="frame site-header">
-      <LanguageSwitch site={site} href={route.switchTo} target={otherLang(route.lang)} />
+      <LanguageSwitch site={site} href={withBase(env, route.switchTo)} target={otherLang(route.lang)} />
     </header>
     <main id="main" class="frame" tabindex="-1">
       <slot />

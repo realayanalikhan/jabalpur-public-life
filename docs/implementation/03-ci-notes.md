@@ -133,6 +133,45 @@ Relation to I2:
 6. **No automatic fixing.** GitHub pull-request Auto-fix is not enabled: CI stays deterministic and
    reviewable, and failures are corrected manually.
 
+## GitHub Pages deployment (`pages.yml`)
+
+Added on request of the project owner (2026-10-08), after GitHub Pages had been enabled with the
+legacy "Deploy from a branch" source, which ran Jekyll over the raw repository and failed on the
+`.astro` files. The repository's Pages source is now **GitHub Actions**.
+
+| Step | What |
+|---|---|
+| Trigger | Push to `main`; manual run |
+| Build | `actions/configure-pages` reads the Pages URL; `pnpm install --frozen-lockfile`; `pnpm build:preview` with `SITE_URL` = that URL; route validation R1–R8; a `[DEV]` guard on `dist/` |
+| Artifact | `dist/` only, via `actions/upload-pages-artifact` |
+| Deploy | `actions/deploy-pages` to the `github-pages` environment |
+| Permissions | `contents: read` by default; `pages: read` for the build job; `pages: write` and `id-token: write` for the deploy job only |
+
+- **What is deployed:** the **preview** build: published and in-review content, never fixtures,
+  `noindex` on every page, `robots.txt` disallowing crawling, preview banner. A production build is
+  not deployed: it fails by design until the launch prerequisites exist (I3, I23), and those gates
+  are unchanged.
+- **Base path:** a GitHub project site lives under `/<repository>/`. The path of `SITE_URL` becomes
+  Astro's `base` (`src/lib/env.ts` `basePath` / `withBase`, `astro.config.ts`). Root-relative links
+  (language switch, notice-page link, 404 links, root redirect) are prefixed; canonical, hreflang,
+  sitemaps and robots already use `SITE_URL`; the body-font preload is prefixed, and Vite prefixes
+  the `@font-face` URLs and the stylesheet. I19, I20 and R6/R7 are base-aware; I20 also fails any
+  root-relative link or asset reference (`src`, `srcset`, `poster`, CSS `url()`) that leaves the base
+  path. Without a path in `SITE_URL` the base is `/` and the
+  output is unchanged (verified byte-for-byte against `main`).
+- **The original failure** (`pages-build-deployment` run 37707697958 on `170dfd0`): GitHub's legacy
+  branch build ran Jekyll (`jekyll-build-pages`, Jekyll 3.10.0) with the repository root as its
+  source. Jekyll read the `---` frontmatter of the `.astro` files as YAML and stopped with "Invalid
+  YAML front matter in src/pages/404.astro". It came from the Pages configuration, not from any code
+  change; switching the Pages source to GitHub Actions stops that build.
+- **Known limits:** `robots.txt` is only honoured at a domain root, so on a project site the
+  `noindex` meta on every page is what keeps the preview out of search results. The project has no
+  favicon yet, so browsers' automatic `/favicon.ico` request returns 404.
+- **Relation to decisions:** 0012 names Cloudflare as the host (product open, OD-22), and 0013
+  defines the preview as restricted to invited reviewers. A public, `noindex` preview on github.io
+  differs from both and should be recorded by the decision partner (an amendment or a new record).
+  The build stays a portable static build, so Cloudflare remains possible.
+
 ## Local verification
 
 GitHub's runner cannot be reproduced exactly on Windows without extra tools (`act` requires Docker), so

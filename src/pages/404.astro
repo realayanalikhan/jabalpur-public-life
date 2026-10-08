@@ -5,6 +5,7 @@
  */
 import '../styles/global.css';
 import { getSite } from '../lib/site.ts';
+import { withBase } from '../lib/env.ts';
 
 const site = await getSite();
 const { t } = site;
@@ -22,11 +23,11 @@ const { t } = site;
     <main class="frame">
       <p>{t('ui.not-found', 'hi')}</p>
       <p>
-        <a href="/hi/">{t('nav.home', 'hi')}</a>
+        <a href={withBase(site.env, '/hi/')}>{t('nav.home', 'hi')}</a>
       </p>
       <p lang="en">{t('ui.not-found', 'en')}</p>
       <p lang="en">
-        <a href="/en/">{t('nav.home', 'en')}</a>
+        <a href={withBase(site.env, '/en/')}>{t('nav.home', 'en')}</a>
       </p>
     </main>
   </body>

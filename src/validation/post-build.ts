@@ -80,6 +80,18 @@ export async function runPostBuildChecks(
       if (text.includes(s))
         add('I11', { production: 'F', preview: 'F', local: 'W' }, 'Internal note or internal source leaked.', path);
     }
+    // I20 — under a base path, root-relative asset references (src/srcset/poster attributes, CSS
+    // url()) must stay inside it, like links (checked per page below).
+    if (env.basePath && /\.(html|css)$/i.test(f)) {
+      const refs = [
+        ...[...text.matchAll(/\s(?:src|srcset|poster)="(\/[^"]*)"/g)].map((m) => m[1] ?? ''),
+        ...[...text.matchAll(/url\(\s*['"]?(\/[^'")]*)/g)].map((m) => m[1] ?? ''),
+      ];
+      for (const ref of refs) {
+        if (!ref.startsWith('//') && !ref.startsWith(env.basePath + '/'))
+          add('I20', { production: 'F', preview: 'F', local: 'W' }, `Asset path outside the base path "${ref}".`, path);
+      }
+    }
   }
 
   for (const [path, html] of htmlPages) {
@@ -102,6 +114,14 @@ export async function runPostBuildChecks(
     for (const m of html.matchAll(/\shref="([^"]+)"/g)) {
       let href = m[1] ?? '';
       if (href.startsWith(env.siteUrl)) href = href.slice(env.siteUrl.length) || '/';
+      else if (env.basePath && href.startsWith('/') && !href.startsWith('//')) {
+        // Under a base path, a root-relative link outside it leaves the site.
+        if (!href.startsWith(env.basePath + '/')) {
+          add('I20', { production: 'F', preview: 'F', local: 'W' }, `Link outside the base path "${href}".`, path);
+          continue;
+        }
+        href = href.slice(env.basePath.length);
+      }
       if (!href.startsWith('/') || href.startsWith('//')) continue;
       const clean = decodeURI(href.split(/[?#]/)[0] ?? '');
       const target = clean.endsWith('/') ? join(distDir, clean, 'index.html') : join(distDir, clean);
@@ -132,7 +152,7 @@ export async function runPostBuildChecks(
           `Page generated inside hidden section ${hidden}.`,
           path,
         );
-      if (html.includes(`href="${hidden}`) || html.includes(`href="${env.siteUrl}${hidden}`)) {
+      if (html.includes(`href="${env.basePath}${hidden}`) || html.includes(`href="${env.siteUrl}${hidden}`)) {
         add('I19', { production: 'F', preview: 'W', local: '-' }, `Link to hidden section ${hidden}.`, path);
       }
     }

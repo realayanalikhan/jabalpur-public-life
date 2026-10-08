@@ -13,6 +13,7 @@
 import { readdir, readFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
+import { basePathOf } from '../lib/env.ts';
 
 export interface RouteIssue {
   rule: string;
@@ -40,6 +41,8 @@ const tags = (html: string, re: RegExp) => [...html.matchAll(re)].map((m) => m[0
  */
 export async function checkRoutes(distDir: string, siteUrl: string, production: boolean): Promise<RouteIssue[]> {
   const issues: RouteIssue[] = [];
+  // Links are emitted with the base path (sub-path hosting); output files and route paths are not.
+  const base = basePathOf(siteUrl);
   const add = (rule: string, message: string, where?: string) =>
     issues.push(where === undefined ? { rule, message } : { rule, message, where });
 
@@ -98,8 +101,8 @@ export async function checkRoutes(distDir: string, siteUrl: string, production: 
     if (switches.length !== 1) add('R7', `Expected one language switch, found ${switches.length}.`, url);
     else {
       const s = switches[0] ?? '';
-      if (attr(s, 'href') !== counterpart || attr(s, 'hreflang') !== other || attr(s, 'lang') !== other) {
-        add('R7', `Language switch must link to ${counterpart} (hreflang/lang "${other}").`, url);
+      if (attr(s, 'href') !== base + counterpart || attr(s, 'hreflang') !== other || attr(s, 'lang') !== other) {
+        add('R7', `Language switch must link to ${base + counterpart} (hreflang/lang "${other}").`, url);
       }
     }
   }
@@ -136,7 +139,8 @@ export async function checkRoutes(distDir: string, siteUrl: string, production: 
   const root = pages.get('/');
   if (!root) add('R6', 'Root page missing.');
   else {
-    if (!/http-equiv="refresh"\s+content="0;\s*url=\/hi\/"/.test(root)) add('R6', '`/` must redirect to /hi/.');
+    const redirect = new RegExp(`http-equiv="refresh"\\s+content="0;\\s*url=${base}/hi/"`);
+    if (!redirect.test(root)) add('R6', `\`/\` must redirect to ${base}/hi/.`);
     if (/<script/i.test(root)) add('R6', '`/` must not run scripts (no language detection).');
   }
 

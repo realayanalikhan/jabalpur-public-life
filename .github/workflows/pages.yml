@@ -1,0 +1,91 @@
+# Deploy the built Astro site to GitHub Pages (project site).
+#
+# Astro source → pnpm install (frozen lockfile) → astro build → dist/ → upload-pages-artifact →
+# deploy-pages. Jekyll is never involved: GitHub Pages receives the finished static output only.
+#
+# What is deployed: the PREVIEW build (SITE_ENV=preview) — published and in-review content, never
+# development fixtures, every page noindex, robots.txt disallows crawling, preview banner on every page.
+# A production build is deliberately not deployed here: it is designed to fail until the launch
+# prerequisites exist (I3, I23; launch.ready in site.config.ts), and those gates are not weakened.
+#
+# Base path: SITE_URL comes from the Pages configuration (e.g.
+# https://realayanalikhan.github.io/jabalpur-public-life); its path becomes Astro's `base`
+# (src/lib/env.ts, astro.config.ts). The same integrity and route checks run as in CI.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Default: read only. The deploy job alone gets the Pages permissions it needs.
+permissions:
+  contents: read
+
+# One deployment at a time; never cancel a deployment that is already running.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+env:
+  ASTRO_TELEMETRY_DISABLED: '1'
+
+jobs:
+  build:
+    name: Build (preview rules)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: read # configure-pages reads the Pages URL
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0 (version from packageManager)
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Read the GitHub Pages URL
+        id: pages
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+
+      - name: Install dependencies (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+      - name: Build the site into dist/ (preview rules; integrity checks I1–I23)
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: pnpm build:preview
+      - name: Bilingual route validation (R1–R8)
+        env:
+          SITE_URL: ${{ steps.pages.outputs.base_url }}
+        run: node scripts/with-env.ts preview node scripts/check-routes.ts
+      - name: Guard — no development fixtures in the output
+        run: |
+          if grep -rlE '\[DEV\]' dist/ || [ -d dist/_dev ]; then
+            echo "::error::Development fixture material found in dist/."
+            exit 1
+          fi
+
+      - name: Upload dist/ as the Pages artifact
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist/
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write # deploy to Pages
+      id-token: write # verify the deployment originates from this workflow
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

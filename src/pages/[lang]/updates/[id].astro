@@ -9,6 +9,7 @@ import { getSite, routesOf } from '../../../lib/site.ts';
 import { localisedText } from '../../../i18n/text.ts';
 import { formatArchiveDate, type ArchiveDateValue } from '../../../i18n/format.ts';
 import type { RouteDef } from '../../../lib/routes.ts';
+import { withBase } from '../../../lib/env.ts';
 
 export async function getStaticPaths() {
   const site = await getSite();
@@ -37,7 +38,7 @@ const available = route.availableIn;
   <BaseLayout site={site} route={route} title={notice}>
     <p>{notice}</p>
     <p>
-      <a href={route.switchTo} lang={available} hreflang={available}>
+      <a href={withBase(site.env, route.switchTo)} lang={available} hreflang={available}>
         {site.t('lang.switch.a11y', available)}
       </a>
     </p>
