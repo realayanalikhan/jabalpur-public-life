@@ -80,6 +80,18 @@ export async function runPostBuildChecks(
       if (text.includes(s))
         add('I11', { production: 'F', preview: 'F', local: 'W' }, 'Internal note or internal source leaked.', path);
     }
+    // I20 — under a base path, root-relative asset references (src/srcset/poster attributes, CSS
+    // url()) must stay inside it, like links (checked per page below).
+    if (env.basePath && /\.(html|css)$/i.test(f)) {
+      const refs = [
+        ...[...text.matchAll(/\s(?:src|srcset|poster)="(\/[^"]*)"/g)].map((m) => m[1] ?? ''),
+        ...[...text.matchAll(/url\(\s*['"]?(\/[^'")]*)/g)].map((m) => m[1] ?? ''),
+      ];
+      for (const ref of refs) {
+        if (!ref.startsWith('//') && !ref.startsWith(env.basePath + '/'))
+          add('I20', { production: 'F', preview: 'F', local: 'W' }, `Asset path outside the base path "${ref}".`, path);
+      }
+    }
   }
 
   for (const [path, html] of htmlPages) {

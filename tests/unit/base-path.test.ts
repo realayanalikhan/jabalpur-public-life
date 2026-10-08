@@ -67,6 +67,21 @@ describe('base path (sub-path hosting)', () => {
     expect(bad.filter((i) => i.check === 'I20' && i.severity === 'fail')).toHaveLength(1);
   });
 
+  it('I20: fails asset paths (src, CSS url) that leave the base path', async () => {
+    const asset = (check: string) => (i: { check: string; message: string }) =>
+      i.check === 'I20' && i.message.startsWith('Asset path') && i.message.includes(check);
+    const inside = { ...good(), '_astro/a.css': `@font-face{src:url(${BASE}/fonts/a.woff2)}` };
+    expect((await runPostBuildChecks(site(inside), env, siteConfig, manifest())).filter(asset(''))).toEqual([]);
+    const outside = {
+      ...good(),
+      '_astro/a.css': "@font-face{src:url('/fonts/a.woff2')}",
+      'hi/index.html': page('hi', `${BASE}/en/`, '<img src="/images/x.png" alt="">'),
+    };
+    const issues = await runPostBuildChecks(site(outside), env, siteConfig, manifest());
+    expect(issues.some(asset('/fonts/a.woff2'))).toBe(true);
+    expect(issues.some(asset('/images/x.png'))).toBe(true);
+  });
+
   it('I19: catches prefixed links to hidden sections', async () => {
     const files = { ...good(), 'hi/index.html': page('hi', `${BASE}/en/`, `<a href="${BASE}/hi/updates/">u</a>`) };
     const m = { ...manifest(), hiddenSectionPaths: ['/hi/updates/'] };
