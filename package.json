@@ -16,14 +16,17 @@
     "build:verify": "node scripts/with-env.ts verify astro build",
     "preview": "astro preview",
     "sync": "node scripts/with-env.ts local astro sync",
-    "typecheck": "node scripts/with-env.ts local astro check",
+    "typecheck": "node scripts/with-env.ts local astro check && tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
     "check:repo": "node scripts/check-repo.ts",
     "ref:new": "node scripts/new-reference.ts",
-    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm check:repo && pnpm build:verify"
+    "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm check:repo && pnpm build:verify && pnpm verify:routes && pnpm verify:output",
+    "verify:routes": "node scripts/with-env.ts verify node scripts/check-routes.ts",
+    "verify:output": "node scripts/with-env.ts verify node scripts/check-output.ts",
+    "lighthouse:summary": "node scripts/lighthouse-summary.ts"
   },
   "dependencies": {
     "astro": "7.3.7"
@@ -31,6 +34,7 @@
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@eslint/js": "10.0.1",
+    "@lhci/cli": "0.15.1",
     "@types/node": "24.19.1",
     "eslint": "10.12.0",
     "eslint-plugin-astro": "3.2.1",

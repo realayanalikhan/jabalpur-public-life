@@ -37,10 +37,15 @@ tests/            Unit tests and test fixtures
 ```
 pnpm install --frozen-lockfile
 pnpm dev              # local development (synthetic [DEV] fixtures on)
-pnpm check            # format, lint, types, tests, repo scan, CI verification build
+pnpm check            # format, lint, types, tests, repo scan, CI verification build,
+                      # route validation (R1–R8), production output guard
 pnpm build:preview    # restricted-preview build (review + published, no fixtures)
 pnpm build            # production deployment build (fails until launch prerequisites exist)
 ```
+
+CI (`.github/workflows/ci.yml`) runs these checks plus a preview build, a deployment guard and
+Lighthouse accessibility checks on every pull request; see
+[docs/implementation/03-ci-notes.md](docs/implementation/03-ci-notes.md).
 
 ## Working agreement
 
