@@ -33,3 +33,7 @@ desktop.ini
 
 # Integrity manifest (build-time, scaffold plan §6)
 .integrity/
+
+# Lighthouse CI working files and reports (CI artefacts, never committed)
+.lighthouseci/
+lighthouse-reports/
