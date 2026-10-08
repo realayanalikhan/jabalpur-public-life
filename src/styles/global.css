@@ -1,0 +1,13 @@
+/*
+ * Global stylesheet entry (decision 0009; scaffold plan §12). Imported once, by the layouts.
+ * Cascade layers, lowest to highest priority. Component styles go in `@layer components`.
+ */
+@layer reset, tokens, base, layout, components, utilities;
+
+@import './fonts.css';
+@import './reset.css';
+@import './tokens.css';
+@import './base.css';
+@import './typography.css';
+@import './layout.css';
+@import './utilities.css';

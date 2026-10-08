@@ -1,0 +1,108 @@
+/*
+ * Typography foundation (0024; design 03 §3). Element defaults for headings and text, plus the
+ * per-language rules. Sizes, leading and measure come from tokens.css and switch with :lang().
+ *
+ * Rules carried here:
+ * - weights 400 and 600 only; no synthetic styles (font-synthesis: none, base.css);
+ * - no uppercase or tracked text and no drop caps, in either language;
+ * - Hindi: no italics and no letter-spacing; emphasis uses weight 600;
+ * - English titles of works in italics; Hindi titles in quotation marks (authored in the text);
+ * - left-aligned, never justified; long headings wrap rather than shrink.
+ */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: var(--weight-semibold);
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+  h1 {
+    font-size: var(--size-h1);
+    line-height: var(--leading-h1);
+  }
+  h2 {
+    font-size: var(--size-h2);
+    line-height: var(--leading-h2);
+  }
+  h3 {
+    font-size: var(--size-h3);
+    line-height: var(--leading-h3);
+  }
+  h4,
+  h5,
+  h6 {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+
+  p,
+  li,
+  dd,
+  blockquote {
+    text-wrap: pretty;
+    overflow-wrap: break-word;
+  }
+
+  p,
+  li,
+  dt,
+  dd,
+  blockquote,
+  figcaption,
+  caption,
+  td,
+  th {
+    text-align: start;
+  }
+
+  /* Block-level text in a language takes that language's body size (an inline phrase in the other
+     language keeps the surrounding size). */
+  p,
+  li,
+  dt,
+  dd,
+  blockquote {
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+
+  figcaption,
+  caption {
+    font-size: var(--size-caption);
+    line-height: var(--leading-caption);
+    color: var(--color-text-secondary);
+  }
+
+  strong,
+  b {
+    font-weight: var(--weight-semibold);
+  }
+
+  /* English: real italics for emphasis and titles of works. */
+  :is(em, i, cite, dfn):lang(en) {
+    font-style: italic;
+  }
+
+  /* Hindi: never italic; emphasis uses weight 600 (0024 point 2). */
+  :is(em, i, cite, dfn, var, address):lang(hi) {
+    font-style: normal;
+  }
+  :is(em, i):lang(hi) {
+    font-weight: var(--weight-semibold);
+  }
+
+  /* Devanagari text is never tracked or case-transformed. */
+  :lang(hi) {
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+  }
+
+  small {
+    font-size: var(--size-caption);
+  }
+}
