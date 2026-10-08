@@ -33,7 +33,7 @@ const bodyFont =
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="preload" href={bodyFont} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={withBase(env, bodyFont)} as="font" type="font/woff2" crossorigin />
     {!route.noindex && <link rel="canonical" href={env.siteUrl + route.path} />}
     {hreflangLinks(route, env.siteUrl).map((l) => (
       <link rel="alternate" hreflang={l.hreflang} href={l.href} />
