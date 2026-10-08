@@ -1,0 +1,43 @@
+---
+/**
+ * The river line (design 03 §8; scaffold plan §12). A single quiet narmada-line stroke:
+ * - `vertical`: the spine of the Timeline (its main use; the Timeline itself comes later);
+ * - `horizontal`: at most once, as a short rule above the footer.
+ * Nowhere else. Never animated, never a logo, wave icon, gradient, watermark or texture. Purely
+ * decorative: hidden from assistive technology, and the page works fully without it.
+ * Straight only: the gentle bends at period boundaries and the final weight are open (DP-06).
+ */
+interface Props {
+  orientation?: 'vertical' | 'horizontal';
+}
+const { orientation = 'vertical' } = Astro.props;
+---
+
+<span class="river-line" data-orientation={orientation} aria-hidden="true"></span>
+
+<style>
+  @layer components {
+    .river-line {
+      display: block;
+      flex: none;
+      border: 0 solid var(--color-river-line);
+    }
+    .river-line[data-orientation='vertical'] {
+      inline-size: 0;
+      block-size: 100%;
+      align-self: stretch; /* fills a flex or grid row, e.g. the future Timeline */
+      border-inline-start-width: var(--river-line-width);
+    }
+    .river-line[data-orientation='horizontal'] {
+      inline-size: 100%;
+      block-size: 0;
+      border-block-start-width: var(--river-line-width);
+    }
+    /* Forced-colours mode: keep the line visible as a system colour (it carries no meaning). */
+    @media (forced-colors: active) {
+      .river-line {
+        border-color: CanvasText;
+      }
+    }
+  }
+</style>
