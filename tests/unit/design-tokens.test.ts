@@ -132,7 +132,7 @@ describe('design tokens: values live only in tokens.css', () => {
 describe('typography rules (0024; design 03 §3)', () => {
   it('never uppercases, tracks or animates text', () => {
     const bad = allCss.filter(({ css }) =>
-      /text-transform\s*:\s*(uppercase|capitalize)|letter-spacing\s*:(?!\s*(?:normal|0)\b)|@keyframes|animation\s*:/i.test(
+      /text-transform\s*:\s*(uppercase|capitalize)|letter-spacing\s*:(?!\s*(?:normal|0)\s*[;}])|@keyframes|animation\s*:/i.test(
         css,
       ),
     );
