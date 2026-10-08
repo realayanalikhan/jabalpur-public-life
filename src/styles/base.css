@@ -1,0 +1,67 @@
+/*
+ * Element defaults (scaffold plan §12): page colours, content and interface families, links, focus,
+ * rules and tables. Uses tokens only. Language-specific text rules are in typography.css.
+ */
+@layer base {
+  html {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-content);
+    font-weight: var(--weight-regular);
+    /* Never fake bold or italic: only the shipped weights and styles are used (0024 point 2). */
+    font-synthesis: none;
+    font-kerning: normal;
+  }
+
+  body {
+    min-block-size: 100vh;
+    font-size: var(--size-body);
+    line-height: var(--leading-body);
+  }
+
+  /* Interface text: platform sans (0024 point 1). */
+  button,
+  input,
+  select,
+  textarea,
+  label,
+  legend,
+  summary {
+    font-family: var(--font-ui);
+  }
+
+  /* Links: always underlined, so they never rely on colour alone (WCAG 1.4.1). Hover thickens the
+     underline; there is no separate visited colour (one accent only, 0025). */
+  a {
+    color: var(--color-link);
+    text-decoration-line: underline;
+    text-decoration-thickness: var(--underline-thickness);
+    text-underline-offset: var(--underline-offset);
+    transition: text-decoration-thickness var(--duration-link) var(--easing-standard);
+  }
+  a:hover {
+    text-decoration-thickness: var(--underline-thickness-hover);
+  }
+
+  /* Visible keyboard focus everywhere: a narmada ring with a paper-coloured gap (design 03 §9). */
+  :focus-visible {
+    outline: var(--focus-width) solid var(--color-focus);
+    outline-offset: var(--focus-offset);
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* Hairline rule between sections (design 03 §5). */
+  hr {
+    block-size: 0;
+    margin-block: var(--space-6);
+    border: 0;
+    border-block-start: var(--border-hairline) solid var(--color-rule);
+  }
+
+  table {
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums; /* tabular figures in tables and timelines (design 03 §3) */
+  }
+}

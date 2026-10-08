@@ -17,7 +17,8 @@ export const otherLang = (l: Lang): Lang => (l === 'hi' ? 'en' : 'hi');
 export const homePath = (lang: Lang) => `/${lang}/`;
 export const updatePath = (lang: Lang, id: string) => `/${lang}/updates/${id}/`;
 
-export type RouteKind = 'home' | 'update' | 'notice';
+/** `dev`: local-only development pages (design specimen); never built for preview or production. */
+export type RouteKind = 'home' | 'update' | 'notice' | 'dev';
 
 export interface RouteDef {
   path: string;

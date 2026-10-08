@@ -1,0 +1,43 @@
+/*
+ * Text-role and accessibility utilities. Tokens only. Kept small on purpose: components normally
+ * use tokens in their own scoped styles.
+ */
+@layer utilities {
+  .type-display {
+    font-size: var(--size-display);
+    line-height: var(--leading-display);
+    font-weight: var(--weight-semibold);
+  }
+
+  .type-lead {
+    font-size: var(--size-lead);
+    line-height: var(--leading-lead);
+  }
+
+  .type-caption {
+    font-size: var(--size-caption);
+    line-height: var(--leading-caption);
+    color: var(--color-text-secondary);
+  }
+
+  /* Interface text (navigation, labels, metadata, provenance labels): platform sans (0024). */
+  .type-label {
+    font-family: var(--font-ui);
+    font-size: var(--size-label);
+    line-height: var(--leading-label);
+  }
+
+  .text-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  /* Hidden visually, still read by assistive technology. */
+  .visually-hidden:not(:focus, :focus-within) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

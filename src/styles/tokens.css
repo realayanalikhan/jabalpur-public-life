@@ -1,0 +1,200 @@
+/*
+ * Design tokens (decision 0009; scaffold plan §12). This file is the ONLY place where colour and size
+ * values are defined. Everything else uses these custom properties and never hard-codes colours,
+ * font sizes or arbitrary spacing (enforced by tests/unit/design-tokens.test.ts).
+ *
+ * Sources: typography 0024 and design 03 §3; palette 0025 and design 03 §4; layout and spacing
+ * design 03 §5; river line design 03 §8; motion design 03 §9.
+ *
+ * Breakpoints cannot be custom properties (media queries do not read them). The approved values are
+ * listed here and are the only widths allowed in @media / @container rules (enforced by the test):
+ *   25rem (400 px)  below this, primary navigation lives in a menu (0024 point 6)
+ *   48rem (768 px)  8-column grid (spec E: 4 / 8 / 12 columns; tablet threshold is implementation-time)
+ *   64rem (1024 px) 12-column grid; desktop composition, inline navigation (design 03 §5)
+ */
+@layer tokens {
+  :root {
+    color-scheme: light; /* light only (0005, plan §12) */
+
+    /* ------------------------------------------------------------------------------------------
+     * 1. Palette — PROVISIONAL VALUES (0025 §2; DP-08 open).
+     *    These are the documented candidates, not final production tokens. They are replaced here,
+     *    and only here, after validation against authentic material (0025 §4). Use the role tokens
+     *    in section 2, never these, outside this file.
+     *    Variants still to test (0025): ink #242321 (warmer neutral); band #F3EDE6 (lighter).
+     * ---------------------------------------------------------------------------------------- */
+    --palette-marble-paper: #f5f3ee;
+    --palette-marble-stone: #ece8e0;
+    --palette-granite-ink: #1f2627;
+    --palette-grey-marble-ink-2: #4a5355;
+    --palette-grey-marble-muted: #5c6568;
+    --palette-grey-marble-rule: #d6d8d4;
+    --palette-grey-marble-rule-strong: #7e878a;
+    --palette-narmada: #1f5357; /* hue not yet validated against the river (DP-08) */
+    --palette-narmada-line: #3e7f7a;
+    --palette-warm-band: #f0e6dc;
+    --palette-warm-band-ink: #77613f;
+
+    /* ------------------------------------------------------------------------------------------
+     * 2. Colour roles (what components use). One accent only; no status colours (0025 §3, 0026).
+     * ---------------------------------------------------------------------------------------- */
+    --color-background: var(--palette-marble-paper);
+    --color-surface: var(--palette-marble-stone); /* item panels, image mats, facts blocks */
+    --color-text: var(--palette-granite-ink);
+    --color-text-secondary: var(--palette-grey-marble-ink-2); /* captions, metadata, all small Hindi text */
+    --color-text-muted: var(--palette-grey-marble-muted); /* English-only metadata, 14 px and larger */
+    --color-rule: var(--palette-grey-marble-rule); /* hairline dividers (decorative) */
+    --color-border-control: var(--palette-grey-marble-rule-strong); /* control borders (non-text, 3:1) */
+    --color-accent: var(--palette-narmada); /* links, focus, active state; never a large fill */
+    --color-link: var(--color-accent);
+    --color-focus: var(--color-accent);
+    --color-river-line: var(--palette-narmada-line); /* the river line only (non-text) */
+    --color-citation-surface: var(--palette-warm-band); /* small citation and press surfaces only */
+    --color-citation-text: var(--palette-warm-band-ink);
+
+    /* ------------------------------------------------------------------------------------------
+     * 3. Font families (0024). Latin family first, so digits and inline English use Source Serif 4.
+     *    Fallback faces are metric-matched (fonts.css); platform fonts follow.
+     * ---------------------------------------------------------------------------------------- */
+    --font-content:
+      'Source Serif 4', 'Noto Serif Devanagari', 'Source Serif 4 Fallback', 'Noto Serif Devanagari Fallback Windows',
+      'Noto Serif Devanagari Fallback Android', 'Kohinoor Devanagari', Georgia, 'Nirmala UI', 'Noto Sans Devanagari',
+      serif;
+    --font-ui:
+      system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', 'Nirmala UI', 'Noto Sans Devanagari',
+      'Kohinoor Devanagari', sans-serif;
+    --weight-regular: 400;
+    --weight-semibold: 600; /* the only heavier weight (0024 point 2) */
+
+    /* ------------------------------------------------------------------------------------------
+     * 4. Type scale (design 03 §3). Headings are fluid between 360 px and 1280 px viewports.
+     *    Hindi and English share heading sizes; body sizes and all line heights differ.
+     * ---------------------------------------------------------------------------------------- */
+    --size-display: clamp(2.25rem, 1.5652rem + 3.0435vw, 4rem); /* 36 → 64 px */
+    --size-h1: clamp(2rem, 1.413rem + 2.6087vw, 3.5rem); /* 32 → 56 px */
+    --size-h2: clamp(1.625rem, 1.2826rem + 1.5217vw, 2.5rem); /* 26 → 40 px */
+    --size-h3: clamp(1.3125rem, 1.1413rem + 0.7609vw, 1.75rem); /* 21 → 28 px */
+    --size-lead-en: 1.25rem; /* 20 px */
+    --size-lead-hi: 1.3125rem; /* 21 px */
+    --size-body-en: 1.125rem; /* 18 px */
+    --size-body-hi: 1.1875rem; /* 19 px */
+    --size-caption-en: 0.9375rem; /* 15 px */
+    --size-caption-hi: 1rem; /* 16 px */
+    --size-label-en: 0.875rem; /* 14 px, system sans */
+    --size-label-hi: 0.9375rem; /* 15 px, system sans */
+
+    --leading-display-en: 1.08;
+    --leading-display-hi: 1.3;
+    --leading-h1-en: 1.12;
+    --leading-h1-hi: 1.3;
+    --leading-h2-en: 1.18;
+    --leading-h2-hi: 1.35;
+    --leading-h3-en: 1.25;
+    --leading-h3-hi: 1.4;
+    --leading-lead-en: 1.5;
+    --leading-lead-hi: 1.7;
+    --leading-body-en: 1.6;
+    --leading-body-hi: 1.75;
+    --leading-caption-en: 1.5;
+    --leading-caption-hi: 1.7;
+    --leading-label-en: 1.5;
+    --leading-label-hi: 1.6;
+
+    /* Link underlines: Hindi needs a deeper offset to clear vowel signs below the line (design 01). */
+    --underline-offset-en: 0.15em;
+    --underline-offset-hi: 0.3em;
+    --underline-thickness: 1px;
+    --underline-thickness-hover: 2px;
+
+    /* ------------------------------------------------------------------------------------------
+     * 5. Spacing: 4 px base, 8 px rhythm (design 03 §5).
+     * ---------------------------------------------------------------------------------------- */
+    --space-1: 0.25rem; /* 4 */
+    --space-2: 0.5rem; /* 8 */
+    --space-3: 0.75rem; /* 12 */
+    --space-4: 1rem; /* 16 */
+    --space-5: 1.5rem; /* 24 */
+    --space-6: 2rem; /* 32 */
+    --space-7: 2.5rem; /* 40 */
+    --space-8: 3rem; /* 48 */
+    --space-9: 4rem; /* 64 */
+    --space-10: 6rem; /* 96 */
+    --space-11: 8rem; /* 128 */
+    --space-section: clamp(4rem, 3rem + 5vw, 8rem); /* 64 → 128 px between sections */
+    --space-gutter: clamp(1rem, 4vw, 3rem); /* 16 → 48 px page gutters */
+    --space-heading-factor-en: 1;
+    --space-heading-factor-hi: 1.2; /* Hindi: about 1.2× block spacing around headings */
+
+    /* ------------------------------------------------------------------------------------------
+     * 6. Widths (design 03 §5).
+     * ---------------------------------------------------------------------------------------- */
+    --width-frame: 80rem; /* page frame, 1280 px */
+    --width-media: 64rem; /* media column */
+    --measure-en: 40rem; /* English text column */
+    --measure-hi: 37rem; /* Hindi text column */
+    --target-min: 2.75rem; /* 44 px minimum touch target (design 07, Mobile) */
+
+    /* ------------------------------------------------------------------------------------------
+     * 7. Radii and borders. Square corners everywhere; no shadows (design 03 §5).
+     * ---------------------------------------------------------------------------------------- */
+    --radius: 0;
+    --border-hairline: 1px;
+    --border-control: 1px;
+    --focus-width: 2px; /* 2 px narmada ring with a 2 px paper offset (design 03 §9) */
+    --focus-offset: 2px;
+    --river-line-width: 1.5px; /* within design 03 §8's 1–1.5 px; execution details open (DP-06) */
+
+    /* ------------------------------------------------------------------------------------------
+     * 8. Motion: orientation only; everything works without it (design 03 §9).
+     * ---------------------------------------------------------------------------------------- */
+    --duration-link: 120ms;
+    --duration-fade: 150ms;
+    --duration-max: 200ms;
+    --easing-standard: ease-out;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --duration-link: 0ms;
+      --duration-fade: 0ms;
+      --duration-max: 0ms;
+    }
+  }
+
+  /* Language resolution: block-level elements take the size, leading and measure of their own
+     language; inline phrases in the other language inherit the surrounding size (0002, 0024). */
+  :lang(en) {
+    --size-lead: var(--size-lead-en);
+    --size-body: var(--size-body-en);
+    --size-caption: var(--size-caption-en);
+    --size-label: var(--size-label-en);
+    --leading-display: var(--leading-display-en);
+    --leading-h1: var(--leading-h1-en);
+    --leading-h2: var(--leading-h2-en);
+    --leading-h3: var(--leading-h3-en);
+    --leading-lead: var(--leading-lead-en);
+    --leading-body: var(--leading-body-en);
+    --leading-caption: var(--leading-caption-en);
+    --leading-label: var(--leading-label-en);
+    --underline-offset: var(--underline-offset-en);
+    --space-heading-factor: var(--space-heading-factor-en);
+    --measure: var(--measure-en);
+  }
+  :lang(hi) {
+    --size-lead: var(--size-lead-hi);
+    --size-body: var(--size-body-hi);
+    --size-caption: var(--size-caption-hi);
+    --size-label: var(--size-label-hi);
+    --leading-display: var(--leading-display-hi);
+    --leading-h1: var(--leading-h1-hi);
+    --leading-h2: var(--leading-h2-hi);
+    --leading-h3: var(--leading-h3-hi);
+    --leading-lead: var(--leading-lead-hi);
+    --leading-body: var(--leading-body-hi);
+    --leading-caption: var(--leading-caption-hi);
+    --leading-label: var(--leading-label-hi);
+    --underline-offset: var(--underline-offset-hi);
+    --space-heading-factor: var(--space-heading-factor-hi);
+    --measure: var(--measure-hi);
+  }
+}
