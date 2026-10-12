@@ -1,0 +1,42 @@
+---
+/**
+ * A forward link to a section or page ("→ Public life", design 04 H1/H3/H4). Interface sans; the
+ * arrow is decorative and not underlined. `href` must already carry the base path (withBase). There
+ * is no separate button style: the site has no actions other than navigation (no forms, accounts or
+ * sign-ups).
+ */
+interface Props {
+  href: string;
+}
+const { href } = Astro.props;
+---
+
+<a class="action-link type-label" href={href}>
+  <span class="arrow" aria-hidden="true">
+    →
+  </span>
+  <span class="label">
+    <slot />
+  </span>
+</a>
+
+<style>
+  @layer components {
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-1);
+      min-block-size: var(--target-min);
+      font-weight: var(--weight-semibold);
+      text-decoration-line: none;
+    }
+    .action-link .label {
+      text-decoration-line: underline;
+      text-decoration-thickness: var(--underline-thickness);
+      text-underline-offset: var(--underline-offset);
+    }
+    .action-link:hover .label {
+      text-decoration-thickness: var(--underline-thickness-hover);
+    }
+  }
+</style>

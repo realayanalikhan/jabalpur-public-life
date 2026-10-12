@@ -1,0 +1,27 @@
+---
+/**
+ * Ruled list (design 03 §5): roles, press items and updates are ruled lists, not cards. Items are
+ * separated by hairlines; each row is a slot child `<li>`.
+ */
+---
+
+<ul class="ruled-list">
+  <slot />
+</ul>
+
+<style>
+  @layer components {
+    .ruled-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-block-end: var(--border-hairline) solid var(--color-rule);
+    }
+    .ruled-list > :global(li) {
+      display: grid;
+      gap: var(--space-1);
+      padding-block: var(--space-4);
+      border-block-start: var(--border-hairline) solid var(--color-rule);
+    }
+  }
+</style>

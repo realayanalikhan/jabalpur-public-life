@@ -1,0 +1,77 @@
+---
+/**
+ * Archive card (design 03 §5 "Cards"; decisions 0022, 0027): for genuinely parallel items only —
+ * flat, square corners, no shadow; image, type and date line, title. The image sits "as found" on a
+ * stone mat in a fixed 3:2 slot and is never cropped. Public reference identifiers never appear on
+ * cards (0023). The whole card is one link (the title), with the hit area covering the card.
+ */
+import MetaLine from './MetaLine.astro';
+
+interface Props {
+  href: string;
+  title: string;
+  meta: Array<{ label: string; value: string }>;
+  image?: { src: string; width: number; height: number; alt: string } | undefined;
+  /** Language of the title when it differs from the page (single-language items). */
+  lang?: string | undefined;
+}
+const { href, title, meta, image, lang } = Astro.props;
+---
+
+<article class="archive-card">
+  {image && (
+    <div class="card-media">
+      <img src={image.src} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+    </div>
+  )}
+  <MetaLine items={meta} />
+  <h3 class="card-title" lang={lang}>
+    <a href={href}>{title}</a>
+  </h3>
+</article>
+
+<style>
+  @layer components {
+    .archive-card {
+      position: relative;
+      display: grid;
+      align-content: start;
+      gap: var(--space-2);
+    }
+    .card-media {
+      aspect-ratio: 3 / 2;
+      display: grid;
+      place-items: center;
+      padding: var(--space-3);
+      background-color: var(--color-surface);
+    }
+    .card-media img {
+      max-block-size: 100%;
+      object-fit: contain;
+    }
+    .card-title {
+      font-size: var(--size-body);
+      line-height: var(--leading-body);
+    }
+    .card-title a {
+      color: var(--color-text);
+      text-decoration-line: none;
+    }
+    .card-title a::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+    .archive-card:hover .card-title a,
+    .card-title a:focus-visible {
+      text-decoration-line: underline;
+    }
+    .card-title a:focus-visible {
+      outline: none;
+    }
+    .card-title a:focus-visible::after {
+      outline: var(--focus-width) solid var(--color-focus);
+      outline-offset: var(--focus-offset);
+    }
+  }
+</style>
