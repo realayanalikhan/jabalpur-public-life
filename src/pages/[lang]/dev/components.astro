@@ -1,0 +1,172 @@
+---
+/**
+ * [DEV] Components specimen (local builds only). Shows the shared site components with neutral,
+ * synthetic demonstration data so they can be reviewed at 360, 412 and 1280 px before real content
+ * exists. Generated only when fixtures are allowed (SITE_ENV=local); never in preview or production,
+ * never in a sitemap. The card image is the [DEV] fixture photo, read from the site data (fixtures load
+ * only in local builds), so no fixture file can be bundled into other builds.
+ * Demonstration values are written here directly (development tooling); every value starts with [DEV].
+ */
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Header from '../../../components/site/Header.astro';
+import Section from '../../../components/layout/Section.astro';
+import ActionLink from '../../../components/ui/ActionLink.astro';
+import ProvenanceLabel from '../../../components/verification/ProvenanceLabel.astro';
+import SourceDetails from '../../../components/verification/SourceDetails.astro';
+import MetaLine from '../../../components/archive/MetaLine.astro';
+import ArchiveCard from '../../../components/archive/ArchiveCard.astro';
+import RuledList from '../../../components/archive/RuledList.astro';
+import CitationBlock from '../../../components/archive/CitationBlock.astro';
+import { getSite } from '../../../lib/site.ts';
+import { fixturesAllowed } from '../../../lib/env.ts';
+import { localisedText } from '../../../i18n/text.ts';
+import type { NavItem } from '../../../lib/navigation.ts';
+import type { Lang, RouteDef } from '../../../lib/routes.ts';
+
+export async function getStaticPaths() {
+  const site = await getSite();
+  if (!fixturesAllowed(site.env)) return [];
+  return (['hi', 'en'] as const).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const other: Lang = lang === 'hi' ? 'en' : 'hi';
+const site = await getSite();
+const { t } = site;
+const route: RouteDef = {
+  path: `/${lang}/dev/components/`,
+  lang,
+  kind: 'dev',
+  alternates: {},
+  noindex: true,
+  inSitemap: false,
+  switchTo: `/${other}/dev/components/`,
+};
+
+// Demonstration navigation: every primary section, as if all were built (fragment links only).
+const demoPrimary: NavItem[] = ['nav.about', 'nav.public-life', 'nav.archive', 'nav.updates', 'nav.connect'].map(
+  (key, n) => ({ key, href: '#demo', current: n === 2 }),
+);
+const demoUtility: NavItem[] = ['nav.press-kit', 'nav.how-we-verify'].map((key) => ({
+  key,
+  href: '#demo',
+  current: false,
+}));
+
+const photo = site.built['photos']?.[0];
+const photoImage = photo?.data['image'] as { src: string; width: number; height: number } | undefined;
+const image = photoImage && {
+  src: photoImage.src,
+  width: photoImage.width,
+  height: photoImage.height,
+  alt: localisedText(photo?.data['alt'], lang) ?? '',
+};
+
+const meta = [
+  { label: t('meta.date', lang), value: '[DEV] 1900' },
+  { label: t('meta.type', lang), value: '[DEV] A' },
+  { label: t('meta.place', lang), value: '[DEV] B' },
+];
+---
+
+<BaseLayout site={site} route={route} title="[DEV] Components specimen">
+  <div class="specimen">
+    <p class="type-label text-secondary">
+      [DEV] Components specimen · local builds only · synthetic demonstration data · not real content
+    </p>
+
+    <div class="demo" id="demo">
+      <p class="type-label text-secondary">
+        [DEV] Header with demonstration navigation (all sections shown as if built). Below 400 px: menu; 400–1024 px:
+        navigation row; from 1024 px: one row.
+      </p>
+      <Header site={site} route={route} primary={demoPrimary} utility={demoUtility} />
+    </div>
+
+    <Section title="[DEV] Section heading" id="demo-section">
+      <p class="measure">[DEV] A section opens with a hairline rule and a sentence-case heading, then content.</p>
+      <ActionLink href="#demo">[DEV] Forward link</ActionLink>
+    </Section>
+
+    <Section title="[DEV] Provenance (Level 1 and Level 2)" id="demo-provenance">
+      <ProvenanceLabel site={site} lang={lang} status="verified" vars={{ sourceType: '[DEV] A' }} explainHref="#demo" />
+      <ProvenanceLabel site={site} lang={lang} status="supplied" explainHref="#demo" />
+      <ProvenanceLabel
+        site={site}
+        lang={lang}
+        status="media-reported"
+        vars={{ outlet: '[DEV] B', date: '[DEV] 1900' }}
+        explainHref="#demo"
+      />
+      <SourceDetails
+        site={site}
+        lang={lang}
+        rows={[
+          { label: t('meta.source', lang), value: '[DEV] Synthetic source' },
+          { label: t('meta.date', lang), value: '[DEV] 1900' },
+          { label: t('meta.credit', lang), value: '[DEV] C' },
+        ]}
+      />
+    </Section>
+
+    <Section title="[DEV] Archive cards" id="demo-cards">
+      <div class="card-grid">
+        <ArchiveCard href="#demo" title="[DEV] Card with image" meta={meta} image={image} />
+        <ArchiveCard href="#demo" title="[DEV] Card without image" meta={meta} />
+        <ArchiveCard href="#demo" title="[DEV] A longer card title that wraps onto two or three lines" meta={meta} />
+      </div>
+    </Section>
+
+    <Section title="[DEV] Ruled list" id="demo-list">
+      <RuledList>
+        <li>
+          <MetaLine items={meta} />
+          <a href="#demo">[DEV] Row one</a>
+        </li>
+        <li>
+          <MetaLine items={meta} />
+          <a href="#demo">[DEV] Row two</a>
+        </li>
+        <li>
+          <MetaLine items={meta} />
+          <a href="#demo">[DEV] Row three</a>
+        </li>
+      </RuledList>
+    </Section>
+
+    <Section title="[DEV] Citation" id="demo-citation">
+      <CitationBlock title="[DEV] Use and cite">
+        <p>[DEV] Synthetic citation text · 1900 · [DEV] reference</p>
+      </CitationBlock>
+    </Section>
+  </div>
+</BaseLayout>
+
+<style>
+  @layer components {
+    .specimen {
+      display: grid;
+      gap: var(--space-8);
+      padding-block: var(--space-6) var(--space-section);
+    }
+    .demo {
+      display: grid;
+      gap: var(--space-3);
+      border: var(--border-hairline) dashed var(--color-border-control);
+      padding-block: var(--space-3);
+    }
+    .demo > p {
+      padding-inline: var(--space-gutter);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+    @media (min-width: 48rem) {
+      .card-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+  }
+</style>
