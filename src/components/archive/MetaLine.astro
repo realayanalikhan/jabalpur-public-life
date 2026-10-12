@@ -1,0 +1,47 @@
+---
+/**
+ * Metadata line ("date · type · place", design 04 H4, 0027): interface sans, secondary ink. Each value
+ * keeps its glossary label for assistive technology; sighted readers see the values joined by " · ".
+ */
+interface Props {
+  items: Array<{ label: string; value: string }>;
+}
+const { items } = Astro.props;
+---
+
+<dl class="meta-line type-label">
+  {items.map((i, n) => (
+    <div>
+      <dt class="visually-hidden">{i.label}</dt>
+      <dd>
+        {n > 0 && (
+          <span class="sep" aria-hidden="true">
+            ·
+          </span>
+        )}
+        {i.value}
+      </dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  @layer components {
+    .meta-line {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      color: var(--color-text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+    .sep {
+      padding-inline: var(--space-2);
+    }
+    /* Values keep the label size of the line (the base text rule would otherwise size each dd). */
+    .meta-line dd {
+      margin: 0;
+      font-size: inherit;
+      line-height: inherit;
+    }
+  }
+</style>

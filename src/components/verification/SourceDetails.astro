@@ -1,0 +1,67 @@
+---
+/**
+ * Level 2 source details (decision 0026 point 4): fuller source information on demand, in a native,
+ * keyboard-operable disclosure. Content is a list of label/value pairs; labels come from the glossary.
+ */
+import type { Site } from '../../lib/site.ts';
+import type { Lang } from '../../lib/routes.ts';
+
+interface Props {
+  site: Site;
+  lang: Lang;
+  rows: Array<{ label: string; value: string }>;
+}
+const { site, lang, rows } = Astro.props;
+---
+
+<details class="source-details">
+  <summary class="type-label">{site.t('verify.details', lang)}</summary>
+  <dl class="type-label">
+    {rows.map((r) => (
+      <div>
+        <dt>{r.label}</dt>
+        <dd>{r.value}</dd>
+      </div>
+    ))}
+  </dl>
+</details>
+
+<style>
+  @layer components {
+    .source-details > summary {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      color: var(--color-link);
+      text-decoration-line: underline;
+      text-decoration-thickness: var(--underline-thickness);
+      text-underline-offset: var(--underline-offset);
+      cursor: pointer;
+    }
+    .source-details dl {
+      display: grid;
+      gap: var(--space-2);
+      margin: 0;
+      padding: var(--space-3) var(--space-4);
+      background-color: var(--color-surface);
+    }
+    .source-details dl > div {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .source-details dt {
+      font-weight: var(--weight-semibold);
+    }
+    .source-details dd {
+      margin: 0;
+      font-size: var(--size-label);
+      line-height: var(--leading-label);
+    }
+    @media (min-width: 48rem) {
+      .source-details dl > div {
+        grid-template-columns: minmax(0, 12rem) minmax(0, 1fr);
+        column-gap: var(--space-4);
+      }
+    }
+  }
+</style>

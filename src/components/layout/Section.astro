@@ -1,0 +1,45 @@
+---
+/**
+ * Page section (design 03 §5 "Editorial rhythm"): a hairline rule, then a sentence-case heading,
+ * then content. Section headings use the h3 scale so that page titles (h1) stay dominant; Hindi gets
+ * about 1.2× the space around the heading (token --space-heading-factor).
+ */
+interface Props {
+  title: string;
+  /** Anchor id for the section; also used to label it. */
+  id: string;
+  /** Heading level within the page outline (default 2). */
+  level?: 2 | 3;
+}
+const { title, id, level = 2 } = Astro.props;
+const Heading = `h${level}` as 'h2' | 'h3';
+---
+
+<section class="section" aria-labelledby={`${id}-title`}>
+  <Heading class="section-title" id={`${id}-title`}>
+    {title}
+  </Heading>
+  <div class="section-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  @layer components {
+    .section {
+      padding-block-start: calc(var(--space-5) * var(--space-heading-factor));
+      border-block-start: var(--border-hairline) solid var(--color-rule);
+    }
+    .section + .section {
+      margin-block-start: var(--space-section);
+    }
+    .section-title {
+      font-size: var(--size-h3);
+      line-height: var(--leading-h3);
+      margin-block-end: calc(var(--space-4) * var(--space-heading-factor));
+    }
+    .section-body > :global(* + *) {
+      margin-block-start: var(--space-4);
+    }
+  }
+</style>

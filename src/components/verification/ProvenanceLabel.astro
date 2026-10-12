@@ -1,0 +1,42 @@
+---
+/**
+ * Level 1 provenance label (decision 0026 point 3; design 03 §10): one short line in the interface
+ * sans and secondary ink — the status in semibold, then a "What this means" link to How We Verify.
+ * Status is always text: no colours, badges or icons. Wording comes only from the glossary.
+ * The link is shown only when the How We Verify page exists (pass its href, with the base path).
+ */
+import type { Site } from '../../lib/site.ts';
+import type { Lang } from '../../lib/routes.ts';
+
+type Status = 'verified' | 'supplied' | 'media-reported';
+interface Props {
+  site: Site;
+  lang: Lang;
+  status: Status;
+  /** Placeholders of the glossary entry, e.g. { sourceType } or { outlet, date }. */
+  vars?: Record<string, string>;
+  explainHref?: string | undefined;
+}
+const { site, lang, status, vars, explainHref } = Astro.props;
+---
+
+<p class="provenance type-label">
+  <strong>{site.t(`verify.${status}`, lang, vars)}</strong>
+  {explainHref && (
+    <>
+      <span aria-hidden="true"> · </span>
+      <a href={explainHref}>{site.t('verify.what-this-means', lang)}</a>
+    </>
+  )}
+</p>
+
+<style>
+  @layer components {
+    .provenance {
+      color: var(--color-text-secondary);
+    }
+    .provenance strong {
+      font-weight: var(--weight-semibold);
+    }
+  }
+</style>
