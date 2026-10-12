@@ -2,14 +2,16 @@
 /**
  * Base document for every page (scaffold plan §8–§9, §12). Handles lang, canonical, hreflang (genuine
  * equivalents only, x-default → /hi/), noindex (notice pages; every page outside production), the
- * preview-only banner, the global styles and the body-font preload. Foundation only: the final
- * header, navigation and footer come in later PRs.
+ * preview-only banner, the global styles, the body-font preload, and the site header and footer.
+ * Navigation lists only sections that are visible and built (src/lib/navigation.ts).
  */
 import '../styles/global.css';
 import type { Site } from '../lib/site.ts';
-import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
+import { hreflangLinks, type RouteDef } from '../lib/routes.ts';
 import { withBase } from '../lib/env.ts';
-import LanguageSwitch from '../components/site/LanguageSwitch.astro';
+import { FOOTER_UTILITY_NAV, MENU_UTILITY_NAV, PRIMARY_NAV, buildNav } from '../lib/navigation.ts';
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
 
 interface Props {
   site: Site;
@@ -25,6 +27,9 @@ const bodyFont =
   route.lang === 'hi'
     ? '/fonts/noto-serif-devanagari-devanagari-400-normal.woff2'
     : '/fonts/source-serif-4-latin-400-normal.woff2';
+const nav = (defs: Parameters<typeof buildNav>[0]) =>
+  buildNav(defs, route.lang, site.routes, site.visibility, route.path);
+const primary = nav(PRIMARY_NAV);
 ---
 
 <!doctype html>
@@ -49,12 +54,11 @@ const bodyFont =
         पूर्वावलोकन — सार्वजनिक नहीं · Preview — not public
       </div>
     )}
-    <header class="frame site-header">
-      <LanguageSwitch site={site} href={withBase(env, route.switchTo)} target={otherLang(route.lang)} />
-    </header>
+    <Header site={site} route={route} primary={primary} utility={nav(MENU_UTILITY_NAV)} />
     <main id="main" class="frame" tabindex="-1">
       <slot />
     </main>
+    <Footer site={site} lang={route.lang} primary={primary} utility={nav(FOOTER_UTILITY_NAV)} />
   </body>
 </html>
 
@@ -78,12 +82,6 @@ const bodyFont =
       background-color: var(--color-surface);
       color: var(--color-text);
       border-block-end: var(--border-hairline) solid var(--color-border-control);
-    }
-
-    .site-header {
-      display: flex;
-      justify-content: flex-end;
-      padding-block: var(--space-2);
     }
 
     main:focus {

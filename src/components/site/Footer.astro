@@ -1,0 +1,75 @@
+---
+/**
+ * Site footer (spec B §1 "Footer"; design 04 H9). Primary sections and the utility and trust pages,
+ * each listed only once its page is built and its section visible. Renders nothing while there is
+ * nothing to list.
+ *
+ * Not included yet, deliberately:
+ * - a second language switch: 0021 and route rule R7 keep exactly one switch per page (in the header);
+ * - "Last updated": needs a defined content source of truth;
+ * - official profiles: none exist (SocialLink entries);
+ * - the optional river rule above the footer (design 03 §8; DP-06 open).
+ */
+import type { Site } from '../../lib/site.ts';
+import type { Lang } from '../../lib/routes.ts';
+import { withBase } from '../../lib/env.ts';
+import type { NavItem } from '../../lib/navigation.ts';
+
+interface Props {
+  site: Site;
+  lang: Lang;
+  primary: NavItem[];
+  utility: NavItem[];
+}
+const { site, lang, primary, utility } = Astro.props;
+const groups = [primary, utility].filter((g) => g.length > 0);
+---
+
+{groups.length > 0 && (
+  <footer class="site-footer">
+    <div class="frame footer-inner type-label">
+      {groups.map((items) => (
+        <ul>
+          {items.map((i) => (
+            <li>
+              <a href={withBase(site.env, i.href)} aria-current={i.current ? 'page' : undefined}>
+                {site.t(i.key, lang)}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </footer>
+)}
+
+<style>
+  @layer components {
+    .site-footer {
+      margin-block-start: var(--space-section);
+      border-block-start: var(--border-hairline) solid var(--color-rule);
+    }
+    .footer-inner {
+      display: grid;
+      gap: var(--space-5);
+      padding-block: var(--space-6) var(--space-8);
+    }
+    .footer-inner ul {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--space-5);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .footer-inner a {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      color: var(--color-text-secondary);
+    }
+    .footer-inner a[aria-current='page'] {
+      color: var(--color-accent);
+    }
+  }
+</style>

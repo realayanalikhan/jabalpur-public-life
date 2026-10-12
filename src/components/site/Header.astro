@@ -1,0 +1,216 @@
+---
+/**
+ * Site header (spec B §1; design 04 H0; decisions 0021, 0024). Wordmark, primary navigation and the
+ * single language switch; hairline below; not sticky; no JavaScript.
+ *
+ * Responsive behaviour (an explicit choice for review; design 03 §5 fixes only the two ends):
+ *  - below 25rem (400 px): navigation in a native disclosure menu (Hindi labels need about 371 px);
+ *  - 25rem–64rem: navigation inline on its own row below the wordmark;
+ *  - from 64rem (1024 px): one row, wordmark · navigation · language switch.
+ * The language switch is always visible and never inside the menu.
+ *
+ * The wordmark is the person's published public name. Until one exists it is the glossary "Home"
+ * label: no placeholder name is ever invented.
+ */
+import type { Site } from '../../lib/site.ts';
+import { homePath, otherLang, type RouteDef } from '../../lib/routes.ts';
+import { withBase } from '../../lib/env.ts';
+import { localisedText } from '../../i18n/text.ts';
+import type { NavItem } from '../../lib/navigation.ts';
+import LanguageSwitch from './LanguageSwitch.astro';
+
+interface Props {
+  site: Site;
+  route: RouteDef;
+  primary: NavItem[];
+  utility: NavItem[];
+}
+const { site, route, primary, utility } = Astro.props;
+const { env, t } = site;
+const lang = route.lang;
+const name = localisedText(site.person?.data['displayName'], lang);
+const wordmark = name ?? t('nav.home', lang);
+const hasMenu = primary.length > 0 || utility.length > 0;
+---
+
+<header class="site-header frame">
+  <a
+    class="wordmark"
+    href={withBase(env, homePath(lang))}
+    aria-current={route.path === homePath(lang) ? 'page' : undefined}
+  >
+    {wordmark}
+  </a>
+  {primary.length > 0 && (
+    <nav class="nav-inline type-label">
+      <ul>
+        {primary.map((i) => (
+          <li>
+            <a href={withBase(env, i.href)} aria-current={i.current ? 'page' : undefined}>
+              {t(i.key, lang)}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+  <div class="switch">
+    <LanguageSwitch site={site} href={withBase(env, route.switchTo)} target={otherLang(route.lang)} />
+  </div>
+  {hasMenu && (
+    <details class="menu">
+      <summary class="type-label">{t('ui.menu', lang)}</summary>
+      <nav class="menu-panel type-label">
+        {primary.length > 0 && (
+          <ul>
+            {primary.map((i) => (
+              <li>
+                <a href={withBase(env, i.href)} aria-current={i.current ? 'page' : undefined}>
+                  {t(i.key, lang)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        {utility.length > 0 && (
+          <ul class="menu-utility">
+            {utility.map((i) => (
+              <li>
+                <a href={withBase(env, i.href)} aria-current={i.current ? 'page' : undefined}>
+                  {t(i.key, lang)}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </nav>
+    </details>
+  )}
+</header>
+
+<style>
+  @layer components {
+    .site-header {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      grid-template-areas: 'mark switch menu';
+      align-items: center;
+      column-gap: var(--space-2);
+      padding-block: var(--space-2);
+      border-block-end: var(--border-hairline) solid var(--color-rule);
+    }
+
+    .wordmark {
+      grid-area: mark;
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      font-size: var(--size-lead);
+      line-height: var(--leading-h3);
+      font-weight: var(--weight-semibold);
+      color: var(--color-text);
+      text-decoration-line: none;
+    }
+    .wordmark:hover {
+      text-decoration-line: underline;
+    }
+
+    .switch {
+      grid-area: switch;
+    }
+
+    /* Navigation links: interface sans, ink, no underline (the nav region identifies them as links,
+       as in the typography test); hover underlines; the current section is underlined in the accent. */
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    nav a {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      color: var(--color-text);
+      text-decoration-line: none;
+    }
+    nav a:hover {
+      text-decoration-line: underline;
+    }
+    nav a[aria-current='page'] {
+      color: var(--color-accent);
+      text-decoration-line: underline;
+      text-decoration-thickness: var(--underline-thickness-hover);
+    }
+
+    .nav-inline {
+      grid-area: nav;
+      display: none;
+    }
+
+    /* Below 25rem: disclosure menu. The panel opens directly below the header, over the page. */
+    .menu {
+      grid-area: menu;
+    }
+    .menu > summary {
+      display: inline-flex;
+      align-items: center;
+      min-block-size: var(--target-min);
+      padding-inline: var(--space-3);
+      border: var(--border-control) solid var(--color-border-control);
+      cursor: pointer;
+      list-style: none;
+    }
+    .menu > summary::-webkit-details-marker {
+      display: none;
+    }
+    .menu[open] > summary {
+      border-color: var(--color-accent);
+    }
+    .menu-panel {
+      position: absolute;
+      z-index: 1;
+      inset-inline: 0;
+      padding: var(--space-2) var(--space-gutter) var(--space-4);
+      background-color: var(--color-background);
+      border-block-end: var(--border-hairline) solid var(--color-rule);
+    }
+    .menu-panel ul {
+      flex-direction: column;
+    }
+    .menu-utility {
+      margin-block-start: var(--space-2);
+      padding-block-start: var(--space-2);
+      border-block-start: var(--border-hairline) solid var(--color-rule);
+    }
+
+    @media (min-width: 25rem) {
+      .site-header {
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-areas:
+          'mark switch'
+          'nav nav';
+      }
+      .nav-inline {
+        display: block;
+      }
+      .menu {
+        display: none;
+      }
+    }
+
+    @media (min-width: 64rem) {
+      .site-header {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        grid-template-areas: 'mark nav switch';
+        column-gap: var(--space-6);
+      }
+      .nav-inline ul {
+        justify-content: flex-end;
+      }
+    }
+  }
+</style>
