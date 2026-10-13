@@ -8,7 +8,9 @@
 import '../styles/global.css';
 import type { Site } from '../lib/site.ts';
 import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
-import { withBase } from '../lib/env.ts';
+import { demoAllowed, withBase } from '../lib/env.ts';
+import { DEMO_MARKER } from '../validation/demo.ts';
+import DemoBanner from '../components/site/DemoBanner.astro';
 import LanguageSwitch from '../components/site/LanguageSwitch.astro';
 
 interface Props {
@@ -19,6 +21,11 @@ interface Props {
 const { site, route, title } = Astro.props;
 const { env } = site;
 const noindex = route.noindex || env.siteEnv !== 'production';
+// Demo builds (0028): banner, marker, title prefix, and no following of links either.
+const demo = demoAllowed(env);
+const demoAttrs = demo ? { [DEMO_MARKER]: '' } : {};
+const robots = demo ? 'noindex, nofollow' : 'noindex';
+const fullTitle = demo ? `${route.lang === 'hi' ? 'प्रदर्शन' : 'Demo'} · ${title}` : title;
 const bodyAttrs = route.kind === 'notice' ? { 'data-notice-page': '' } : {};
 // Preload only the body file for the page's script (0024 point 5).
 const bodyFont =
@@ -28,22 +35,23 @@ const bodyFont =
 ---
 
 <!doctype html>
-<html lang={route.lang}>
+<html lang={route.lang} {...demoAttrs}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{fullTitle}</title>
     <link rel="preload" href={withBase(env, bodyFont)} as="font" type="font/woff2" crossorigin />
     {!route.noindex && <link rel="canonical" href={env.siteUrl + route.path} />}
     {hreflangLinks(route, env.siteUrl).map((l) => (
       <link rel="alternate" hreflang={l.hreflang} href={l.href} />
     ))}
-    {noindex && <meta name="robots" content="noindex" />}
+    {noindex && <meta name="robots" content={robots} />}
   </head>
   <body {...bodyAttrs}>
     <a class="skip-link type-label" href="#main">
       {site.t('ui.skip', route.lang)}
     </a>
+    {demo && <DemoBanner />}
     {env.siteEnv === 'preview' && (
       <div class="preview-banner type-label" data-preview-only role="note">
         पूर्वावलोकन — सार्वजनिक नहीं · Preview — not public

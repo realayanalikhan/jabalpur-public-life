@@ -4,20 +4,23 @@
  * preference. A host-level redirect is generated later from host-neutral definitions (plan §14).
  */
 import { getSite } from '../lib/site.ts';
-import { withBase } from '../lib/env.ts';
+import { demoAllowed, withBase } from '../lib/env.ts';
+import { DEMO_MARKER } from '../validation/demo.ts';
 
 const site = await getSite();
 const target = '/hi/';
 const href = withBase(site.env, target);
+const demo = demoAllowed(site.env);
+const demoAttrs = demo ? { [DEMO_MARKER]: '' } : {};
 ---
 
 <!doctype html>
-<html lang="hi">
+<html lang="hi" {...demoAttrs}>
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="refresh" content={`0; url=${href}`} />
     <link rel="canonical" href={site.env.siteUrl + target} />
-    <meta name="robots" content="noindex" />
+    <meta name="robots" content={demo ? 'noindex, nofollow' : 'noindex'} />
     <title>{site.t('nav.home', 'hi')}</title>
   </head>
   <body>

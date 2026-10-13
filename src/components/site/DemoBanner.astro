@@ -1,0 +1,40 @@
+---
+/**
+ * Demonstration banner (decision 0028). Rendered on every page of a demo build and nowhere else; it
+ * carries the demonstration marker that D2 requires in demo output and forbids in all other output.
+ * Fixed bilingual wording, like the preview banner: development tooling text, not interface copy.
+ */
+import { DEMO_MARKER } from '../../validation/demo.ts';
+
+const marker = { [DEMO_MARKER]: '' };
+---
+
+<div class="demo-banner type-label" role="note" {...marker}>
+  <p lang="hi">
+    <strong>प्रदर्शन संस्करण।</strong> यहाँ दिखाए गए व्यक्ति, घटनाएँ, स्रोत और विवरण काल्पनिक हैं। यह किसी वास्तविक
+    व्यक्ति की प्रोफ़ाइल नहीं है।
+  </p>
+  <p lang="en">
+    <strong>Demonstration version.</strong> The person, events, sources and details shown are fictional. This is not the
+    profile of any real person.
+  </p>
+</div>
+
+<style>
+  @layer components {
+    .demo-banner {
+      display: grid;
+      gap: var(--space-1);
+      padding: var(--space-3) var(--space-gutter);
+      background-color: var(--color-text);
+      color: var(--color-background);
+    }
+    .demo-banner p {
+      font-size: var(--size-label);
+      line-height: var(--leading-label);
+    }
+    .demo-banner strong {
+      font-weight: var(--weight-semibold);
+    }
+  }
+</style>
