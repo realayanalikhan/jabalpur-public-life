@@ -11,7 +11,12 @@ import { siteConfig } from '../../site.config.ts';
 import { runPostBuildChecks } from './post-build.ts';
 import { MANIFEST_DIR, MANIFEST_FILE, type IntegrityManifest } from './manifest.ts';
 import { reportIssues } from './report.ts';
-import { checkFixtureContamination, formatSourceIssues, readContentSources } from './source-content.ts';
+import {
+  checkDemoIsolation,
+  checkFixtureContamination,
+  formatSourceIssues,
+  readContentSources,
+} from './source-content.ts';
 
 export function integrity(): AstroIntegration {
   return {
@@ -21,7 +26,8 @@ export function integrity(): AstroIntegration {
       // any entry and before any page renders, in every environment.
       'astro:config:setup': ({ command, config }) => {
         if (command !== 'build' && command !== 'dev') return;
-        const issues = checkFixtureContamination(readContentSources(fileURLToPath(config.root)));
+        const sources = readContentSources(fileURLToPath(config.root));
+        const issues = [...checkFixtureContamination(sources), ...checkDemoIsolation(sources)];
         if (issues.length) {
           throw new Error(`Integrity checks failed — source content:
 ${formatSourceIssues(issues)}`);

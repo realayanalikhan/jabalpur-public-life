@@ -13,6 +13,7 @@ import type { Issue, Outcome } from './types.ts';
 import { severityFor } from './types.ts';
 import { MISSING_MARK } from '../i18n/glossary.ts';
 import type { IntegrityManifest } from './manifest.ts';
+import { demoOutputIssue } from './demo.ts';
 
 export const PREVIEW_MARKER = 'data-preview-only';
 export const NOTICE_MARKER = 'data-notice-page';
@@ -95,6 +96,9 @@ export async function runPostBuildChecks(
   }
 
   for (const [path, html] of htmlPages) {
+    // D2 — demonstration marker only, and always, in demo output (0028).
+    const d2 = demoOutputIssue(env, html, path);
+    if (d2) issues.push(d2);
     const url = pageUrl(path);
     const isNotice = html.includes(NOTICE_MARKER);
     // I10 — production pages carry no noindex except notice pages.

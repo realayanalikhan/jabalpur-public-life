@@ -1,7 +1,10 @@
 /**
  * Build environment handling (scaffold plan §2, §6.2, §7; [0013]).
  *
- * - SITE_ENV = local | preview | production. **Unset means production rules** (safest default).
+ * - SITE_ENV = local | preview | production | demo. **Unset means production rules** (safest default).
+ * - demo (decision 0028): an isolated demonstration build. It reads only `demo/content/` (fictional,
+ *   demo-flagged data), never `src/content/` (except the shared glossary) and never `[DEV]` fixtures,
+ *   and applies the preview outcomes of every integrity check. It is never preview or production.
  * - SITE_VERIFY_ONLY=1 (production only): a CI verification build. Content is filtered exactly as in
  *   production; only launch-readiness items may be reported as blockers instead of failures.
  * - SITE_URL: never invented. Local and preview get reserved placeholders; a production deployment
@@ -9,7 +12,7 @@
  * - Base path: taken from the path of SITE_URL (e.g. https://user.github.io/repo → "/repo") for hosts
  *   that serve the site from a sub-path. Empty for a site at the domain root (the default).
  */
-export type SiteEnv = 'local' | 'preview' | 'production';
+export type SiteEnv = 'local' | 'preview' | 'production' | 'demo';
 
 export interface BuildEnv {
   siteEnv: SiteEnv;
@@ -32,6 +35,7 @@ const PLACEHOLDERS: Record<SiteEnv | 'verify', string> = {
   preview: 'https://preview.invalid',
   verify: 'https://example.invalid',
   production: 'https://missing-site-url.invalid',
+  demo: 'https://demo.invalid',
 };
 
 const RESERVED_SUFFIXES = ['.invalid', '.test', '.example', '.localhost', '.local'];
@@ -49,10 +53,10 @@ export function isReservedHost(url: string): boolean {
 
 export function readBuildEnv(source: Record<string, string | undefined> = process.env): BuildEnv {
   const raw = source['SITE_ENV']?.trim();
-  if (raw !== undefined && raw !== '' && raw !== 'local' && raw !== 'preview' && raw !== 'production') {
-    throw new Error(`SITE_ENV must be "local", "preview" or "production" (got "${raw}").`);
+  if (raw !== undefined && raw !== '' && !['local', 'preview', 'production', 'demo'].includes(raw)) {
+    throw new Error(`SITE_ENV must be "local", "preview", "production" or "demo" (got "${raw}").`);
   }
-  const siteEnv: SiteEnv = raw === 'local' || raw === 'preview' ? raw : 'production';
+  const siteEnv: SiteEnv = raw === 'local' || raw === 'preview' || raw === 'demo' ? raw : 'production';
   const defaulted = raw === undefined || raw === '';
   const verifyFlag = source['SITE_VERIFY_ONLY'] === '1';
   if (verifyFlag && siteEnv !== 'production') {
@@ -98,6 +102,7 @@ export function buildableStatuses(env: Pick<BuildEnv, 'siteEnv'>): ReadonlySet<s
     case 'preview':
       return new Set(['review', 'published']);
     case 'production':
+    case 'demo':
       return new Set(['published']);
   }
 }
@@ -105,4 +110,16 @@ export function buildableStatuses(env: Pick<BuildEnv, 'siteEnv'>): ReadonlySet<s
 /** Development fixtures are loaded only in local builds (scaffold plan §15.1). */
 export function fixturesAllowed(env: Pick<BuildEnv, 'siteEnv'>): boolean {
   return env.siteEnv === 'local';
+}
+
+/** Demonstration data is loaded only in demo builds (0028). */
+export function demoAllowed(env: Pick<BuildEnv, 'siteEnv'>): boolean {
+  return env.siteEnv === 'demo';
+}
+
+/** Root folder of the entity collections: the isolated demo data in demo builds, real content otherwise. */
+export const REAL_CONTENT_ROOT = './src/content';
+export const DEMO_CONTENT_ROOT = './demo/content';
+export function contentRoot(env: Pick<BuildEnv, 'siteEnv'>): string {
+  return demoAllowed(env) ? DEMO_CONTENT_ROOT : REAL_CONTENT_ROOT;
 }
