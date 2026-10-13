@@ -1,6 +1,6 @@
 # 0013 — Environments and deployment model
 
-- **Status:** Accepted
+- **Status:** Accepted; amended by [0028](0028-demonstration-environment.md) (adds an isolated demonstration environment; the three environments below are unchanged)
 - **Date:** 2026-10-07
 - **Deciders:** Product/technical decision partner (relayed by the project owner)
 - **Related:** [Spec F §9](../spec/06-technical-architecture.md); T-09

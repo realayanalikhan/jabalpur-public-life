@@ -41,3 +41,4 @@ Relationship conventions:
 | [0025](0025-local-material-visual-palette.md) | Local-material visual palette | Accepted with provisional values | 2026-10-07 |
 | [0026](0026-verification-and-source-presentation.md) | Verification and source presentation | Accepted | 2026-10-07 |
 | [0027](0027-archive-item-page-principles.md) | Archive item page principles | Accepted | 2026-10-07 |
+| [0028](0028-demonstration-environment.md) | Demonstration environment (amends 0013) | Accepted | 2026-10-13 |

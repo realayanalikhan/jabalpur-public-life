@@ -13,6 +13,7 @@
 | 02 | [Foundation notes (PR A)](02-foundation-notes.md) | What the technical foundation implements, the implementation-time choices, unavoidable decisions and commands |
 | 03 | [CI notes](03-ci-notes.md) | The GitHub Actions workflow: jobs, environments, route rules R1–R8, output and deployment guards, browser checks, implementation-time choices |
 | 04 | [Design foundation notes](04-design-foundation-notes.md) | Fonts (files, licences, fallbacks), tokens, provisional palette, typography, responsive and accessibility foundation, river line, specimen, validation, open decisions |
+| 06 | [Demonstration environment notes](06-demo-environment-notes.md) | The isolated `demo` environment (0028): data, checks D1/D2/SC2, marking, separate demo repository and deployment |
 
 ## Authority
 
