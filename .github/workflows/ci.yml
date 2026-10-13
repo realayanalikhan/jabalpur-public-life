@@ -105,6 +105,11 @@ jobs:
           echo "Deployment build correctly refused before launch:"
           grep -E "\[I(3|23)\]" "$log" || true
 
+      - name: Demo build (isolated fictional data only; D1, D2, SC2; decision 0028)
+        run: pnpm build:demo
+      - name: Demo route validation (R1–R8)
+        run: pnpm verify:demo-routes
+
   browser:
     name: Browser — accessibility (enforced) and performance (report-only, OD-25 open)
     needs: build
