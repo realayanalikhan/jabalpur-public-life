@@ -1,0 +1,18 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+originalLanguage: hi
+displayName: { hi: 'उदाहरण व्यक्ति (प्रदर्शन)', en: 'Example Person (demonstration)' }
+descriptor:
+  {
+    hi: 'काल्पनिक उदाहरण · उदाहरण नगर के पूर्व निर्वाचित प्रतिनिधि',
+    en: 'Fictional example · former elected representative, Example Town',
+  }
+shortBio:
+  {
+    hi: 'यह एक काल्पनिक व्यक्ति का प्रदर्शन-परिचय है, जिसे केवल वेबसाइट के डिज़ाइन की समीक्षा के लिए लिखा गया है। इसमें बताए गए पद, स्थान और घटनाएँ वास्तविक नहीं हैं।',
+    en: 'This is a demonstration introduction for a fictional person, written only to review the website design. The roles, places and events it mentions are not real.',
+  }
+translations: { en: { state: reviewed, reviewer: 'demonstration data', sourceHash: 'b9c7e8e0c8e978c8' } }

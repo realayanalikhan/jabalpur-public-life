@@ -1,0 +1,12 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: verified
+sources: [example-record]
+title: { hi: 'निर्वाचित सदस्य, उदाहरण वार्ड 1', en: 'Elected member, Example Ward 1' }
+organisation: example-council
+places: [example-ward-1]
+howObtained: elected
+period: { value: '1995', end: '2000' }
+themes: [example-civic-services]

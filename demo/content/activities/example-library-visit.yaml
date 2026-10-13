@@ -1,0 +1,16 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: verified
+sources: [example-report]
+type: visit
+date: { value: '2004-02-10' }
+title: { hi: 'उदाहरण पुस्तकालय का दौरा', en: 'Visit to the Example Library' }
+body:
+  {
+    hi: 'यह एक काल्पनिक गतिविधि है, जो केवल पृष्ठ के डिज़ाइन की समीक्षा के लिए लिखी गई है।',
+    en: 'This is a fictional activity, written only to review the page design.',
+  }
+place: example-ward-2
+themes: [example-civic-services]

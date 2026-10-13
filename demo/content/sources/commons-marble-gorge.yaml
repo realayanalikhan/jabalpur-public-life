@@ -1,0 +1,10 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A real source: the Wikimedia Commons file page of an openly licensed image used in the demo.
+demo: true
+status: published
+type: other
+title: 'Wikimedia Commons: White Marble Rocks at Bhedaghat.jpg'
+publisher: 'Wikimedia Commons'
+url: 'https://commons.wikimedia.org/wiki/File:White_Marble_Rocks_at_Bhedaghat.jpg'
+visibility: public

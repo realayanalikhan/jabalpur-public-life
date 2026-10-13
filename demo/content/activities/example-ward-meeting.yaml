@@ -1,0 +1,16 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+type: event
+date: { value: '2003-08-14' }
+title: { hi: 'उदाहरण वार्ड बैठक में पानी की आपूर्ति पर चर्चा', en: 'Example ward meeting discusses water supply' }
+body:
+  {
+    hi: 'यह एक काल्पनिक गतिविधि है। उदाहरण वार्ड 1 के निवासियों ने पानी की आपूर्ति के समय पर चर्चा की।',
+    en: 'This is a fictional activity. Residents of Example Ward 1 discussed water supply times.',
+  }
+place: example-ward-1
+occasion: example-ward-meeting-2003
+themes: [example-civic-services]

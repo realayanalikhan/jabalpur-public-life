@@ -1,0 +1,10 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+type: announcement
+date: { value: '2004-11-01' }
+title: { hi: 'उदाहरण सूचना: वार्ड कार्यालय के नए समय' }
+body: { hi: 'यह केवल हिंदी में उपलब्ध एक काल्पनिक सूचना है, ताकि एकभाषी सामग्री का प्रदर्शन हो सके।' }
+place: example-ward-1

@@ -1,0 +1,31 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A REAL, openly licensed photograph of a real place (attribution in demo/ASSETS.md). It is never
+# linked to the fictional person, roles or events.
+demo: true
+status: published
+verification: verified
+sources: [commons-marble-gorge]
+reference: JXPZRK
+image: ./marble-gorge.jpg
+alt:
+  {
+    hi: 'भेड़ाघाट में नर्मदा के दोनों ओर सफ़ेद संगमरमर की ऊँची चट्टानें; बीच में एक नाव',
+    en: 'Tall white marble cliffs on both banks of the Narmada at Bhedaghat, with a boat between them',
+  }
+caption:
+  {
+    hi: 'संगमरमर की चट्टानें, भेड़ाघाट · 2012 · प्रदर्शन के लिए प्रयुक्त चित्र',
+    en: 'Marble rocks, Bhedaghat · 2012 · image used for demonstration',
+  }
+date: { value: '2012-01-03' }
+places: [bhedaghat]
+credit: { name: 'Sandyadav080 / Wikimedia Commons' }
+rights:
+  {
+    status: licensed,
+    statement: { hi: 'CC BY-SA 3.0 लाइसेंस', en: 'Licensed under CC BY-SA 3.0' },
+    fullReproductionAllowed: true,
+  }
+consent: { privateIndividuals: not-identifiable, minors: not-identifiable }
+themes: [example-heritage]

@@ -1,0 +1,10 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+type: official-record
+title: 'उदाहरण अभिलेख: परिषद की कार्यवाही (काल्पनिक)'
+titleTranslation: { en: 'Example record: council proceedings (fictional)' }
+publisher: 'Example Town Council (fictional)'
+date: { value: '1995' }
+visibility: public

@@ -1,0 +1,20 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+title: { hi: 'उदाहरण संग्रह: जबलपुर के दृश्य', en: 'Example collection: views of Jabalpur' }
+introduction:
+  {
+    hi: 'यह प्रदर्शन संग्रह खुले लाइसेंस वाले चित्रों से बना है, जिनमें भेड़ाघाट और मदन महल दिखाई देते हैं। यह किसी व्यक्ति के जीवन का अभिलेख नहीं है।',
+    en: 'This demonstration collection uses openly licensed images of Bhedaghat and Madan Mahal. It is not a record of any person’s life.',
+  }
+editor: 'Demonstration'
+items:
+  - { collection: photos, id: marble-gorge }
+  - { collection: photos, id: marble-river }
+  - { collection: photos, id: madan-mahal }
+  - { collection: photos, id: dhuandhar }
+  - { collection: photos, id: madan-mahal-1865 }
+  - { collection: photos, id: marble-rocks-1870s }
+  - { collection: photos, id: strahan-rocks }
+cover: marble-gorge

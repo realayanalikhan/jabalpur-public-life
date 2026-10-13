@@ -1,0 +1,32 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A REAL, openly licensed photograph of a real place (attribution in demo/ASSETS.md). It is never
+# linked to the fictional person, roles or events.
+demo: true
+status: published
+verification: verified
+sources: [commons-marble-rocks-1870s]
+reference: X2YPRF
+image: ./marble-rocks-1870s.jpg
+alt:
+  {
+    hi: 'उन्नीसवीं सदी की भूरे रंग की तस्वीर: नर्मदा के दोनों ओर संगमरमर की चट्टानें',
+    en: 'Nineteenth-century sepia photograph: marble cliffs on both sides of the Narmada',
+  }
+caption:
+  {
+    hi: 'नर्मदा पर संगमरमर की चट्टानें, 1860–1899 · प्रदर्शन के लिए प्रयुक्त चित्र',
+    en: 'Marble rocks on the Narmada, 1860–1899 · image used for demonstration',
+  }
+date: { value: '1860', approximate: true, end: '1899' }
+places: [bhedaghat]
+credit: { name: 'Unknown photographer / Wikimedia Commons' }
+rights:
+  {
+    status: public-domain,
+    statement: { hi: 'CC0 (सार्वजनिक डोमेन समर्पण)', en: 'CC0 public-domain dedication' },
+    fullReproductionAllowed: true,
+  }
+consent: { privateIndividuals: none, minors: none }
+themes: [example-heritage]
+originalForm: 'Albumen print'

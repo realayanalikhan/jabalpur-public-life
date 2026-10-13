@@ -1,0 +1,5 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+label: { hi: 'नागरिक सुविधाएँ (उदाहरण विषय)', en: 'Civic services (example theme)' }
