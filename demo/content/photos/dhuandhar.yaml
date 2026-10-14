@@ -1,0 +1,31 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A REAL, openly licensed photograph of a real place (attribution in demo/ASSETS.md). It is never
+# linked to the fictional person, roles or events.
+demo: true
+status: published
+verification: verified
+sources: [commons-dhuandhar]
+reference: NGNAVF
+image: ./dhuandhar.jpg
+alt:
+  {
+    hi: 'भेड़ाघाट में चट्टानों पर गिरता और झाग बनाता नर्मदा का धुआँधार जलप्रपात',
+    en: 'The Dhuandhar falls of the Narmada at Bhedaghat, foaming over the rocks',
+  }
+caption:
+  {
+    hi: 'धुआँधार जलप्रपात, भेड़ाघाट · 2016 · प्रदर्शन के लिए प्रयुक्त चित्र',
+    en: 'Dhuandhar falls, Bhedaghat · 2016 · image used for demonstration',
+  }
+date: { value: '2016-06-14' }
+places: [bhedaghat]
+credit: { name: 'Kojagiri / Wikimedia Commons' }
+rights:
+  {
+    status: licensed,
+    statement: { hi: 'CC BY-SA 4.0 लाइसेंस', en: 'Licensed under CC BY-SA 4.0' },
+    fullReproductionAllowed: true,
+  }
+consent: { privateIndividuals: not-identifiable, minors: not-identifiable }
+themes: [example-heritage]

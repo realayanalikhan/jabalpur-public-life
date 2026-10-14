@@ -29,7 +29,9 @@ export type CheckId =
   | 'I20'
   | 'I21'
   | 'I22'
-  | 'I23';
+  | 'I23'
+  | 'D1'
+  | 'D2';
 
 /** fail = stops the build; warn = reported; blocker = launch-readiness item reported in CI verification builds before launch (§6.2). */
 export type Severity = 'fail' | 'warn' | 'blocker';
@@ -85,7 +87,8 @@ export function severityFor(
   config: SiteConfig,
   outcome: { production: Outcome; preview: Outcome; local: Outcome },
 ): Severity | null {
-  const o = outcome[env.siteEnv];
+  // Demo builds (0028) apply the preview outcomes: strict, but never production.
+  const o = outcome[env.siteEnv === 'demo' ? 'preview' : env.siteEnv];
   if (o === '-') return null;
   if (o === 'W') return 'warn';
   if (o === 'F') return 'fail';

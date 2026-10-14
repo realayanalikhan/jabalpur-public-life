@@ -10,6 +10,7 @@ import { buildableStatuses, readBuildEnv, type BuildEnv } from './env.ts';
 import { computeVisibility, SECTION_PATHS, type SectionKey } from './visibility.ts';
 import { buildRoutes, LANGS, type Lang, type RouteDef } from './routes.ts';
 import { runContentChecks } from '../validation/checks.ts';
+import { runDemoContentChecks } from '../validation/demo.ts';
 import { reportIssues } from '../validation/report.ts';
 import type { Dataset, Entry, RegistryRecord } from '../validation/types.ts';
 import { MANIFEST_DIR, MANIFEST_FILE, type IntegrityManifest } from '../validation/manifest.ts';
@@ -78,7 +79,10 @@ async function loadSite(): Promise<Site> {
     for (const r of await getCollection(name)) registry.push({ reference: r.id, ...r.data });
   }
 
-  const issues = runContentChecks({ env, config: siteConfig, full, built, registry, glossary });
+  const issues = [
+    ...runContentChecks({ env, config: siteConfig, full, built, registry, glossary }),
+    ...runDemoContentChecks(env, full),
+  ];
   const visibility = computeVisibility(built, siteConfig);
   const routes = buildRoutes(built, visibility);
 

@@ -1,0 +1,7 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+name: { hi: 'उदाहरण वार्ड 1', en: 'Example Ward 1' }
+type: ward
+parent: example-town

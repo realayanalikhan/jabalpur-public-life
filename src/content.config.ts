@@ -10,17 +10,22 @@
 import { defineCollection, reference } from 'astro:content';
 import { glob, file } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { fixturesAllowed, readBuildEnv } from './lib/env.ts';
+import { contentRoot, demoAllowed, fixturesAllowed, readBuildEnv } from './lib/env.ts';
 
 const env = readBuildEnv();
 const withFixtures = fixturesAllowed(env);
+// Demo builds read only the isolated demonstration data (0028); all other builds only real content.
+const root = contentRoot(env);
 
-/** Glob loader over the real folder, plus the `_dev` folder in local builds only. */
+/**
+ * Glob loader over the content root (real content, or `demo/content/` in demo builds), plus the `_dev`
+ * fixture folder in local builds only.
+ */
 function entries(folder: string, ext: 'yaml' | 'md') {
   const pattern = [`${folder}/**/*.${ext}`];
   if (withFixtures) pattern.push(`_dev/${folder}/**/*.${ext}`);
   return glob({
-    base: './src/content',
+    base: root,
     pattern,
     // Stable id = file name without extension (Latin slug, permanent once published).
     generateId: ({ entry }) => entry.replace(/^.*\//, '').replace(/\.(yaml|md)$/, ''),
@@ -70,6 +75,8 @@ const base = {
   themes: z.array(reference('themes')).default([]),
   internalNotes: z.string().optional(),
   devFixture: z.boolean().default(false),
+  /** Fictional demonstration data (0028); allowed only under demo/content/ and only in demo builds (D1, SC2). */
+  demo: z.boolean().default(false),
 };
 const claim = {
   verification: Verification,
@@ -422,11 +429,11 @@ const RegistryEntry = z
   })
   .strict();
 const referenceRegistry = defineCollection({
-  loader: file('./src/content/registry/references.yaml'),
+  loader: file(`${root}/registry/references.yaml`),
   schema: RegistryEntry,
 });
 const devReferenceRegistry = defineCollection({
-  loader: withFixtures ? file('./src/content/_dev/registry/references.yaml') : emptyLoader,
+  loader: withFixtures && !demoAllowed(env) ? file('./src/content/_dev/registry/references.yaml') : emptyLoader,
   schema: RegistryEntry,
 });
 

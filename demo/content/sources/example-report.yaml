@@ -1,0 +1,10 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+type: news-report
+title: 'उदाहरण समाचार रिपोर्ट (काल्पनिक)'
+titleTranslation: { en: 'Example News report (fictional)' }
+publisher: 'Example News (fictional)'
+date: { value: '2004-02-11' }
+visibility: public

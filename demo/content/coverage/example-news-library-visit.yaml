@@ -1,0 +1,14 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: verified
+sources: [example-report]
+reference: KCAPV4
+outlet: example-news
+date: { value: '2004-02-11' }
+headline: { text: 'उदाहरण समाचार: वार्ड 2 में पुस्तकालय का दौरा (काल्पनिक)', lang: hi }
+headlineTranslation: { en: 'Example News: library visit in Ward 2 (fictional)' }
+format: print
+rights:
+  { status: citation-only, statement: { hi: 'काल्पनिक प्रदर्शन सामग्री', en: 'Fictional demonstration material' } }

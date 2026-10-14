@@ -1,0 +1,11 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+title: { hi: 'अध्यक्ष, उदाहरण जल-आपूर्ति समिति', en: 'Chair, Example Water Supply Committee' }
+organisation: example-council
+places: [example-ward-1, example-ward-2]
+howObtained: appointed
+period: { value: '2000', end: '2005' }
+themes: [example-civic-services]

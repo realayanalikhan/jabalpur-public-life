@@ -1,0 +1,9 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: verified
+sources: [example-record]
+date: { value: '1995' }
+title: { hi: 'उदाहरण वार्ड 1 से पहली बार निर्वाचित', en: 'First elected from Example Ward 1' }
+place: example-ward-1

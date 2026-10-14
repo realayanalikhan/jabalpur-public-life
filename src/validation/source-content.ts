@@ -13,7 +13,7 @@
  * Exempt: the fixture area `src/content/_dev/` (top level only) and the editor documentation
  * `src/content/README.md`, which no collection loads. Fails in every environment.
  */
-import { readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join, relative, sep } from 'node:path';
 
 export const CONTENT_ROOT = 'src/content/';
@@ -32,7 +32,7 @@ export interface SourceFile {
 }
 
 export interface SourceIssue {
-  rule: 'SC1';
+  rule: 'SC1' | 'SC2';
   message: string;
   where: string;
 }
@@ -59,6 +59,36 @@ export function checkFixtureContamination(files: readonly SourceFile[]): SourceI
   return issues;
 }
 
+/*
+ * SC2 — demonstration-data isolation at the source (decision 0028). Implementation-level rule like
+ * SC1; it does not change SC1 or I2.
+ *  - `demo: true` anywhere under `src/content/` fails: fictional data never sits with real content.
+ *  - Every content entry under `demo/content/` (YAML or Markdown, outside `registry/`) must declare
+ *    `demo: true`, and none may contain the fixture marker `[DEV]` or `devFixture: true`.
+ */
+export const DEMO_ROOT = 'demo/content/';
+const DEMO_FLAG = /(^|[\s{,])["']?demo["']?\s*:\s*["']?true\b/im;
+const ENTRY_FILE = /\.(ya?ml|md|mdx)$/i;
+
+export function checkDemoIsolation(files: readonly SourceFile[]): SourceIssue[] {
+  const issues: SourceIssue[] = [];
+  for (const f of files) {
+    if (f.path.startsWith(CONTENT_ROOT) && !CONTENT_DOCS.includes(f.path) && DEMO_FLAG.test(f.text)) {
+      issues.push({ rule: 'SC2', message: 'Demonstration flag "demo: true" in real content.', where: f.path });
+    }
+    if (f.path.startsWith(DEMO_ROOT)) {
+      const entry = ENTRY_FILE.test(f.path) && !f.path.startsWith(`${DEMO_ROOT}registry/`);
+      if (entry && !DEMO_FLAG.test(f.text)) {
+        issues.push({ rule: 'SC2', message: 'Demo content entry without "demo: true".', where: f.path });
+      }
+      if (f.text.includes(FIXTURE_MARKER) || FIXTURE_FLAG.test(f.text)) {
+        issues.push({ rule: 'SC2', message: 'Development-fixture marker in demonstration data.', where: f.path });
+      }
+    }
+  }
+  return issues;
+}
+
 /** Reads every text file under `<root>/src/content/` from the file system (not from git or the content layer). */
 export function readContentSources(root = '.'): SourceFile[] {
   const out: SourceFile[] = [];
@@ -71,6 +101,7 @@ export function readContentSources(root = '.'): SourceFile[] {
     }
   };
   walk(join(root, CONTENT_ROOT));
+  if (existsSync(join(root, DEMO_ROOT))) walk(join(root, DEMO_ROOT));
   return out;
 }
 

@@ -1,0 +1,28 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A REAL, openly licensed photograph of a real place (attribution in demo/ASSETS.md). It is never
+# linked to the fictional person, roles or events.
+demo: true
+status: published
+verification: verified
+sources: [commons-strahan-rocks]
+reference: 5NQMR2
+image: ./strahan-rocks.jpg
+alt:
+  {
+    hi: 'जलरंग चित्र: नर्मदा के किनारे चट्टानें और पानी में उनकी परछाईं',
+    en: 'Watercolour: rocks along the Narmada and their reflections in the water',
+  }
+caption:
+  {
+    hi: 'जबलपुर की चट्टानें, जलरंग चित्र · 1883 · प्रदर्शन के लिए प्रयुक्त चित्र',
+    en: 'Rocks, Jabalpur, watercolour · 1883 · image used for demonstration',
+  }
+date: { value: '1883-03' }
+places: [bhedaghat]
+credit: { name: 'Col. George Strahan / Wikimedia Commons' }
+rights:
+  { status: public-domain, statement: { hi: 'सार्वजनिक डोमेन', en: 'Public domain' }, fullReproductionAllowed: true }
+consent: { privateIndividuals: none, minors: none }
+themes: [example-heritage]
+originalForm: 'Watercolour painting'

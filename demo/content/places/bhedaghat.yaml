@@ -1,0 +1,8 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A real place: used only for the real, openly licensed photographs of it, never for fictional events.
+demo: true
+status: published
+name: { hi: 'भेड़ाघाट', en: 'Bhedaghat' }
+type: landmark
+parent: jabalpur

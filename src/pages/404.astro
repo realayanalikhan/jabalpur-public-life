@@ -5,10 +5,12 @@
  */
 import '../styles/global.css';
 import { getSite } from '../lib/site.ts';
-import { withBase } from '../lib/env.ts';
+import { demoAllowed, withBase } from '../lib/env.ts';
+import DemoBanner from '../components/site/DemoBanner.astro';
 
 const site = await getSite();
 const { t } = site;
+const demo = demoAllowed(site.env);
 ---
 
 <!doctype html>
@@ -16,10 +18,11 @@ const { t } = site;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{`${t('ui.not-found', 'hi')} · ${t('ui.not-found', 'en')}`}</title>
-    {site.env.siteEnv !== 'production' && <meta name="robots" content="noindex" />}
+    <title>{`${demo ? 'प्रदर्शन · Demo · ' : ''}${t('ui.not-found', 'hi')} · ${t('ui.not-found', 'en')}`}</title>
+    {site.env.siteEnv !== 'production' && <meta name="robots" content={demo ? 'noindex, nofollow' : 'noindex'} />}
   </head>
   <body>
+    {demo && <DemoBanner />}
     <main class="frame">
       <p>{t('ui.not-found', 'hi')}</p>
       <p>

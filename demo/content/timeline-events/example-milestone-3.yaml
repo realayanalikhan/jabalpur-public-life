@@ -1,0 +1,8 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+date: { value: '2005' }
+title: { hi: 'उदाहरण परिषद में कार्यकाल पूरा', en: 'Completed the term on the Example Town Council' }
+place: example-ward-1

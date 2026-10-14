@@ -6,12 +6,14 @@
  *  I22 — no restricted files: masters, raw formats, consent forms, identity documents (spec G §1).
  *  SC1 — no development-fixture marker (`[DEV]`, `devFixture: true`) in real content source files
  *        (src/validation/source-content.ts; implementation-level rule, separate from I2).
+ *  SC2 — demonstration data only in demo/content/, always flagged `demo: true`, never in src/content/
+ *        (decision 0028).
  * Exit code 1 on any failure.
  */
 import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import exifr from 'exifr';
-import { checkFixtureContamination, readContentSources } from '../src/validation/source-content.ts';
+import { checkDemoIsolation, checkFixtureContamination, readContentSources } from '../src/validation/source-content.ts';
 
 const files = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], { encoding: 'utf8' })
   .split('\n')
@@ -44,7 +46,7 @@ for (const f of files.filter((f) => IMAGE.test(f) && !f.startsWith('tests/fixtur
 const AADHAAR = /\b\d{4}[\s-]?\d{4}[\s-]?\d{4}\b/;
 const MOBILE = /(?:\+91[\s-]?)?\b[6-9]\d{9}\b/;
 const PAN = /\b[A-Z]{5}\d{4}[A-Z]\b/;
-for (const f of files.filter((f) => f.startsWith('src/content/') && /\.(ya?ml|md|json)$/.test(f))) {
+for (const f of files.filter((f) => /^(src|demo)\/content\//.test(f) && /\.(ya?ml|md|json)$/.test(f))) {
   if (f.startsWith('src/content/contact-methods/')) continue;
   const text = readFileSync(f, 'utf8');
   if (AADHAAR.test(text) || MOBILE.test(text) || PAN.test(text))
@@ -52,7 +54,10 @@ for (const f of files.filter((f) => f.startsWith('src/content/') && /\.(ya?ml|md
 }
 
 // SC1 — fixture-marker contamination in real content (file system, independent of rendering).
-for (const i of checkFixtureContamination(readContentSources('.'))) failures.push(`[SC1] ${i.message} ${i.where}`);
+const sources = readContentSources('.');
+for (const i of checkFixtureContamination(sources)) failures.push(`[SC1] ${i.message} ${i.where}`);
+// SC2 — demonstration data stays in demo/content/ and only there (0028).
+for (const i of checkDemoIsolation(sources)) failures.push(`[SC2] ${i.message} ${i.where}`);
 
 if (failures.length) {
   console.error(`Repository integrity checks failed:\n  ${failures.join('\n  ')}`);

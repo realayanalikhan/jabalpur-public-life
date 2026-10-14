@@ -1,0 +1,31 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+# A REAL, openly licensed photograph of a real place (attribution in demo/ASSETS.md). It is never
+# linked to the fictional person, roles or events.
+demo: true
+status: published
+verification: verified
+sources: [commons-madan-mahal]
+reference: 96SDJ2
+image: ./madan-mahal.jpg
+alt:
+  {
+    hi: 'एक विशाल ग्रेनाइट शिला पर बना मदन महल का किला और पत्थर की सीढ़ियाँ',
+    en: 'Madan Mahal fort built on a huge granite boulder, with stone steps',
+  }
+caption:
+  {
+    hi: 'मदन महल का किला, जबलपुर · 2022 · प्रदर्शन के लिए प्रयुक्त चित्र',
+    en: 'Madan Mahal fort, Jabalpur · 2022 · image used for demonstration',
+  }
+date: { value: '2022-06-19' }
+places: [madan-mahal]
+credit: { name: '$ri1995 / Wikimedia Commons' }
+rights:
+  {
+    status: licensed,
+    statement: { hi: 'CC BY-SA 4.0 लाइसेंस', en: 'Licensed under CC BY-SA 4.0' },
+    fullReproductionAllowed: true,
+  }
+consent: { privateIndividuals: none, minors: none }
+themes: [example-heritage]

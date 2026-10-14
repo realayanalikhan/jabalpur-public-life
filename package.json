@@ -14,6 +14,7 @@
     "build:local": "node scripts/with-env.ts local astro build",
     "build:preview": "node scripts/with-env.ts preview astro build",
     "build:verify": "node scripts/with-env.ts verify astro build",
+    "build:demo": "node scripts/with-env.ts demo astro build",
     "preview": "astro preview",
     "sync": "node scripts/with-env.ts local astro sync",
     "typecheck": "node scripts/with-env.ts local astro check && tsc --noEmit",
@@ -26,6 +27,7 @@
     "check": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm check:repo && pnpm build:verify && pnpm verify:routes && pnpm verify:output",
     "verify:routes": "node scripts/with-env.ts verify node scripts/check-routes.ts",
     "verify:output": "node scripts/with-env.ts verify node scripts/check-output.ts",
+    "verify:demo-routes": "node scripts/with-env.ts demo node scripts/check-routes.ts",
     "lighthouse:summary": "node scripts/lighthouse-summary.ts"
   },
   "dependencies": {

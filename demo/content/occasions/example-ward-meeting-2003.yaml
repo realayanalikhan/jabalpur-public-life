@@ -1,0 +1,10 @@
+# DEMONSTRATION DATA (decision 0028). Fictional; not about any real person.
+# Loaded only in demo builds (SITE_ENV=demo); never in preview or production (checks D1, D2, SC2).
+demo: true
+status: published
+verification: supplied
+title: { hi: 'उदाहरण वार्ड बैठक, 2003', en: 'Example ward meeting, 2003' }
+date: { value: '2003-08-14' }
+places: [example-ward-1]
+summary: { hi: 'पानी की आपूर्ति पर एक काल्पनिक सार्वजनिक बैठक।', en: 'A fictional public meeting about water supply.' }
+role: example-committee-chair
