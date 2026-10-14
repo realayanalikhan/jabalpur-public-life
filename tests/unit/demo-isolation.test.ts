@@ -3,8 +3,8 @@
  * build, and a demo build contains nothing but demo data. Synthetic test data only.
  */
 import { afterEach, describe, expect, it } from 'vitest';
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { join, dirname, sep } from 'node:path';
 import { tmpdir } from 'node:os';
 import {
   DEMO_CONTENT_ROOT,
@@ -115,6 +115,19 @@ describe('D2: the demonstration marker', () => {
     expect(await fails(envs.deploy)).toHaveLength(2);
     expect(await fails(envs.preview)).toHaveLength(2);
     expect(await fails(demo)).toEqual([]);
+  });
+});
+
+describe('the visible demonstration warning', () => {
+  it('is the only source of the demonstration marker, so D2 passes only when the banner is shown', () => {
+    const walk = (d: string): string[] =>
+      readdirSync(d, { withFileTypes: true }).flatMap((e) =>
+        e.isDirectory() ? walk(join(d, e.name)) : [join(d, e.name).split(sep).join('/')],
+      );
+    const emitters = walk('src')
+      .filter((f) => /\.(astro|ts)$/.test(f) && f !== 'src/validation/demo.ts')
+      .filter((f) => /DEMO_MARKER|data-demo-only/.test(readFileSync(f, 'utf8')));
+    expect(emitters).toEqual(['src/components/site/DemoBanner.astro']);
   });
 });
 

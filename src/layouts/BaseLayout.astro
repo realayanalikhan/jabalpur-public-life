@@ -9,7 +9,6 @@ import '../styles/global.css';
 import type { Site } from '../lib/site.ts';
 import { hreflangLinks, otherLang, type RouteDef } from '../lib/routes.ts';
 import { demoAllowed, withBase } from '../lib/env.ts';
-import { DEMO_MARKER } from '../validation/demo.ts';
 import DemoBanner from '../components/site/DemoBanner.astro';
 import LanguageSwitch from '../components/site/LanguageSwitch.astro';
 
@@ -23,7 +22,6 @@ const { env } = site;
 const noindex = route.noindex || env.siteEnv !== 'production';
 // Demo builds (0028): banner, marker, title prefix, and no following of links either.
 const demo = demoAllowed(env);
-const demoAttrs = demo ? { [DEMO_MARKER]: '' } : {};
 const robots = demo ? 'noindex, nofollow' : 'noindex';
 const fullTitle = demo ? `${route.lang === 'hi' ? 'प्रदर्शन' : 'Demo'} · ${title}` : title;
 const bodyAttrs = route.kind === 'notice' ? { 'data-notice-page': '' } : {};
@@ -35,7 +33,7 @@ const bodyFont =
 ---
 
 <!doctype html>
-<html lang={route.lang} {...demoAttrs}>
+<html lang={route.lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

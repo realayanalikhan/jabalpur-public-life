@@ -5,15 +5,18 @@
  *
  *  D1 (content stage) — an entry flagged `demo: true` loaded outside a demo build; or, in a demo build,
  *     an entry that is not flagged (real content or fixtures in the demo).
- *  D2 (output stage) — the demonstration marker in non-demo output; or a demo page without it
- *     (every demo page must carry the visible demonstration banner).
+ *  D2 (output stage) — the demonstration marker in non-demo output; or a demo page without it. The
+ *     marker sits only on the visible banner, so every demo page must show the bilingual warning.
  *  SC2 (source stage, src/validation/source-content.ts) — demo flags in `src/content/`; unflagged or
  *     `[DEV]` files in `demo/content/`.
  */
 import type { BuildEnv } from '../lib/env.ts';
 import type { Dataset, Issue } from './types.ts';
 
-/** Attribute on every demo page (the demonstration banner and the root element). */
+/**
+ * Attribute carried only by the visible demonstration banner (DemoBanner.astro), so D2 can pass only
+ * when the bilingual warning is actually on the page.
+ */
 export const DEMO_MARKER = 'data-demo-only';
 
 export function runDemoContentChecks(env: Pick<BuildEnv, 'siteEnv'>, full: Dataset): Issue[] {

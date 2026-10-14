@@ -19,7 +19,8 @@
 | Status | `published` entries only, as in production |
 | Checks | `severityFor()` applies the **preview** outcomes of every existing check to demo builds |
 | Schema | `demo: boolean` (default false) on every entity |
-| Marking | `DemoBanner.astro` on every page (bilingual), the `data-demo-only` marker on `<html>` and the banner, a "प्रदर्शन · / Demo ·" title prefix, `noindex, nofollow`; `robots.txt` disallows all (not production) |
+| Marking | `DemoBanner.astro` on **every** page, including the root redirect and the 404 page: the bilingual warning, carrying the `data-demo-only` marker (only the banner emits it, enforced by a test, so D2 passes only when the warning is shown). A "प्रदर्शन · / Demo ·" title prefix, `noindex, nofollow`; `robots.txt` disallows all (not production) |
+| Canonical links | **Intentional:** demo pages keep a self-referencing canonical link to their own demo URL (e.g. `…/jabalpur-public-life-demo/hi/`). It never points to the real preview or production, and with `noindex, nofollow` it has no indexing effect. It is kept so the bilingual route rules (R3, R4) verify the demo exactly as they verify real builds |
 | Isolation checks | D1 and D2 in `src/validation/demo.ts`; SC2 in `src/validation/source-content.ts` (see 0028 §4). D1 runs at the content stage; D2 in the post-build checks, so also in the production output guard; SC2 in `pnpm check:repo` and before every build/dev start |
 | Personal-data scan | I21's pattern scan now covers `demo/content/` too |
 | CI | The build job also runs `pnpm build:demo` and `pnpm verify:demo-routes` on every pull request |
@@ -79,7 +80,17 @@ The demo renders whatever templates exist on `main` (or the chosen branch):
 The data already covers the homepage modules, public-life, archive, timeline and occasion templates,
 so those pages show realistic content as soon as PR B and PR C add them.
 
-## 5. Verification
+## 5. Known limitations
+
+- Until this pull request is merged, the hourly scheduled demo build runs against `main`, which does
+  not yet have `build:demo`, so those runs fail ("Command build:demo not found"). The live demo stays
+  on the last successful manual build of the branch. The schedule works from the first run after the
+  merge.
+- Image credits and licences are recorded in each demo photo entry and in `demo/ASSETS.md`. They are
+  not displayed on the live demo yet, because no page renders the images. Any template that shows an
+  image must render its credit and licence (CC BY-SA requires attribution).
+
+## 6. Verification
 
 - **Unit tests:** `tests/unit/demo-isolation.test.ts` covers the environment model, the severity
   mapping, D1, D2 (including through the post-build checks), SC2 and the repository state.
